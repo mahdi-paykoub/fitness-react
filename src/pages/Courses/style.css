@@ -1,0 +1,65 @@
+.course-top-box {
+    background: #5b69bf;
+    width: 100%;
+    height: 250px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.course-top-box .header-txt {
+    font-size: 47px;
+}
+
+.float-shape-1 {
+    top: 34px;
+    left: 70px;
+}
+
+.float-shape-2 {
+    bottom: 34px;
+    right: 70px;
+}
+
+.float-shape-3 {
+    height: 250px;
+    right: 38px;
+}
+.float-shape-4{
+    right: 197px;
+    top: 20px;
+}
+
+.filter-box {
+    border-radius: 15px;
+    padding: 19px 16px;
+    box-shadow: 3px 2px 5px #e4e4e4;
+}
+
+.course-card {
+    border: 1px solid #b5b5c3;
+    border-radius: 10px;
+    transition: .5s;
+
+}
+.course-card:hover{
+    box-shadow: 10px 10px 0 #CAC9D6;
+}
+
+.course-card img {
+    border-radius: 6px;
+}
+
+
+.teacher-badge {
+    background: #d7d7d7;
+    color: white;
+    padding: 4px 14px;
+    border-radius: 22px;
+}
+.show-m-course{
+    background: #5b69bf;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 35px;
+    box-shadow: 4px 4px 1px #bbbbbb;
+}

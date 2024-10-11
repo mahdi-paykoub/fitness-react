@@ -1,0 +1,48 @@
+.buyed-course-box-card {
+    box-shadow: 0 8px 24px hsla(210, 8%, 62%, .2);
+    border-radius: 0px !important;
+}
+
+.buyed-course-box-card img {
+    border-radius: 0px !important;
+}
+
+.img-overly-course {
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4);
+    transform: scale(0);
+    transition: all .5s ease;
+}
+
+.img-overly-course-p:hover .img-overly-course {
+    transform: scale(1);
+}
+
+.img-overly-course li {
+    list-style: none;
+    background-color: #fff;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    color: #000;
+    font-size: 50px;
+    border-radius: 80px;
+    padding-left: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-overly-course a:hover li {
+    background-color: var(--purple-text-color2);
+    color: white !important;
+}
+
+.btn-more-course-detail {
+    background: #5b69bf;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 11px;
+}

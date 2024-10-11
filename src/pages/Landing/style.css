@@ -1,0 +1,168 @@
+.header-text {
+    font-size: 2.625rem;
+    line-height: 70px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.header-subtext {
+    font-size: 1.4rem;
+    line-height: 2.375rem;
+    color: #111827;
+}
+
+.first-program-btn {
+    background: #5b69bf;
+    padding: 13px 19px;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: .3s;
+}
+.first-program-btn:hover {
+    background: #4b56a0;
+}
+.second-program-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #4ab9ab;
+    transition: .3s;
+}
+.second-program-btn:hover {
+    background-color: #3c9b8e;
+}
+.second-program-btn svg {
+    font-size: 21px;
+}
+
+.ball {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+    opacity: .5;
+    filter: blur(120px);
+}
+
+.ball.ball-1 {
+    top: 100px;
+    background-color: #48b7aa;
+}
+
+.ball.ball-2 {
+    background-color: #5b69bf;
+    left: 70px;
+    bottom: 40px;
+}
+
+
+.hedaer-back-image {
+    z-index: -1;
+}
+
+
+
+@keyframes up-down {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.up-down-animation {
+    animation: up-down 3s infinite alternate ease;
+}
+
+@keyframes right-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.right-left-animation {
+    animation: right-left 3s infinite alternate ease;
+}
+
+.dumbbell-float-box {
+    background: linear-gradient(to top, #46b6a9, #46b6a988);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    top: 60px;
+    right: 113px;
+    box-shadow: 5px 4px 10px #1212123a;
+}
+
+.fit-float-box {
+    background: linear-gradient(45deg, #314270, #5b69bf);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    top: 116px;
+    box-shadow: 5px 4px 10px #1212123d;
+}
+
+.dumbbell-float-box svg,
+.fit-float-box svg {
+    font-size: 25px;
+}
+
+.glass-box {
+    background-color: #314270;
+    bottom: 158px;
+    left: 40px;
+    color: white;
+    padding: 7px 16px;
+    border-radius: 34px;
+    box-shadow: 5px 4px 10px #12121259;
+}
+.teacher-img ul {
+    text-align: center;
+}
+
+.teacher-img ul li {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+
+.teacher-img ul li img {
+    width: 46px;
+    height: 46px;
+}
+
+.teacher-img ul li img:not(:first-child) {
+    margin-right: -20px;
+    position: relative;
+    z-index: 10;
+}
+.-mr-20{
+    margin-right: -20px;
+}
+.user-img{
+    /* border: 2px solid #5b69bf; */
+    border-radius: 50%;
+}

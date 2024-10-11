@@ -1,0 +1,105 @@
+.discount-course {
+    background: #5b69bf;
+    padding: 2px 6px;
+    border-radius: 7px;
+}
+
+.course-info-box {
+    background-color: #fff;
+    box-shadow: 0 0 20px 3px rgba(0, 0, 0, .05);
+}
+
+.buy-course-btn {
+    background: linear-gradient(45deg, #5b69bf, #353e72);
+    width: 100%;
+    border: none;
+    height: 50px;
+    color: white;
+    border-radius: 7px;
+}
+
+.course-status-badge {
+    background: #5b68bf2a;
+    border-radius: 5px;
+    color: #6a79da;
+    padding: 13px 40px;
+}
+
+.text-editor h2 {
+    font-weight: bold;
+    color: #27337c;
+    font-size: 25px;
+}
+
+.text-editor p {
+    text-align: justify;
+    line-height: 2.3 !important;
+    font-size: 15px;
+}
+
+.section-of-course-tab .active {
+    border-bottom: 3px solid #5b69bf;
+    color: #5b69bf;
+}
+
+
+.br-4 {
+    border-radius: 4px;
+}
+
+.accordion-item {
+    border: none !important;
+}
+
+.accordion-header button {
+    background-color: #f3f4f6;
+    padding: 22px;
+    border-radius: 5px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #64748b;
+    box-shadow: none !important;
+    color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-button::after {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.accordion-collapse.collapse.show {
+    background-color: #f3f4f6;
+}
+
+.count-number {
+    width: 25px;
+    height: 25px;
+    border-radius: 6px;
+}
+
+.onhover-sections:hover .count-number {
+    background-color: #64748b !important;
+    color: white;
+    transition: .4s;
+}
+
+.play-video-btn {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 14px 14px 14px 15px;
+}
+
+.play-video-btn:hover {
+    background-color: #5b69bf !important;
+    color: white !important;
+    transition: .4s;
+}
+.main-img{
+    border-radius: 10px 10px 0 0;
+}
