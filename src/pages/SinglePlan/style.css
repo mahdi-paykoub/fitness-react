@@ -1,0 +1,22 @@
+.single-plan-ball-1 {
+    background-color: #85d0ff;
+    right: 0%;
+    transform: translate(-50%, -50%);
+    top: 350px;
+}
+
+
+.box-1 {
+    background-color: #5b68bfe4;
+}
+.inner-box-1{
+    width: 60px;
+    height: 60px;
+}
+.text-50{
+    font-size: 50px !important;
+}
+.cc-btn{
+    height: 54px;
+    width: 181px;
+}

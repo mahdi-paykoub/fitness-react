@@ -28,19 +28,23 @@ export default function Landing() {
                             با مربی های مجرب مربی همراه، علم  بدنسازی رو با خیال راحت یاد بگیر و پیشرفت کن
                         </p>
                         <div className='mt-4 pt-4 d-flex'>
-                            <Link to="/" className='first-program-btn text-white'>
+                            <Link to="/plans" className='first-program-btn text-white'>
                                 مشاهده برنامه‌های ویژه
                             </Link>
-                            <Link>
+                            <Link to='/courses'>
                                 <div className='d-flex align-items-center'>
+
                                     <div className='second-program-btn rounded-circle me-3 d-flex justify-content-center align-items-center'>
                                         <HiMiniPlay className='text-white' />
                                     </div>
+
                                     <div className='me-2 text-dark'>
-                                        برنامه‌های رایگان
+                                        دوره‌های آموزشی
                                     </div>
+
+
                                 </div>
-                                </Link>
+                            </Link>
                         </div>
                         <div className='mt-5 pt-2 d-flex align-items-center'>
                             <div className=''></div>

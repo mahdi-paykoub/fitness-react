@@ -1,11 +1,8 @@
-html body div {
-    font-family: 'iransans' !important;
-  
+body  {
+    font-family: 'iransans' !important; 
+    height: 5000px; 
 }
 
-html{
-    height: 7000px;
-}
 .ffv {
     font-family: 'vazir' !important;
 
@@ -52,7 +49,7 @@ body {
 }
 
 .fs18 {
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
 .fs30 {
@@ -181,4 +178,7 @@ input:checked+.slider:before {
 }
 .-ver-2{
     vertical-align: -2px;
+}
+.swal-footer{
+    text-align: center;
 }

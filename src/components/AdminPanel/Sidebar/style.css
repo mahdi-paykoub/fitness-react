@@ -1,0 +1,26 @@
+.admin-menu{
+    width: 100%;
+    height: 100%;
+    background-color: #17203f;
+}
+
+.admin-links ul li a{
+    color: #cccccc;
+    width: 100%;
+    display: block;
+    padding: 17px;
+}
+.active-menu{
+    background: #202a4d;
+    border-right: 5px solid #004bd4;
+}
+.active-menu a{
+    color: #ffffff !important;
+}
+.admin-links ul a:hover{
+    background: #202a4d;
+    border-right: 5px solid #004bd4;
+}
+.admin-links ul li:hover a{
+    color: white;
+}

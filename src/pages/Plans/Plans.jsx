@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaRegSquare } from "react-icons/fa";
@@ -11,6 +11,21 @@ import { FaArrowCircleLeft } from "react-icons/fa";
 
 
 export default function Plans() {
+    const [plans, setPlans] = useState([])
+    const baseUrl = process.env.REACT_APP_BASE_URL
+
+    const getPlans = () => {
+        fetch(`${baseUrl}plan/all`)
+            .then(res => res.json())
+            .then(res => {
+                setPlans(res.data)
+            })
+    }
+
+    useEffect(() => {
+        getPlans()
+    }, [])
+
     return (
         <>
             <Container className='pb-5 mb-5'>
@@ -66,108 +81,63 @@ export default function Plans() {
                             </div>
                         </div>
                     </Col>
-                    <Col lg={4}>
-                        <div className='custom-card p-4'>
-                            <div className='d-flex justify-content-between align-items-center'>
-                                <div className='card-top-shape-right d-flex justify-content-center align-items-center'>
-                                    <FaRegSquare />
-                                </div>
-                                <div className='card-top-shape-left fs14'>
-                                    برنامه ویژه
-                                </div>
-                            </div>
-                            <div className='mt-4 fw-bold fs20 text-body-secondary'>
-                                نام برنامه
-                            </div>
-                            <div className='text-secondary fs13 mt-2 lh-1-8 text-justify'>
-                                لورم ایپسوم متن ساختگی با تولهوم از صنعت چاپ
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                            </div>
-                            <div className='mt-4 pt-2'>
-                                <span className='fs30 fw-bold card-price-number color-2'>1.8</span>
-                                <span className='fs14 color-2 milioon-text fw-bold fs30 me-2'>میلیون</span>
-                            </div>
-                            <div className='fs14 mb-4 mt-2 text-secondary'>
-                                <IoCardOutline className='color-2' fontSize={20} />
-                                <span className='me-2 fs13'>این برنامه برای دو ماه تنظیم خواهد شد</span>
-                            </div>
-                            <div className='pt-4 border-top w-100'></div>
+                    {
+                        plans.length !== 0 ?
+                            plans.map((plan) =>
+                                <Col lg={4}>
+                                    <div className='custom-card p-4'>
+                                        <div className='d-flex justify-content-between align-items-center'>
+                                            <div className='card-top-shape-right d-flex justify-content-center align-items-center'>
+                                                <FaRegSquare />
+                                            </div>
+                                            <div className='card-top-shape-left fs14'>
+                                                برنامه ویژه
+                                            </div>
+                                        </div>
+                                        <div className='mt-4 fw-bold fs20 text-body-secondary'>
+                                            {plan.title}
+                                        </div>
+                                        <div className='text-secondary fs13 mt-2 lh-1-8 text-justify'>
+                                           {plan.description}
+                                        </div>
+                                        <div className='mt-4 pt-2'>
+                                            <span className='fs30 fw-bold card-price-number color-2 fflalezar'>{Number(plan.price).toLocaleString()}</span>
+                                            <span className='fs20 color-2 milioon-text fw-bold me-2'>میلیون</span>
+                                        </div>
+                                        <div className='fs14 mb-4 mt-2 text-secondary'>
+                                            <IoCardOutline className='color-2' fontSize={20} />
+                                            <span className='me-2 fs13'>این برنامه برای دو ماه تنظیم خواهد شد</span>
+                                        </div>
+                                        <div className='pt-4 border-top w-100'></div>
 
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>امکان آنالیز بدنی</span>
-                            </div>
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>طراحی تمرین</span>
-                            </div>
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>طراحی تغذیه</span>
-                            </div>
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>طراحی مکمل های مورد نیاز</span>
-                            </div>
-                            <div className='d-flex justify-content-center mt-5'>
-                                <Link className='card-show-more-detail-btn d-block text-center'>
-                                    مشاهده برنامه
-                                </Link>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={4}>
-                        <div className='custom-card p-4 h-100'>
-                            <div className='d-flex justify-content-between align-items-center'>
-                                <div className='card-top-shape-right d-flex justify-content-center align-items-center'>
-                                    <CgShapeRhombus fontSize={18} />
-                                </div>
-                                <div className='card-top-shape-left fs14'>
-                                    برنامه ویژه
-                                </div>
-                            </div>
-                            <div className='mt-4 fw-bold fs20 text-body-secondary'>
-                                نام برنامه
-                            </div>
-                            <div className='text-secondary fs13 mt-2 lh-1-8 text-justify'>
-                                لورم ایپسوم متن ساختگی با تولهوم از صنعت چاپ
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                            </div>
-                            <div className='mt-4 pt-2'>
-                                <span className='fs30 fw-bold card-price-number color-2'>2</span>
-                                <span className='fs14 color-2 milioon-text fw-bold fs30 me-2'>میلیون</span>
-                            </div>
-                            <div className='fs14 mb-4 mt-2 text-secondary'>
-                                <IoCardOutline className='color-2' fontSize={20} />
-                                <span className='me-2 fs13'>این برنامه برای دو ماه تنظیم خواهد شد</span>
-                            </div>
-                            <div className='pt-4 border-top w-100'></div>
+                                        <div className='mt-4'>
+                                            <FaCheckCircle className='color-2' fontSize={20} />
+                                            <span className='me-2 fs14'>امکان آنالیز بدنی</span>
+                                        </div>
+                                        <div className='mt-4'>
+                                            <FaCheckCircle className='color-2' fontSize={20} />
+                                            <span className='me-2 fs14'>طراحی تمرین</span>
+                                        </div>
+                                        <div className='mt-4'>
+                                            <FaCheckCircle className='color-2' fontSize={20} />
+                                            <span className='me-2 fs14'>طراحی تغذیه</span>
+                                        </div>
+                                        <div className='mt-4'>
+                                            <FaCheckCircle className='color-2' fontSize={20} />
+                                            <span className='me-2 fs14'>طراحی مکمل های مورد نیاز</span>
+                                        </div>
+                                        <div className='d-flex justify-content-center mt-5'>
+                                            <Link to={`/plans/${plan.slug}`} className='card-show-more-detail-btn d-block text-center'>
+                                                مشاهده برنامه
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </Col>
+                            )
+                            : <Col lg={8} className='fflalezar fs30 c-text-secondary'>برنامه ای وجود ندارد</Col>
+                    }
 
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>امکان آنالیز بدنی</span>
-                            </div>
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>طراحی تمرین</span>
-                            </div>
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>طراحی تغذیه</span>
-                            </div>
-                            <div className='mt-4'>
-                                <FaCheckCircle className='color-2' fontSize={20} />
-                                <span className='me-2 fs14'>طراحی مکمل های مورد نیاز</span>
-                            </div>
-                            <div className='d-flex justify-content-center mt-5'>
-                                <Link className='card-show-more-detail-btn d-block text-center'>
-                                    مشاهده برنامه
-                                </Link>
-                            </div>
-                        </div>
-                    </Col>
+
                 </Row>
                 <div className='top-shadow shadow-ball mx-auto'></div>
             </Container>

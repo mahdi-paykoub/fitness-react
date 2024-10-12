@@ -13,6 +13,12 @@ import Verify from "./pages/Verify/Verify";
 import SingleCourse from "./pages/SingleCourse/SingleCourse";
 import Checkout from "./pages/Checkout/checkout";
 import Section from "./pages/Section/Section";
+import AdminPanel from "./pages/AdminPanel/AdminPanel";
+import PanelIndex from "./pages/AdminPanel/PanelIndex/PanelIndex";
+import PanelCourses from "./pages/AdminPanel/PanelCourses/PanelCourses";
+import PanelSession from "./pages/AdminPanel/PanelSession/PanelSession";
+import SinglePlan from "./pages/SinglePlan/SinglePlan";
+import PanelPlans from "./pages/AdminPanel/PanelPlans/PanelPlans";
 
 
 const routes = [
@@ -20,6 +26,7 @@ const routes = [
     { path: '/login', element: <Login /> },
     { path: '/verify-phone-number', element: <Verify /> },
     { path: '/plans', element: <Plans /> },
+    { path: '/plans/:title', element: <SinglePlan /> },
     { path: '/courses', element: <Courses /> },
     { path: '/courses/:title', element: <SingleCourse /> },
     { path: '/courses/:title/:sectionId', element: <Section /> },
@@ -34,8 +41,18 @@ const routes = [
             { path: 'my-programs', element: <UserInfo /> },
             { path: 'inqiry', element: <Inquiry /> },
             { path: 'faqs', element: <Faqs /> },
-
             { path: 'user-info', element: <UserInfo /> },
+        ]
+    },
+    //admin panel
+    {
+        path: '/admin-panel/*', element: <AdminPanel />,
+        children: [
+            { path: "", element: <PanelIndex /> },
+            { path: "courses", element: <PanelCourses /> },
+            { path: 'session', element: <PanelSession /> },
+            { path: 'plans', element: <PanelPlans /> },
+
 
         ]
     },
