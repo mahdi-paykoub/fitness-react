@@ -19,11 +19,13 @@ import PanelCourses from "./pages/AdminPanel/PanelCourses/PanelCourses";
 import PanelSession from "./pages/AdminPanel/PanelSession/PanelSession";
 import SinglePlan from "./pages/SinglePlan/SinglePlan";
 import PanelPlans from "./pages/AdminPanel/PanelPlans/PanelPlans";
+import Register from "./pages/Register/Register";
 
 
 const routes = [
     { path: '/', element: <Landing /> },
     { path: '/login', element: <Login /> },
+    { path: '/register', element: <Register /> },
     { path: '/verify-phone-number', element: <Verify /> },
     { path: '/plans', element: <Plans /> },
     { path: '/plans/:title', element: <SinglePlan /> },
