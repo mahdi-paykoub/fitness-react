@@ -30,15 +30,11 @@ export default function Register() {
             .then(res => res.json())
             .then(response => {
                 if (response.status !== false) {
-                    localStorage.setItem('phone', JSON.stringify( response.phone ))
-                    swal({
-                        title: response.message[0],
-                        icon: "success",
-                        buttons: 'باشه'
-                    }).then(response => {
-                        reset();
-                        navigate('/verify-phone-number');
-                    })
+                    localStorage.setItem('phone', JSON.stringify(response.phone))
+
+                    reset();
+                    navigate('/verify-phone-number');
+
                 } else {
                     swal({
                         title: response.message[0],
@@ -53,7 +49,7 @@ export default function Register() {
         <>
             <Container fluid>
                 <Row>
-                    <Col lg={5} className='p-2 h-100vh'>
+                    <Col  xl={5} className='p-2 h-100vh'>
                         <div className='letf-login-side h-100'>
                             <div className=''>
                                 <img src="images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
@@ -67,7 +63,7 @@ export default function Register() {
                             </div>
                         </div>
                     </Col>
-                    <Col lg={7} className='h-100vh'>
+                    <Col  xl={7} className='mt-5 mb-lg-0 mb-4 mt-lg-0'>
                         <Row className='justify-content-center h-100 align-items-center'>
                             <Col lg={6}>
                                 <div className='fw-bold text-center fs30'>

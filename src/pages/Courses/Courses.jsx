@@ -50,13 +50,13 @@ export default function Courses() {
                             </div>
                             <img src="/images/breadcrumb_shape02.26314598.svg" alt="" className='position-absolute float-shape-1' />
                             <img src="/images/breadcrumb_shape01.df47cee2.svg" alt="" className='position-absolute float-shape-2' />
-                            <img src="/images/breadcrumb_shape05.925251.svg" alt="" className='position-absolute float-shape-3' />
-                            <img src="/images/star.svg" alt="" className='position-absolute float-shape-4' />
+                            <img src="/images/breadcrumb_shape05.925251.svg" alt="" className='position-absolute float-shape-3 d-none d-lg-block' />
+                            <img src="/images/star.svg" alt="" className='position-absolute float-shape-4 d-none d-lg-block' />
                         </div>
                     </Col>
                 </Row>
-                <Row className=''>
-                    <Col lg={3}>
+                <Row className='mb-5'>
+                    <Col xl={3}>
                         <div className='sticky-top pt-4'>
                             <div className='bg-white filter-box d-flex justify-content-between align-items-center'>
                                 <input type="text" className='border-0 my-1' placeholder='جستجو بین دوره ها' />
@@ -82,12 +82,12 @@ export default function Courses() {
                             </div>
                         </div>
                     </Col>
-                    <Col lg={9}>
+                    <Col xl={9}>
                         <Row>
                             {
                                 courses.length !== 0 ?
                                 courses.map((course) =>
-                                    <Col className='mt-4' lg={4}>
+                                    <Col className='mt-4' lg='6'  xl={4}>
                                         <div className='course-card p-3 cursor-pointer'>
                                             <div className='position-relative'>
                                                 <img src={baseUrl + course.image} alt="" className='w-100' />
@@ -110,13 +110,13 @@ export default function Courses() {
 
                                             <div className='d-flex justify-content-between align-items-center fw-bold mt-4 pt-2 pb-2'>
                                                 <div className='c-text-secondary'>
-                                                    <span className='fs20 fflalezar text-secondary'>
+                                                    <span className='fs18 fflalezar text-secondary'>
                                                         {Number(course.price).toLocaleString()}
                                                     </span>
                                                     <span className='me-1 fflalezar text-secondary'>تومان</span>
                                                 </div>
                                                 <div>
-                                                    <Link to={`/courses/${course.slug}`} className='fs14 show-m-course'>
+                                                    <Link to={`/courses/${course.slug}`} className='fs13 show-m-course'>
                                                         مشاهده دوره
                                                     </Link>
                                                 </div>

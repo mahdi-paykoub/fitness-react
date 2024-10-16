@@ -38,8 +38,8 @@ export default function Plans() {
                             پلن خود را انتخاب کنید!
                         </div>
                         <Row className='justify-content-center'>
-                            <Col xs={6}>
-                                <div className='px-5 text-secondary fs14 mt-2 text-center lh2'>
+                            <Col md='6'>
+                                <div className='px-lg-5 text-secondary fs14 mt-2 text-center lh2'>
                                     هر پلن ویژگی ها و مزایای خاص خود را دارد و یکسری تفاوت هایی کوچک و یا اساسی با همدیگر دارند.شما ابتدا باید پلن مورد نیاز خود را انتخاب نمایید.
                                 </div>
                             </Col>
@@ -47,7 +47,7 @@ export default function Plans() {
                     </Col>
 
                 </Row>
-                <Row>
+                <Row className='mb-4'>
                     <div className='bg-white change-page-box mx-auto mt-4 d-flex align-items-center justify-content-around'>
                         <Link>
                             <div className='active fs15'>برنامه‌های رایگان</div>
@@ -57,8 +57,8 @@ export default function Plans() {
                         </Link>
                     </div>
                 </Row>
-                <Row className='mt-5'>
-                    <Col lg={4}>
+                <Row className=''>
+                    <Col className='mt-3' lg='6' xl={4}>
                         <div className='first-custom-card p-4 h-100 position-relative'>
                             <div className='text-white'>
                                 <div>
@@ -84,7 +84,7 @@ export default function Plans() {
                     {
                         plans.length !== 0 ?
                             plans.map((plan) =>
-                                <Col lg={4}>
+                                <Col className='mt-3' lg='6' xl={4}>
                                     <div className='custom-card p-4'>
                                         <div className='d-flex justify-content-between align-items-center'>
                                             <div className='card-top-shape-right d-flex justify-content-center align-items-center'>
@@ -134,7 +134,7 @@ export default function Plans() {
                                     </div>
                                 </Col>
                             )
-                            : <Col lg={8} className='fflalezar fs30 c-text-secondary'>برنامه ای وجود ندارد</Col>
+                            : <Col lg={8} className='fflalezar fs30 c-text-secondary mt-3'>برنامه ای وجود ندارد</Col>
                     }
 
 
