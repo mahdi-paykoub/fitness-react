@@ -85,10 +85,22 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <NavLink
-                                to=''
-
+                               to='/admin-panel/tickets'
+                               className={({ isActive, isPending }) =>
+                                   isPending ? "" : isActive ? "active-menu" : ""
+                               }
                             >
-                                تیکت ها
+                                تیکت های کاربران
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                               to='/admin-panel/ticketable-users'
+                               className={({ isActive, isPending }) =>
+                                   isPending ? "" : isActive ? "active-menu" : ""
+                               }
+                            >
+                                ارسال تیکت  
                             </NavLink>
                         </li>
                         <li>

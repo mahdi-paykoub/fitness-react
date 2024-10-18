@@ -5,35 +5,63 @@ import { IoIosArrowBack } from "react-icons/io";
 import { GoTrash } from "react-icons/go";
 import { GoDotFill } from "react-icons/go";
 import { CartContext } from "../../Context/CartContext";
+import { json } from 'react-router-dom';
+import swal from "sweetalert";
+import { formValidation } from "../../utils/Validations";
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Checkout() {
     const cartContext = useContext(CartContext)
-    const [cart, setCart] = useState([])
     const baseUrl = process.env.REACT_APP_BASE_URL
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
 
-    useEffect(() => {
-        if (cartContext.cartType === 'plan') {
-            fetch(`${baseUrl}plan-id/${cartContext.cartItem}`)
-                .then(res => res.json())
-                .then(res => {
-                    setCart(res.data)
-                })
-        }
-        if (cartContext.cartType === 'course') {
-            fetch(`${baseUrl}course-id/${cartContext.cartItem}`)
-                .then(res => res.json())
-                .then(res => {
-                    setCart(res.data)
-                })
-        }
+    const navigate = useNavigate();
 
-    }, [])
+    const form = useForm();
+    const { register, control, handleSubmit, formState, reset } = form
+    const { errors } = formState;
+
+
+    const item = cartContext.cartItem
+
+
+
+    const onSubmit = (data) => {
+        let formData = new FormData()
+        formData.append('id', data.id)
+        formData.append('type', data.type)
+
+        fetch(`${baseUrl}payment`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(response => {
+                console.log(response);
+                if (response.action) {
+                    window.location = response.action;
+                } else {
+                    swal({
+                        title: 'مشکلی در ارتباز با درگاه پرداخت بوجود آمد.',
+                        icon: "error",
+                        buttons: 'باشه'
+                    })
+                }
+
+            })
+    }
+
 
     return (
         <>
             {
-                cart.length !== 0 &&
+                item.length !== 0 &&
                 <Container className='mt-5'>
                     <Row>
                         <Col lg={12}>
@@ -52,7 +80,7 @@ export default function Checkout() {
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <img src="/images/courses/icvgops1gqcosgv3dxde.jpg" width={250} height={180} className='object-fit-cover br-10' alt="" />
                                         <div className='fflalezar  c-text-secondary me-3'>
-                                            <span className='fs25'> آموزش جامع Eloquent در لاراول</span>
+                                            <span className='fs25'> {item[0].title}</span>
                                             <div className='mt-4 d-flex align-items-center'>
                                                 <span>
                                                     <svg className='color-2' width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +98,7 @@ export default function Checkout() {
                                     </div>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <div className='fs25 color-2 fflalezar'>
-                                            {Number(965000).toLocaleString()}
+                                            {Number(item[0].price).toLocaleString()}
                                         </div>
                                         <div className='me-1 color-2 fflalezar'>تومان</div>
                                         <div className='me-4 '>
@@ -105,7 +133,14 @@ export default function Checkout() {
                                     <div className='fflalezar fs18 c-text-secondary color-1'> 590,000 <span className='fs15 fflalezar color-1'>تومان</span></div>
                                 </div>
                                 <div>
-                                    <button className='send-btn fflalezar w-100 mt-4 fs18'>پرداخت</button>
+                                    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                                        <input type="hidden" value={item[0].id}
+                                            {...register('id', formValidation('id'))}
+                                        />
+                                        <input type="hidden" value={item[1]}
+                                            {...register('type', formValidation('نوع محصول'))} />
+                                        <button className='send-btn fflalezar w-100 mt-4 fs18'>پرداخت</button>
+                                    </form>
                                 </div>
                             </div>
                         </Col>

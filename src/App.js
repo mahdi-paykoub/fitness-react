@@ -11,8 +11,7 @@ function App() {
   const [userInfo, setUserInfo] = useState(null)
 
 
-  const [cartItem, setCartItem] = useState(null)
-  const [cartType, setCartType] = useState(null)
+  const [cartItem, setCartItem] = useState([])
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -45,6 +44,13 @@ function App() {
     }
   }, [token]);
 
+
+
+  useEffect(() => {
+    const localCart = JSON.parse(localStorage.getItem('cart'))
+    const cartunits = localCart === null ? [] : localCart;
+    setCartItem(localCart)
+  }, [])
 
   function login(token) {
     localStorage.setItem('user', JSON.stringify({ token }))
@@ -82,12 +88,9 @@ function App() {
 
 
   //cart
-  function addToCart(newItem, itemtype) {
-    if (cartItem !== newItem) {
-      setCartItem(newItem)
-      setCartType(itemtype)
-      localStorage.setItem('cart', JSON.stringify([newItem, itemtype]))
-    }
+  function addToCart(newItem) {
+    setCartItem(newItem)
+    localStorage.setItem('cart', JSON.stringify(newItem))
   }
   function removeFromCart(newItem) {
     setCartItem(null)
@@ -116,7 +119,6 @@ function App() {
       }}>
         <CartContext.Provider value={{
           cartItem: cartItem,
-          cartType: cartType,
           addToCart: addToCart,
           removeFromCart: removeFromCart,
         }}>

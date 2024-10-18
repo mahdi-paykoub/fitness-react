@@ -20,7 +20,7 @@ export default function AdminPanel() {
                         <Topbar />
 
 
-                        <div className='mt-5 pt-5'>
+                        <div className=' pt-4'>
                             <Outlet />
                         </div>
                     </Col>
