@@ -16,19 +16,19 @@ import { FiShoppingBag } from "react-icons/fi";
 
 export default function PanelOrderDatail() {
     const [tab, setTab] = useState('size')
-    const [userSize, setUserSize] = useState([])
+    const [getCurrentImg, setGetCurrentImg] = useState(null)
+
+    const [images, setImages] = useState([])
     const [programs, setPrograms] = useState([])
-
+    const [sizes, setSizes] = useState([])
+    const [question, setQuestion] = useState([])
     const [modalShow, setModalShow] = useState(false);
-
     const orderId = useParams().id
     const baseUrl = process.env.REACT_APP_BASE_URL
-
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
     const { errors } = formState;
-
-
+    
     const onSubmit = (data) => {
         let formData = new FormData()
         formData.append('title', data.title)
@@ -70,10 +70,10 @@ export default function PanelOrderDatail() {
         fetch(`${baseUrl}admin/get-user-info-by-order/${orderId}`)
             .then(res => res.json())
             .then(res => {
-                console.log(res.programs);
-
-                setUserSize(res.userSize)
                 setPrograms(res.programs)
+                setSizes(res.userSize)
+                setQuestion(res.questions)
+                setImages(res.image)
             })
     }
 
@@ -135,117 +135,354 @@ export default function PanelOrderDatail() {
 
             </div>
             {
-                userSize.length !== 0 &&
+
                 <>
                     <div className='admin-Data-box w-100 py-4 br-10 px-3 mt-3'>
                         <div>
                             {
                                 tab === 'size' &&
-                                <Row className=''>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>قد</div>
-                                            <div>{userSize.height}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>وزن</div>
-                                            <div>{userSize.weight}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور گردن</div>
-                                            <div>{userSize.neck}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور شانه  </div>
-                                            <div>{userSize.shoulder}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور بازو در حالت عادی</div>
-                                            <div>{userSize.arm}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور بازو در حالت منقبض</div>
-                                            <div>{userSize.contracted_arm}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور ساعد</div>
-                                            <div>{userSize.forearm}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور مچ دست</div>
-                                            <div>{userSize.wrist}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور سینه</div>
-                                            <div>{userSize.chest}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور شکم</div>
-                                            <div>{userSize.belly}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور کمر</div>
-                                            <div>{userSize.waist}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور باسن</div>
-                                            <div>{userSize.hips}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور ران</div>
-                                            <div>{userSize.thigh}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور ساق</div>
-                                            <div>{userSize.leg}</div>
-                                        </div>
-                                    </Col>
-                                    <Col lg='4' className='mt-3'>
-                                        <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
-                                            <div>دور مچ پا</div>
-                                            <div>{userSize.ankle}</div>
-                                        </div>
-                                    </Col>
-
-
-                                </Row>
-                            }
-
-                            {/* second */}
-                            {
-                                tab === 'image' &&
-                                <div>image</div>
+                                <div>
+                                    {
+                                        sizes !== null ?
+                                            <Row className='fflalezar'>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>قد</div>
+                                                        <div>{sizes.height}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>وزن</div>
+                                                        <div>{sizes.weight}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور گردن</div>
+                                                        <div>{sizes.neck}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور شانه  </div>
+                                                        <div>{sizes.shoulder}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور بازو در حالت عادی</div>
+                                                        <div>{sizes.arm}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور بازو در حالت منقبض</div>
+                                                        <div>{sizes.contracted_arm}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور ساعد</div>
+                                                        <div>{sizes.forearm}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور مچ دست</div>
+                                                        <div>{sizes.wrist}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور سینه</div>
+                                                        <div>{sizes.chest}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور شکم</div>
+                                                        <div>{sizes.belly}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور کمر</div>
+                                                        <div>{sizes.waist}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور باسن</div>
+                                                        <div>{sizes.hips}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور ران</div>
+                                                        <div>{sizes.thigh}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور ساق</div>
+                                                        <div>{sizes.leg}</div>
+                                                    </div>
+                                                </Col>
+                                                <Col lg='4' className='mt-3'>
+                                                    <div className='d-flex justify-content-between bg-c-sec br-10 p-3'>
+                                                        <div>دور مچ پا</div>
+                                                        <div>{sizes.ankle}</div>
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                            :
+                                            <div className='bg-danger fflalezar br-10 text-white p-3'>کاربر اطلاعاتی ثبت نکرده است.</div>
+                                    }
+                                </div>
                             }
                             {/* second */}
                             {
                                 tab === 'question' &&
-                                <div>questions</div>
+                                <div>
+                                    {
+                                        question !== null ?
+                                            <>
+                                                <div div className='bg-c-sec p-3 mt-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        1- آیا سابقه دریافت برنامه تمرینی از مربی همراه را دارید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.us_hsitory === 1 ? 'بله' : 'خیر'
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        2- اندام ایده آل و هدفتون رو شرح بدید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.ideal_body
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='bg-c-sec p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        3- تمامی سوابق ورزشی خود را شرح دهید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.sport_history
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        4- محل تمرین شما؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.training_place
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='bg-c-sec p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        5- آسیب دیدگی فیزیکی یا محدودیت در اجرای تمرین خاصی را دارید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.physical_injury === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.physical_injury_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        6- آیا بیماری و یا ضعف قلبی عروقی و یا تنفسی دارید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.heart_disease === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.heart_disease_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='bg-c-sec p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        7- آیا حساسیت گوارشی دارید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.gastro_sensitivity === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.gastro_sensitivity_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        8- حرارت بدن شما بطور معمول چگونه است؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.body_heat
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='bg-c-sec p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        9- آیا داروی خاصی مصرف میکنید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.medicine === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.medicine_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        10- آیا سیگار یا الکل مصرف میکنید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.smoking === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.smoking_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div div className='bg-c-sec p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        11- اشتهای شما به غذا چگونه است؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.appetite
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        12- دفعات حدودی دفع مدفوع طی روز یا هفته را شرح دهید؟*
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.frequency_defecation
+                                                        }
+                                                    </div>
+                                                </div>
+
+
+                                                <div div className='bg-c-sec p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        13- آیا آزمایش آنزیم های کبدی داده اید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.liver_enzymes === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.liver_enzymes_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        14- سابقه مصرف مکمل یا دارو های استروئیدی دارید؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.history_steroid === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.history_steroid_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div div className='bg-c-sec p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        15- آیا در این دوره تمایل به مصرف مکمل دارید(جهت طراحی زمان و مقدار مصرف)؟
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.supplement_use === 0 ?
+                                                                'خیر'
+                                                                :
+                                                                <div><span className='text-primary'>بله</span> -  {question.supplement_use_text}</div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div div className='p-3'>
+                                                    <div className='fs14 fw-bold'>
+                                                        16- هر موردی که داخل سوالات ما نبود ولی احساس میکنی باید بدونیم را کامل بنویس؟*
+                                                    </div>
+                                                    <div className='fs13 mt-3'>
+                                                        {
+                                                            question.final_question
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </>
+
+                                            :
+                                            <div className='bg-danger fflalezar br-10 text-white p-3'>سوالات را پاسخ نداده اید.</div>
+                                    }
+                                </div>
+
+                            }
+                            {
+                                tab === 'image' &&
+
+                                <div>
+                                    {
+                                        images !== null ?
+                                            <>
+                                                <Row>
+                                                    <Col lg='3'>
+                                                        <div>
+                                                            <button className='send-btn px-3 fflalezar mt-3'
+                                                                onClick={() => setGetCurrentImg(images.front)}
+                                                            >تصویر جلوی بدن</button>
+                                                        </div>
+                                                        <div>
+                                                            <button className='send-btn px-3 fflalezar mt-3'
+                                                                onClick={() => setGetCurrentImg(images.back)}
+                                                            >تصویر پشت بدن</button>
+                                                        </div>
+                                                        <div>
+                                                            <button className='send-btn px-3 fflalezar mt-3'
+                                                                onClick={() => setGetCurrentImg(images.side)}
+                                                            >تصویر پهــلو بدن</button>
+                                                        </div>
+                                                    </Col>
+                                                    <Col lg='9' className='text-center'>
+                                                        <img style={{ 'maxHeight': '400px' }} className='mw-100 br-10' src={`${baseUrl}${getCurrentImg}`} alt="" />
+                                                    </Col>
+                                                </Row>
+
+                                            </>
+                                            :
+                                            <div className='bg-danger fflalezar br-10 text-white p-3'> تصویری آپلود نشده است.</div>
+
+                                    }
+                                </div>
+
                             }
 
                             {
@@ -286,28 +523,35 @@ export default function PanelOrderDatail() {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             >
-                <div className='p-4'>
-                    <div className='fflalezar fs20 color-2'>
-                        <SiAnswer fontSize={20} className='ms-2' />
-                        ارسال برنامه
-                    </div>
-                    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <div className='mt-3'>
-                            <input type="hidden" value={userSize.user_info_status_id}
-                                {...register('user_info_status_id', formValidation('آیدی'))}
-                            />
-                            <input type="text" className='px-1 mt-1 c-input w-100' placeholder='عنوان برنامه'
-                                {...register('title', formValidation('عنوان'))}
-                            />
-                            <p className='mt-2 text-danger px-2 fs13 fflalezar'>
-                                {errors.title?.message}
-                            </p>
+                {
+                    sizes !== null ?
+                        <div className='p-4'>
+                            <div className='fflalezar fs20 color-2'>
+                                <SiAnswer fontSize={20} className='ms-2' />
+                                ارسال برنامه
+                            </div>
+                            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                                <div className='mt-3'>
+                                    <input type="hidden" value={sizes.user_info_status_id}
+                                        {...register('user_info_status_id', formValidation('آیدی'))}
+                                    />
+                                    <input type="text" className='px-1 mt-1 c-input w-100' placeholder='عنوان برنامه'
+                                        {...register('title', formValidation('عنوان'))}
+                                    />
+                                    <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                        {errors.title?.message}
+                                    </p>
+                                </div>
+                                <div className='text-start mt-2'>
+                                    <button className='fflalezar send-btn px-4'>ارسال </button>
+                                </div>
+                            </form>
                         </div>
-                        <div className='text-start mt-2'>
-                            <button className='fflalezar send-btn px-4'>ارسال </button>
-                        </div>
-                    </form>
-                </div>
+                        :
+                        <div className='p-4'>برای ارسال برنامه کاربر حتما باید اطلاعاتش را ثبت کرده باشد</div>
+                }
+
+
 
             </MyModal>
         </>

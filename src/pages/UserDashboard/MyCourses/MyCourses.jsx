@@ -1,103 +1,85 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 import './style.css'
 import { Col, Container, Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { FiUserCheck } from 'react-icons/fi';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 
 
 export default function MyCourses() {
+    const [courses, setCourses] = useState([])
+    const [loader, setLoader] = useState(true)
+    const baseUrl = process.env.REACT_APP_BASE_URL
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
+
+    const getTickets = () => {
+        fetch(`${baseUrl}get-user-courses`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            }
+        })
+            .then(res => res.json())
+            .then(res => {
+                setCourses(res.data)
+                setLoader(false)
+            })
+    }
+
+
+    useEffect(() => {
+        getTickets()
+    }, [])
+
+
     return (
         <>
-            <Container>
-                <Row>
-                    <Col lg={4}>
-                        <Card className='buyed-course-box-card border-0 mt-4'>
-                            <div className='position-relative img-overly-course-p'>
-                                <Card.Img variant="top" src="/images/courses/icvgops1gqcosgv3dxde.jpg" />
-                                <div className='img-overly-course d-flex align-items-center justify-content-center position-absolute text-center w-100 h-100 '>
-                                    <a href="">
-                                        <li>
-                                            <BsFillPlayFill className='fs40icon' />
-                                        </li>
-                                    </a>
-                                </div>
-                            </div>
-                            <Card.Body>
-                                <div className='lh1-8 fw600 mt-2'>
-                                    آموزش جامع برنامه نویسی بدنسازی
-                                </div>
-                                <div className='mt-4 d-flex justify-content-between'>
-                                    <div>
-                                        <FiUserCheck className='fs20 porple-text-color2' />
-                                        <span className='fs14 text-secondary me-2'>آرمان کرد بچه</span>
-                                    </div>
-                                    <div className='mb-3'>
-                                        <Link href="" className='btn-more-course-detail'>مشاهده دوره</Link>
-                                    </div>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col lg={4}>
-                        <Card className='buyed-course-box-card border-0 mt-4'>
-                            <div className='position-relative img-overly-course-p'>
-                                <Card.Img variant="top" src="/images/courses/icvgops1gqcosgv3dxde.jpg" />
-                                <div className='img-overly-course d-flex align-items-center justify-content-center position-absolute text-center w-100 h-100 '>
-                                    <a href="">
-                                        <li>
-                                            <BsFillPlayFill className='fs40icon' />
-                                        </li>
-                                    </a>
-                                </div>
-                            </div>
-                            <Card.Body>
-                                <div className='lh1-8 fw600 mt-2'>
-                                    آموزش جامع برنامه نویسی بدنسازی
-                                </div>
-                                <div className='mt-4 d-flex justify-content-between'>
-                                    <div>
-                                        <FiUserCheck className='fs20 porple-text-color2' />
-                                        <span className='fs14 text-secondary me-2'>آرمان کرد بچه</span>
-                                    </div>
-                                    <div className='mb-3'>
-                                        <Link href="" className='btn-more-course-detail'>مشاهده دوره</Link>
-                                    </div>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col lg={4}>
-                        <Card className='buyed-course-box-card border-0 mt-4'>
-                            <div className='position-relative img-overly-course-p'>
-                                <Card.Img variant="top" src="/images/courses/icvgops1gqcosgv3dxde.jpg" />
-                                <div className='img-overly-course d-flex align-items-center justify-content-center position-absolute text-center w-100 h-100 '>
-                                    <a href="">
-                                        <li>
-                                            <BsFillPlayFill className='fs40icon' />
-                                        </li>
-                                    </a>
-                                </div>
-                            </div>
-                            <Card.Body>
-                                <div className='lh1-8 fw600 mt-2'>
-                                    آموزش جامع برنامه نویسی بدنسازی
-                                </div>
-                                <div className='mt-4 d-flex justify-content-between'>
-                                    <div>
-                                        <FiUserCheck className='fs20 porple-text-color2' />
-                                        <span className='fs14 text-secondary me-2'>آرمان کرد بچه</span>
-                                    </div>
-                                    <div className='mb-3'>
-                                        <Link href="" className='btn-more-course-detail'>مشاهده دوره</Link>
-                                    </div>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
+            {
+                loader ?
+                    <SniperLoader newstyle='mt-5'/>
+                    :
+                    courses.length !== 0 &&
+                    <Container className='mb-5'>
+                        <Row>
+                            {
+                                courses.map((course) =>
+                                    <Col lg={4}>
+                                        <Card className='buyed-course-box-card border-0 mt-4'>
+                                            <div className='position-relative img-overly-course-p'>
+                                                <Card.Img variant="top" src={`${baseUrl}${course.orderable.image}`} />
+                                                <div className='img-overly-course d-flex align-items-center justify-content-center position-absolute text-center w-100 h-100 '>
+                                                    <Link to={`/courses/${course.orderable.slug}`}>
+                                                        <li>
+                                                            <BsFillPlayFill className='fs40icon' />
+                                                        </li>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            <Card.Body>
+                                                <div className='lh1-8 fw600 mt-2'>
+                                                    {course.orderable.title}
+                                                </div>
+                                                <div className='mt-4 d-flex justify-content-between'>
+                                                    <div>
+                                                        <FiUserCheck className='fs20 porple-text-color2' />
+                                                        <span className='fs14 text-secondary me-2'>آرمان کرد بچه</span>
+                                                    </div>
+                                                    <div className='mb-3'>
+                                                        <Link to={`/courses/${course.orderable.slug}`} className='btn-more-course-detail'>مشاهده دوره</Link>
+                                                    </div>
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                )
+                            }
+
+
+                        </Row>
+                    </Container>
+            }
+
 
         </>
     )

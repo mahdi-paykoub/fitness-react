@@ -165,6 +165,7 @@ tbody.ticket-table th {
     background-size: 100%;
     background-repeat: no-repeat;
 }
+
 .inquiiry-inp {
     width: 250px;
 }
@@ -183,22 +184,35 @@ tbody.ticket-table th {
     transition: .3s;
 }
 
-.chat-box{
+.chat-box {
     color: #3f3f46;
     background-color: #f3f4f6;
 }
-.user-style .chat-box{
+
+.user-style .chat-box {
     border-radius: 20px 0 20px 20px;
 }
 
-.admin-style .chat-box{
+.admin-style .chat-box {
     border-radius: 0 20px 20px 20px;
     /* background-color: #64748b; */
     background-color: #b6e4f8;
 }
-.admin-style{
-   justify-content: left;
+
+.admin-style {
+    justify-content: left;
 }
-.admin-style .text-side{
+
+.admin-style .text-side {
     text-align: end !important;
+}
+
+.activeTTb {
+    border-bottom: 3px solid #5b69bf;
+}
+.c-textarea{
+    height: 110px;
+}
+.birth-inp-p input{
+    width: 31%;
 }

@@ -12,22 +12,10 @@ import { RiArrowGoBackLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import { HiOutlineBellAlert } from "react-icons/hi2";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { BiBell } from "react-icons/bi";
 
 export default function UserDashboard() {
-    const notify = () => toast.success("  اعلانی وجود ندارد", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        rtl: true,
-        theme: "dark",
-    });
+
 
     const setActive = ({ isActive }) =>
         isActive ? "text-dark active" : "text-dark";
@@ -136,7 +124,7 @@ export default function UserDashboard() {
                                 </span>
                             </div>
                             <div className='d-flex'>
-                                <div onClick={notify} className='notify-top-box rounded-circle ms-3 d-flex justify-content-center align-items-center  cursor-pointer'>
+                                <div className='notify-top-box rounded-circle ms-3 d-flex justify-content-center align-items-center  cursor-pointer'>
                                     <BiBell className='text-white' fontSize={25} />
                                 </div>
                                 <img src="/images/740b09b7962ead3ce694eb9df04a07a4.jpg" className='rounded-circle' width={50} height={50} alt="" />
@@ -146,7 +134,6 @@ export default function UserDashboard() {
                     </Col>
                 </Row>
             </Container >
-            <ToastContainer />
         </>
     )
 }

@@ -9,9 +9,9 @@ import swal from "sweetalert";
 import { formValidation } from "../../../utils/Validations";
 import { useForm } from "react-hook-form";
 import Form from 'react-bootstrap/Form';
+import { compareAsc, format, newDate } from "date-fns-jalali";
 
 export default function PanelTicketDetail() {
-
     const [chats, setChats] = useState([])
     const [ticket, setTicket] = useState([])
     const [modalShow, setModalShow] = useState(false);
@@ -20,21 +20,19 @@ export default function PanelTicketDetail() {
     const ticketId = useParams().id
 
     const getChats = () => {
-        fetch(`${baseUrl}get-ticket-chats/${ticketId}`)
+        fetch(`${baseUrl}admin/get-ticket-chats/${ticketId}`)
             .then(res => res.json())
             .then(res => {
                 console.log(res);
-
+                
                 setChats(res.data)
                 setTicket(res.ticket)
             })
     }
 
-
     useEffect(() => {
         getChats()
     }, [])
-
 
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
@@ -43,7 +41,7 @@ export default function PanelTicketDetail() {
         let formData = new FormData()
         formData.append('message', data.message)
         formData.append('ticket_id', ticketId)
-
+        formData.append('file', data.file[0])
 
         fetch(`${baseUrl}admin/admin-answer-ticket`,
             {
@@ -75,7 +73,6 @@ export default function PanelTicketDetail() {
 
             })
     }
-
 
     const handleTicketStatus = (e) => {
         console.log(e);
@@ -111,7 +108,6 @@ export default function PanelTicketDetail() {
 
             })
     }
-
 
     return (
         <>
@@ -150,17 +146,24 @@ export default function PanelTicketDetail() {
                                                             نام کاربری
                                                         </div>
                                                         <div className='mt-1 mb-1 text-secondary fs13'>
-                                                            13:30
-                                                            1402-1-2
+                                                        
+                                                            {format(new Date(ticket.created_at), "yyyy-MM-dd")}
                                                         </div>
                                                     </div>
                                                     <div className='border-bottom pb-3 fs17'>
                                                         {chat.message}
                                                     </div>
-                                                    <div className='mt-2 text-side'>
-                                                        <LuFileSpreadsheet fontSize={20} />
-                                                        <span className='fs13 me-1'>دانلود پیوست</span>
-                                                    </div>
+                                                    {
+                                                        chat.file != null ?
+                                                            <a className='c-text-secondary' href={`${baseUrl}${chat.file}`} download="proposed_file_name">
+                                                                <div className='mt-2 text-side' >
+                                                                    <LuFileSpreadsheet fontSize={20} />
+                                                                    <span className='fs13 me-1'>دانلود پیوست</span>
+                                                                </div>
+                                                            </a>
+                                                            :
+                                                            <div className='mt-2 text-side fs13'>فاقد فایل پیوست</div>
+                                                    }
                                                 </div>
                                             </Col>
                                         </Row>
@@ -193,6 +196,16 @@ export default function PanelTicketDetail() {
                             ></textarea>
                             <p className='text-danger px-2 fs13'>
                                 {errors.message?.message}
+                            </p>
+                        </div>
+                        <div className='mt-2'>
+                            <label for="mess_file" class="fflalezar w-100">
+                                <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
+                            </label>
+                            <input type="file" id='mess_file' className='d-none'
+                                {...register('file', formValidation('فایل', false))} placeholder='hasxasx' />
+                            <p className='text-danger px-2 fs13'>
+                                {errors.file?.message}
                             </p>
                         </div>
                         <div className='text-start mt-2'>

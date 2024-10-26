@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import { BsTicket } from "react-icons/bs";
 import { PiTicketBold } from "react-icons/pi";
 import { BiCube } from "react-icons/bi";
+import { compareAsc, format, newDate } from "date-fns-jalali";
+import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 
 
 
 export default function Tickets() {
     const [tickets, setTickets] = useState([])
+    const [loader, setLoader] = useState(true)
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
     let statusColor = '';
@@ -24,6 +27,7 @@ export default function Tickets() {
             .then(res => res.json())
             .then(res => {
                 setTickets(res.data)
+                setLoader(false)
             })
     }
 
@@ -45,7 +49,7 @@ export default function Tickets() {
                             <div className='mt-3 text-white fs15 fflalezar pe-4 ps-5'>چنان چه در اجرا برنامه ها دچار مشکل شدید میتوانید با ارسال تیکت ما را مطلع نمایید تا در اسرع وقت به مشکل شما رسیدگی شود.</div>
                             <div className='me-4 mt-4 pt-3'>
                                 <Link to='/dashboard/send-ticket' className='fflalezar fs15 text-white send-t-page-btn'>
-                                    ساخت تیکت
+                                    ارسال تیکت
                                 </Link>
                             </div>
                         </div>
@@ -93,60 +97,66 @@ export default function Tickets() {
                     <div className='all-tickets-box bg-white p-4'>
                         <div className='fflalezar fs20 c-text-secondary'>تیکت ها</div>
                         {
-                            tickets.length !== 0 ?
-                                <table class="table fflalezar mt-4">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">عنوان</th>
-                                            <th scope="col">تاریخ</th>
-                                            <th scope="col">وضعیت</th>
-                                        </tr>
-                                    </thead>
-                                    {
-
-                                    }
-                                    <tbody className='ticket-table'>
+                            loader ?
+                                <SniperLoader />
+                                :
+                                tickets.length !== 0 ?
+                                    <table class="table fflalezar mt-4">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">عنوان</th>
+                                                <th scope="col">تاریخ</th>
+                                                <th scope="col">از طرف</th>
+                                                <th scope="col">وضعیت</th>
+                                                <th scope="col">عملیات</th>
+                                            </tr>
+                                        </thead>
                                         {
 
-                                            tickets.map((ticket, index) => {
-                                                if (ticket.status === 'open') {
-                                                    statusColor = 'bg-danger';
-                                                    statusText = 'باز'
-                                                }
-                                                if (ticket.status === 'close') {
-                                                    statusColor = 'bg-secondary';
-                                                    statusText = 'بسته'
+                                        }
+                                        <tbody className='ticket-table'>
+                                            {
 
-                                                }
-                                                if (ticket.status === 'review') {
-                                                    statusColor = 'bg-primary';
-                                                    statusText = 'در حال بررسی'
+                                                tickets.map((ticket, index) => {
+                                                    if (ticket.status === 'open') {
+                                                        statusColor = 'bg-danger';
+                                                        statusText = 'باز'
+                                                    }
+                                                    if (ticket.status === 'close') {
+                                                        statusColor = 'bg-secondary';
+                                                        statusText = 'بسته'
 
-                                                }
-                                                if (ticket.status === 'answered') {
-                                                    statusColor = 'bg-success'
-                                                    statusText = 'پاسخ داده شده'
+                                                    }
+                                                    if (ticket.status === 'review') {
+                                                        statusColor = 'bg-primary';
+                                                        statusText = 'در حال بررسی'
 
-                                                }
-                                                return <tr>
-                                                    <th scope="row">{index + 1}</th>
-                                                    <td><Link to={`/dashboard/ticket-detail/${ticket.id}`} className='c-text-secondary'>{ticket.title} </Link></td>
-                                                    <td>1402/2/3</td>
+                                                    }
+                                                    if (ticket.status === 'answered') {
+                                                        statusColor = 'bg-success'
+                                                        statusText = 'پاسخ داده شده'
 
-                                                    <td><span className={`badge fs13 ${statusColor}`}>{statusText}</span></td>
-                                                </tr>
+                                                    }
+                                                    return <tr>
+                                                        <th scope="row">{index + 1}</th>
+                                                        <td><Link to={`/dashboard/ticket-detail/${ticket.id}`} className='c-text-secondary'>{ticket.title} </Link></td>
+                                                        <td>{format(new Date(ticket.created_at), "yyyy-MM-dd")}</td>
+                                                        <td>{ticket.admin ? 'ادمین' : 'شما'}</td>
+                                                        <td><span className={`badge ${statusColor}`}>{statusText}</span></td>
+                                                        <td><Link to={`/dashboard/ticket-detail/${ticket.id}`} className='btn  btn-primary btn-sm'>مشاهده </Link></td>
+                                                    </tr>
+                                                }
+
+                                                )
+
+
                                             }
 
-                                            )
-
-
-                                        }
-
-                                    </tbody>
-                                </table>
-                                :
-                                <div className='p-3 mt-3 bg-danger fflalezar text-white br-10'>تیکتی وجود ندارد.</div>
+                                        </tbody>
+                                    </table>
+                                    :
+                                    <div className='p-3 mt-3 bg-danger fflalezar text-white br-10'>تیکتی وجود ندارد.</div>
 
                         }
                     </div>

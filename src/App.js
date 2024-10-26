@@ -6,7 +6,7 @@ import { CartContext } from "./Context/CartContext";
 
 function App() {
   const router = useRoutes(routes)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(null)
   const [token, setToken] = useState(null)
   const [userInfo, setUserInfo] = useState(null)
 
@@ -39,8 +39,9 @@ function App() {
           setIsLoggedIn(true)
           setUserInfo(res)
           setToken(userTokenLS.token)
-        }).catch(err => {
         })
+    }else{
+      setIsLoggedIn(false)
     }
   }, [token]);
 
@@ -55,6 +56,7 @@ function App() {
   function login(token) {
     localStorage.setItem('user', JSON.stringify({ token }))
     setToken(token)
+    setIsLoggedIn(true)
   }
 
 

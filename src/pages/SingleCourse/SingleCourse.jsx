@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useContext } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { IoIosArrowBack } from "react-icons/io";
@@ -12,39 +12,52 @@ import { GoDotFill } from "react-icons/go";
 import Accordion from 'react-bootstrap/Accordion';
 import { FiLock } from "react-icons/fi";
 import { FaPlay } from "react-icons/fa6";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { CartContext } from "../../Context/CartContext";
 import MyModal from '../../components/MyModal/MyModal';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { IoLockOpenOutline } from "react-icons/io5";
 
 
 export default function SingleCourse() {
     const [course, setCourse] = useState([])
+    const [isUserRegister, setIsUserRegister] = useState([])
     const [tab, setTab] = useState('sections')
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
 
     const [modalShow, setModalShow] = useState(false);
     const courseSlug = useParams().title
 
     const baseUrl = process.env.REACT_APP_BASE_URL
+    const navigate = useNavigate();
+    const cartContext = useContext(CartContext)
 
 
 
 
     useEffect(() => {
-        fetch(`${baseUrl}course/${courseSlug}`)
+        fetch(`${baseUrl}course/${courseSlug}`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+        })
             .then(res => res.json())
             .then(res => {
+                setIsUserRegister(res.data.info.isUserRegisteredToThisCourse)
                 setCourse(res.data)
             })
     }, [])
 
+    function handleAddToCart(plan) {
+        cartContext.addToCart([course, 'course']);
+        navigate('/checkout');
+    }
 
     return (
         <>
             {
                 course.length !== 0 &&
                 <>
-                    <Container fluid className='bg-global-light mt-3 px-lg-5'>
+                    <Container fluid className='bg-global-light mt-3 px-lg-5 pb-5'>
                         <Row>
                             <Col lg={12}>
                                 <div className='course-top-box d-flex align-items-center justify-content-center position-relative'>
@@ -85,7 +98,7 @@ export default function SingleCourse() {
                                         <div className='fflalezar fs14 text-secondary'>
                                             <GoDotFill fontSize={15} className='me-3 ms-1 color-2' />
                                             <span>آخرین آپدیت: </span>
-                                            <span className='me-2' dir='ltr'>{course.updated_at.substring(0,10)}</span>
+                                            <span className='me-2' dir='ltr'>{course.updated_at.substring(0, 10)}</span>
                                         </div>
                                         <div className='fflalezar text-secondary'>
                                             <GoDotFill fontSize={15} className='me-3 ms-1 color-2' />
@@ -123,7 +136,7 @@ export default function SingleCourse() {
                                 {
                                     tab === 'description' &&
                                     <div className='lh2 mt-3 text-editor px-3 bg-white br-4 p-4'>
-                                       {course.body}
+                                        {course.body}
                                     </div>
                                 }
 
@@ -146,25 +159,68 @@ export default function SingleCourse() {
                                                         {
                                                             course.sessions.length !== 0 ?
                                                                 course.sessions.map((session, index) =>
-                                                                    <div className='d-flex justify-content-between align-items-center border-bottom onhover-sections'>
-                                                                        <div className='d-flex align-items-center py-4'>
-                                                                            <div className='count-number c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 bg-white'>
-                                                                                {index + 1}
+                                                                    session.is_free == true ?
+                                                                        <Link to={`/courses/${session.title}/${session.id}`} className='c-text-secondary'>
+                                                                            <div className='d-flex justify-content-between align-items-center border-bottom onhover-sections'>
+                                                                                <div className='d-flex align-items-center py-4'>
+                                                                                    <div className='count-number c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 bg-white'>
+                                                                                        {index + 1}
+                                                                                    </div>
+                                                                                    <div className='fs15 me-2'>
+                                                                                        {session.title}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className='d-flex align-items-center'>
+                                                                                    <div className='ms-2 mt-1'>
+                                                                                        {session.time}
+                                                                                    </div>
+
+                                                                                    <IoLockOpenOutline fontSize={20} />
+                                                                                </div>
                                                                             </div>
-                                                                            <div className='fs15 me-2'>
-                                                                                {session.title}
+                                                                        </Link>
+                                                                        :
+                                                                        isUserRegister == null ?
+                                                                            <div className='d-flex justify-content-between align-items-center border-bottom onhover-sections'>
+                                                                                <div className='d-flex align-items-center py-4'>
+                                                                                    <div className='count-number c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 bg-white'>
+                                                                                        {index + 1}
+                                                                                    </div>
+                                                                                    <div className='fs15 me-2'>
+                                                                                        {session.title}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className='d-flex align-items-center'>
+                                                                                    <div className='ms-2 mt-1'>
+                                                                                        {session.time}
+                                                                                    </div>
+                                                                                    <FiLock fontSize={20} />
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div className='d-flex align-items-center'>
-                                                                            <div className='ms-2 mt-1'>
-                                                                                {session.time}
-                                                                            </div>
-                                                                            <FiLock fontSize={20} />
-                                                                        </div>
-                                                                    </div>
+                                                                            :
+                                                                            <Link to={`/courses/${course.title}/${session.id}`} className='c-text-secondary'>
+                                                                                <div className='d-flex justify-content-between align-items-center border-bottom onhover-sections'>
+                                                                                    <div className='d-flex align-items-center py-4'>
+                                                                                        <div className='count-number c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 bg-white'>
+                                                                                            {index + 1}
+                                                                                        </div>
+                                                                                        <div className='fs15 me-2'>
+                                                                                            {session.title}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div className='d-flex align-items-center'>
+                                                                                        <div className='ms-2 mt-1'>
+                                                                                            {session.time}
+                                                                                        </div>
+
+                                                                                        <IoLockOpenOutline fontSize={20} />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </Link>
+
                                                                 ) :
                                                                 <div className='fflalezar fs20'>
-                                                                   جلسه‌ای وجود ندارد!
+                                                                    جلسه‌ای وجود ندارد!
                                                                 </div>
 
                                                         }
@@ -273,7 +329,7 @@ export default function SingleCourse() {
                                     </div>
                                     <div className='mt-4 pb-4'>
                                         <div className='px-4'>
-                                            <button className='buy-course-btn'>
+                                            <button className='buy-course-btn' onClick={(e) => handleAddToCart(course)}>
                                                 خرید دوره
                                             </button>
                                         </div>

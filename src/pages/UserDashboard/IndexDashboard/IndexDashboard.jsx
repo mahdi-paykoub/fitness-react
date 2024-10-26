@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useContext } from 'react'
 import Chart from "chart.js/auto";
 import { Col, Row, Container } from 'react-bootstrap'
 import { LuTicket } from "react-icons/lu";
@@ -11,6 +11,9 @@ import { CategoryScale } from "chart.js";
 Chart.register(CategoryScale);
 
 export default function IndexDashboard() {
+
+
+
     const Data = [
         {
             id: 1,
@@ -33,7 +36,7 @@ export default function IndexDashboard() {
                     "#41bfa8",
                     "#ecf0f1",
                 ],
-               
+
             }
         ]
     });
@@ -110,7 +113,7 @@ export default function IndexDashboard() {
                                     برای دریافت برنامه و قرار گرفتن در نوبت دریافت، ابتدا باید پروفایل کاربری و اطلاعات و سایز های خودتان را تکمیل کنیید.
                                 </div>
                             </div>
-                            
+
                         </div>
                     </Col>
                 </Row>

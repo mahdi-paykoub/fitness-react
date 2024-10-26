@@ -25,6 +25,7 @@ export default function PanelSendTicket() {
         formData.append('message', data.message)
         formData.append('title', data.title)
         formData.append('user_id', userId)
+        formData.append('file', data.file[0])
 
 
         fetch(`${baseUrl}admin/ticket`,
@@ -88,8 +89,17 @@ export default function PanelSendTicket() {
                                         {errors.message?.message}
                                     </p>
                                 </div>
-
-                                <div className='text-start mt-2'>
+                                <div className='me-3'>
+                                        <label for="mess_file" class="fflalezar w-100">
+                                            <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
+                                        </label>
+                                        <input type="file" id='mess_file' className='d-none'
+                                            {...register('file', formValidation('فایل', false))} placeholder='hasxasx' />
+                                        <p className='text-danger px-2 fs13'>
+                                            {errors.file?.message}
+                                        </p>
+                                    </div>
+                                <div className='text-start mt-4'>
                                     <button className='send-btn fflalezar px-4'>
                                         ارسال تیکت
                                     </button>

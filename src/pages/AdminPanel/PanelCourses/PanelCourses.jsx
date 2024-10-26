@@ -9,9 +9,12 @@ import DataBox from "../../../components/AdminPanel/DataBox/DataBox";
 import Table from "react-bootstrap/Table";
 import ErrorBox from "../../../components/AdminPanel/ErrorBox/ErrorBox";
 import FormBox from "../../../components/AdminPanel/FormBox/FormBox";
+import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 
 export default function PanelCourses() {
     const [courses, setCourses] = useState([])
+    const [loader, setLoader] = useState(true)
+
     const baseUrl = process.env.REACT_APP_BASE_URL
 
 
@@ -38,7 +41,7 @@ export default function PanelCourses() {
                         response.json()
                     )
                     .then(res => {
-                       
+
                         if (res.status !== false) {
                             swal({
                                 title: "دوره با موفقیت حذف شد",
@@ -68,6 +71,7 @@ export default function PanelCourses() {
             .then(res => res.json())
             .then(res => {
                 setCourses(res.data)
+                setLoader(false)
             })
     }
 
@@ -167,43 +171,46 @@ export default function PanelCourses() {
             </FormBox>
             <div className='mt-5 mb-5 pb-5'>
                 {
-                    courses.length !== 0 ?
-                        <DataBox title='دوره ها'>
-                            <Table className='box-child-table' hover>
-                                <thead>
-                                    <tr>
-                                        <th>تصویر شاخص</th>
-                                        <th>نام دوره</th>
-                                        <th>قیمت</th>
-                                        <th>حذف</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                    loader ?
+                        <SniperLoader />
+                        :
+                        courses.length !== 0 ?
+                            <DataBox title='دوره ها'>
+                                <Table className='box-child-table' hover>
+                                    <thead>
+                                        <tr>
+                                            <th>تصویر شاخص</th>
+                                            <th>نام دوره</th>
+                                            <th>قیمت</th>
+                                            <th>حذف</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    {courses.map((course, index) =>
-                                        <tr key={course.id}>
-                                            <td>
-                                                <img width={180} height={110} className="br10 object-cover br-10 object-fit-cover" src={baseUrl + course.image}
-                                                    alt="" />
-                                            </td>
-                                            <td>{course.title}</td>
-                                            <td>{course.price === 0 ? 'رایگان' : Number(course.price).toLocaleString()}</td>
-                                            <td>
-                                                <button className='btn btn-danger'
-                                                    onClick={() => handleDeleteCourse(course.id)}
-                                                >
-                                                    حذف
-                                                </button>
-                                            </td>
-                                        </tr>)
-                                    }
+                                        {courses.map((course, index) =>
+                                            <tr key={course.id}>
+                                                <td>
+                                                    <img width={180} height={110} className="br10 object-cover br-10 object-fit-cover" src={baseUrl + course.image}
+                                                        alt="" />
+                                                </td>
+                                                <td>{course.title}</td>
+                                                <td>{course.price === 0 ? 'رایگان' : Number(course.price).toLocaleString()}</td>
+                                                <td>
+                                                    <button className='btn btn-danger'
+                                                        onClick={() => handleDeleteCourse(course.id)}
+                                                    >
+                                                        حذف
+                                                    </button>
+                                                </td>
+                                            </tr>)
+                                        }
 
 
-                                </tbody>
-                            </Table>
+                                    </tbody>
+                                </Table>
 
-                        </DataBox>
-                        : <ErrorBox text='دوره ای یافت نشد' />
+                            </DataBox>
+                            : <ErrorBox text='دوره ای یافت نشد' />
                 }
 
             </div>

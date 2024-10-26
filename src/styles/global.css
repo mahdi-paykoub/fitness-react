@@ -2,7 +2,10 @@ body {
     font-family: 'iransans' !important;
     /* height: 5000px;  */
 }
+.ffir {
+    font-family: 'iransans' !important;
 
+}
 .ffv {
     font-family: 'vazir' !important;
 
@@ -185,4 +188,7 @@ input:checked+.slider:before {
 
 .swal-footer {
     text-align: center;
+}
+.box-child-table thead tr th {
+    background: #dff2ff;
 }

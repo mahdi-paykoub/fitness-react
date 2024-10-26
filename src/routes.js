@@ -31,6 +31,9 @@ import FailPay from "./pages/FailPay/FailPay";
 import PanelOrders from "./pages/AdminPanel/PanelOrders/PanelOrders";
 import PanelOrderDatail from "./pages/AdminPanel/PanelOrderDetal/PanelOrderDetal";
 import UserPrograms from "./pages/UserDashboard/UserPrograms/UserPrograms";
+import ProgramDetail from "./pages/UserDashboard/ProgramDetail/ProgramDetail";
+import UserPanelPrivateRoute from "./pages/UserPanelPrivateRoute/UserPanelPrivateRoute";
+import AdminPanelPrivateRoute from "./pages/AdminPanelPrivateRoute/AdminPanelPrivateRoute";
 
 
 const routes = [
@@ -49,37 +52,52 @@ const routes = [
 
     // user panel
     {
-        path: '/dashboard/*', element: <UserDashboard />,
-        children: [
-            { path: '', element: <IndexDashboard /> },
-            { path: 'my-courses', element: <MyCourses /> },
-            { path: 'tickets', element: <Tickets /> },
-            { path: 'send-ticket', element: <SendTicket /> },
-            { path: 'ticket-detail/:id', element: <TicketDetail /> },
-            { path: 'my-programs', element: <UserPrograms /> },
-            { path: 'inqiry', element: <Inquiry /> },
-            { path: 'faqs', element: <Faqs /> },
-            { path: 'user-info', element: <UserInfo /> },
+        path: '/dashboard/*', element: <UserPanelPrivateRoute />, children: [
+            {
+                path: '/dashboard/*', element: <UserDashboard />,
+                children: [
+                    { path: '', element: <IndexDashboard /> },
+                    { path: 'my-courses', element: <MyCourses /> },
+                    { path: 'tickets', element: <Tickets /> },
+                    { path: 'send-ticket', element: <SendTicket /> },
+                    { path: 'ticket-detail/:id', element: <TicketDetail /> },
+                    { path: 'my-programs', element: <UserPrograms /> },
+                    { path: 'program-detail/:id', element: <ProgramDetail /> },
+                    { path: 'inqiry', element: <Inquiry /> },
+                    { path: 'faqs', element: <Faqs /> },
+                    { path: 'user-info', element: <UserInfo /> },
+                ]
+            },
         ]
     },
+
+
+
     //admin panel
     {
-        path: '/admin-panel/*', element: <AdminPanel />,
-        children: [
-            { path: "", element: <PanelIndex /> },
-            { path: "courses", element: <PanelCourses /> },
-            { path: 'session', element: <PanelSession /> },
-            { path: 'orders', element: <PanelOrders /> },
-            { path: 'order-detail/:id', element: <PanelOrderDatail /> },
-            { path: 'plans', element: <PanelPlans /> },
-            { path: 'tickets', element: <PanelTicket /> },
-            { path: 'ticketable-users', element: <PanelSendTicketIndex /> },
-            { path: 'send-ticket/:id', element: <PanelSendTicket /> },
-            { path: 'ticket-detail/:id/:user_id', element: <PanelTicketDetail /> },
+        path: '/admin-panel/*', element: <AdminPanelPrivateRoute />, children: [
+            {
+                path: '/admin-panel/*', element: <AdminPanel />,
+                children: [
+                    { path: "", element: <PanelIndex /> },
+                    { path: "courses", element: <PanelCourses /> },
+                    { path: 'session', element: <PanelSession /> },
+                    { path: 'orders', element: <PanelOrders /> },
+                    { path: 'order-detail/:id', element: <PanelOrderDatail /> },
+                    { path: 'plans', element: <PanelPlans /> },
+                    { path: 'tickets', element: <PanelTicket /> },
+                    { path: 'ticketable-users', element: <PanelSendTicketIndex /> },
+                    { path: 'send-ticket/:id', element: <PanelSendTicket /> },
+                    { path: 'ticket-detail/:id/:user_id', element: <PanelTicketDetail /> },
 
-
+                ]
+            },
         ]
     },
+
+
+
+
 ]
 
 export default routes

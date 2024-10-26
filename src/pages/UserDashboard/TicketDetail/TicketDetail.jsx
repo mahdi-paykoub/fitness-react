@@ -2,27 +2,33 @@ import { React, useState, useEffect, Children } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { LuFileCheck2 } from "react-icons/lu";
 import { LuFileSpreadsheet } from "react-icons/lu";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import MyModal from '../../../components/MyModal/MyModal';
 import { SiAnswer } from "react-icons/si";
 import swal from "sweetalert";
 import { formValidation } from "../../../utils/Validations";
 import { useForm } from "react-hook-form";
+import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import { compareAsc, format, newDate } from "date-fns-jalali";
 
 export default function TicketDetail() {
     const [chats, setChats] = useState([])
+    const [loader, setLoader] = useState(true)
     const [modalShow, setModalShow] = useState(false);
-
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
     const baseUrl = process.env.REACT_APP_BASE_URL
     const ticketId = useParams().id
-    
+
     const getChats = () => {
-        fetch(`${baseUrl}get-ticket-chats/${ticketId}`)
+        fetch(`${baseUrl}get-ticket-chats/${ticketId}`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+        })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-                
                 setChats(res.data)
+                setLoader(false)
             })
     }
 
@@ -30,7 +36,7 @@ export default function TicketDetail() {
     useEffect(() => {
         getChats()
     }, [])
-    
+
 
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
@@ -39,17 +45,21 @@ export default function TicketDetail() {
         let formData = new FormData()
         formData.append('message', data.message)
         formData.append('ticket_id', ticketId)
+        formData.append('file', data.file[0])
 
 
         fetch(`${baseUrl}answer-ticket`,
             {
                 method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
                 body: formData
             })
             .then(res => res.json())
             .then(response => {
                 console.log(response);
-                
+
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -75,58 +85,71 @@ export default function TicketDetail() {
 
     return (
         <>
-          
+
             {
-                chats.length !== 0 &&
-                <Row className='mt-3'>
-                    <Col>
-                        <div className='bg-white br-10 p-4'>
-                            <div className='d-flex justify-content-between align-items-center border-bottom pb-3'>
+                loader ?
+                    <SniperLoader newstyle='mt-5' />
+                    :
+                    chats.length !== 0 &&
+                    <Row className='mt-3'>
+                        <Col>
+                            <div className='bg-white br-10 p-4'>
+                                <div className='d-flex justify-content-between align-items-center border-bottom pb-3'>
 
-                                <div className='fs20 fflalezar c-text-secondary me-2 lh-1-8'>
-                                    عنوان تیکت مورد نظر
+                                    <div className='fs20 fflalezar c-text-secondary me-2 lh-1-8'>
+                                        عنوان تیکت مورد نظر
 
+                                    </div>
+
+                                    <div>
+                                        <button className='send-btn fflalezar px-4' variant="primary" onClick={() => setModalShow(true)}>پاسخ به تیکت</button>
+                                    </div>
                                 </div>
+                                {/* reapeat */}
 
-                                <div>
-                                    <button className='send-btn fflalezar px-4' variant="primary" onClick={() => setModalShow(true)}>پاسخ به تیکت</button>
-                                </div>
+                                {
+                                    chats.map((chat) =>
+                                        <Row className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
+                                            <Col lg='7'>
+                                                <div className='w-100 p-3 lh2 fs14 chat-box'>
+                                                    <div className='texts-side px-1'>
+                                                        <div className='fs18 '>
+                                                            نام کاربری
+                                                        </div>
+                                                        <div className='mt-1 mb-1 text-secondary fs13'>
+                                                          
+                                                            {format(new Date(chat.created_at), "yyyy-MM-dd")}
+                                                        </div>
+                                                    </div>
+                                                    <div className='border-bottom pb-3'>
+                                                        {chat.message}
+                                                    </div>
+                                                    {
+                                                        chat.file != null ?
+                                                            <a className='c-text-secondary' href={`${baseUrl}${chat.file}`} download="proposed_file_name">
+                                                                <div className='mt-2 text-side' >
+                                                                    <LuFileSpreadsheet fontSize={20} />
+                                                                    <span className='fs13 me-1'>دانلود پیوست</span>
+                                                                </div>
+                                                            </a>
+                                                            :
+                                                            <div className='mt-2 text-side fs13'>فاقد فایل پیوست</div>
+                                                    }
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    )
+                                }
+
+
+
+
                             </div>
-                            {/* reapeat */}
-
-                            {
-                                chats.map((chat) =>
-                                    <Row className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
-                                        <Col lg='7'>
-                                            <div className='w-100 p-3 lh2 fs14 chat-box'>
-                                                <div className='texts-side px-1'>
-                                                    <div className='fs18 '>
-                                                        نام کاربری
-                                                    </div>
-                                                    <div className='mt-1 mb-1 text-secondary fs13'>
-                                                        13:30
-                                                        1402-1-2
-                                                    </div>
-                                                </div>
-                                                <div className='border-bottom pb-3'>
-                                                    {chat.message}
-                                                </div>
-                                                <div className='mt-2 text-side'>
-                                                    <LuFileSpreadsheet fontSize={20} />
-                                                    <span className='fs13 me-1'>دانلود پیوست</span>
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                )
-                            }
-
-
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
 
             }
+
 
             <MyModal
                 show={modalShow}
@@ -147,7 +170,17 @@ export default function TicketDetail() {
                                 {errors.message?.message}
                             </p>
                         </div>
-                        <div className='text-start mt-2'>
+                        <div className='mt-2'>
+                            <label for="mess_file" class="fflalezar w-100">
+                                <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
+                            </label>
+                            <input type="file" id='mess_file' className='d-none'
+                                {...register('file', formValidation('فایل', false))} placeholder='hasxasx' />
+                            <p className='text-danger px-2 fs13'>
+                                {errors.file?.message}
+                            </p>
+                        </div>
+                        <div className='text-start mt-3'>
                             <button className='fflalezar send-btn px-4'>ارسال </button>
                         </div>
                     </form>
