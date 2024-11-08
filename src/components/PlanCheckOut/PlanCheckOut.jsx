@@ -21,7 +21,7 @@ export default function PlanCheckOut() {
 
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
-
+  
     const navigate = useNavigate();
 
     const form = useForm();

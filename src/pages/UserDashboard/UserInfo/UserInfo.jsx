@@ -15,7 +15,10 @@ import UserQuestion from '../../../components/UserPanel/UserQuestion';
 
 export default function UserInfo() {
     const [tab, setTab] = useState('size')
-    const [personalInfo, setPersonalInfo] = useState('size')
+    const [personalInfo, setPersonalInfo] = useState(null)
+    const [defaultSize, setDefaulSize] = useState([])
+    const [defaultQuestion, setDefaultQuestion] = useState([])
+    const [defaultImage, setDefaultImage] = useState([])
     const [knowStatus, setKnowStatus] = useState('')
     const authContext = useContext(AuthContext)
     const baseUrl = process.env.REACT_APP_BASE_URL
@@ -46,8 +49,6 @@ export default function UserInfo() {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
-
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -76,9 +77,18 @@ export default function UserInfo() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
                 setPersonalInfo(res.data)
+            })
+        fetch(`${baseUrl}get-default-infos`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            }
+        })
+            .then(res => res.json())
+            .then(res => {                
+                setDefaulSize(res.size)
+                setDefaultQuestion(res.question)
+                setDefaultImage(res.image)
             })
     }
 
@@ -326,29 +336,7 @@ export default function UserInfo() {
                                         </form>
                                 }
 
-
-
-
-
                             </div>
-                            {/* <div className='mt-3 px-3'>
-                                <div className='fflalezar c-text-secondary'>
-                                    نام
-                                </div>
-                                <div>
-                                    <input type="text" className='px-1 mt-1 c-input w-100' value={authContext.userInfo.data.name} />
-                                </div>
-                            </div>
-
-                            <div className='mt-3 px-3'>
-                                <div className='fflalezar c-text-secondary'>
-                                    شماره تلفن
-                                </div>
-                                <div>
-                                    <input type="text" className='px-1 mt-1 c-input w-100 disabled' defaultValue='09309519365' disabled={true} />
-                                </div>
-                            </div>
-                             */}
                         </div>
 
                     </Col>
@@ -373,22 +361,20 @@ export default function UserInfo() {
                         {/* size */}
                         {
                             tab === 'size' &&
-                            <UserSize />
+                            <UserSize defaultUserSize={defaultSize}/>
                         }
 
                         {/* images */}
                         {
                             tab === 'image' &&
-                            <UserImage />
+                            <UserImage defaultUserImage={defaultImage}/>
                         }
 
                         {/* questions */}
                         {
                             tab === 'question' &&
-                            <UserQuestion />
+                            <UserQuestion defaultUserQuestions={defaultQuestion}/>
                         }
-
-
                     </Col>
                 </Row>
             }

@@ -20,10 +20,7 @@ export default function SendTicket() {
     const [programs, setPrograms] = useState([])
     const [sizes, setSizes] = useState([])
     const [question, setQuestion] = useState([])
-
-
     const orderId = useParams().id
-
 
 
 
@@ -390,7 +387,7 @@ export default function SendTicket() {
                                     images !== null ?
                                         <>
                                             <Row>
-                                                <Col lg='3'>
+                                                <Col md='3' className='text-center text-md-end'>
                                                     <div>
                                                         <button className='send-btn px-3 fflalezar mt-3'
                                                             onClick={() => setGetCurrentImg(images.front)}
@@ -407,7 +404,7 @@ export default function SendTicket() {
                                                         >تصویر پهــلو بدن</button>
                                                     </div>
                                                 </Col>
-                                                <Col lg='9' className='text-center'>
+                                                <Col md='9' className='text-center mt-4 mt-md-0'>
                                                     <img style={{'maxHeight' : '400px'}} className='mw-100 br-10' src={`${baseUrl}${getCurrentImg}`} alt="" />
                                                 </Col>
                                             </Row>

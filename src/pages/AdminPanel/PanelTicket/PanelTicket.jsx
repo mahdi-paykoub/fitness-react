@@ -9,15 +9,20 @@ import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 import { compareAsc, format, newDate } from "date-fns-jalali";
 
 export default function PanelTicket() {
+
     const [tickets, setTickets] = useState([])
     const [shownTickets, setShownTickets] = useState([])
     const [loader, setLoader] = useState(true)
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
 
     const baseUrl = process.env.REACT_APP_BASE_URL
     let statusColor = ''
     let statusText = ''
     const getTickets = () => {
         fetch(`${baseUrl}admin/ticket`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
         })
             .then(res => res.json())
             .then(res => {

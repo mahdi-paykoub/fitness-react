@@ -15,6 +15,9 @@ export default function Tickets() {
     const [loader, setLoader] = useState(true)
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
+  
+
+
     let statusColor = '';
     let statusText = '';
 
@@ -40,7 +43,7 @@ export default function Tickets() {
         <>
 
             <Row className='mt-3'>
-                <Col lg={9}>
+                <Col xl={9}>
 
                     <div className='ticket-box-status d-flex position-relative py-3'>
                         <img src="/images/1-C-Qe7Wvt.png" alt="" />
@@ -55,7 +58,7 @@ export default function Tickets() {
                         </div>
                     </div>
                 </Col>
-                <Col lg={3}>
+                <Col xl={3} className='mt-xl-0 mt-3'>
                     <div className='left-ticket-box p-3 h-100'>
                         <div className='d-flex justify-content-between'>
                             <div className=''>
@@ -92,7 +95,7 @@ export default function Tickets() {
 
             </Row>
 
-            <Row className='mt-4'>
+            <Row className='mt-4 mb-5'>
                 <Col>
                     <div className='all-tickets-box bg-white p-4'>
                         <div className='fflalezar fs20 c-text-secondary'>تیکت ها</div>
@@ -101,7 +104,7 @@ export default function Tickets() {
                                 <SniperLoader />
                                 :
                                 tickets.length !== 0 ?
-                                    <table class="table fflalezar mt-4">
+                                    <table class="table box-child-table fflalezar mt-4">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>

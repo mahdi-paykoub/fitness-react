@@ -1,0 +1,46 @@
+.pagination-box ul li {
+    display: inline;
+}
+
+.pagination-box ul li a {
+    padding: 8px 15px;
+    border: 1px solid #dbdbdb;
+    color: #17203f;
+    font-size: 14px;
+    transition: all .5s ease;
+}
+
+.pagination-box ul li:not(:last-child) a {
+    border-left-color: transparent;
+}
+
+.pagination-box ul li:first-child a {
+    border-radius: 0 4px 4px 0;
+
+}
+
+.pagination-box ul li:last-child a {
+    border-radius: 4px 0 0 4px;
+}
+
+.pagination-box ul li a:hover:not(.active-page-number) {
+    border-color: var(--purple-text-color2);
+    color: var(--purple-text-color2);
+}
+
+.active-page-number {
+    background: #eeeeee;
+}
+
+.select-one-page {
+    border: 1px solid #c5c5c5;
+    padding: 6px 11px;
+    border-radius: 5px;
+    color: #8a8a8a;
+    font-size: 14px;
+    transition: all .5s ease;
+}
+.select-one-page:focus {
+   outline: none;
+   border: 1px solid rgb(121, 121, 121);
+}

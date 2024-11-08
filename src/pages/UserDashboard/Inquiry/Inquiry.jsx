@@ -46,6 +46,9 @@ export default function Inquiry() {
         fetch(`${baseUrl}get-order-turn`,
             {
                 method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
                 body: formData
             })
             .then(res => res.json())
@@ -101,7 +104,7 @@ export default function Inquiry() {
                             </div>
                         </div>
 
-                        <div><img src="/images/welcome-banner.png" width={200} alt="" /></div>
+                        <div className='d-none d-lg-block'><img src="/images/welcome-banner.png" width={200} alt="" /></div>
                     </div>
                 </Col>
             </Row>

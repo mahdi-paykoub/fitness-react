@@ -4,33 +4,31 @@ import { AuthContext } from "../../Context/AuthContext";
 import { Col, Container, Row } from 'react-bootstrap';
 import { ShimmerContentBlock, ShimmerDiv, ShimmerSectionHeader, ShimmerText } from 'shimmer-effects-react';
 
-export default function UserPanelPrivateRoute() {
+export default function CheckoutPrivateRoute() {
     const authContext = useContext(AuthContext)
-    const navigate = useNavigate();
+    const navigateLOgin = useNavigate();
 
     return (
         <>
             {
                 authContext.isLoggedIn === null ?
-                    <Container fluid className='pt-4 px-5'>
+                    <Container fluid className='pt-4 px-5 mt-5'>
                         <Row>
-                            <Col lg={2}>
-                                <ShimmerDiv rounded={1} mode="light" height='93vh' width='100%' />
+                            <Col lg={9}>
+                                <ShimmerDiv rounded={1} mode="light" height='200px' width='100%' />
                             </Col>
-                            <Col lg={10} className='mt-1'>
-                                <ShimmerDiv rounded={1} mode="light" height={100} width='100%' />
-                                <ShimmerText className='mt-4' mode="light" line={10} gap={15} />
-                                <ShimmerText className='mt-4' mode="light" line={10} gap={15} />
-
+                            <Col lg={3} className='mt-1'>
+                                <ShimmerDiv rounded={1} mode="light" height='50vh' width='100%' />
                             </Col>
                         </Row>
                     </Container>
 
                     :
-                    (authContext.isLoggedIn === true && JSON.parse(authContext.userInfo.data.status.length) > 0) ?
+                    authContext.isLoggedIn === true ?
                         <>
                             <Outlet />
                         </>
+
                         :
                         <>
                             <Container>
@@ -38,13 +36,13 @@ export default function UserPanelPrivateRoute() {
                                     <Col lg='3' className='text-center'>
                                         <div className='fflalezar fs20 c-text-secondary'>
                                             <img src="/images/3. Web Check.png" className='w-100' alt="" />
-                                            شما اجازه دسترسی به این صفحه را ندارید
+                                            برای خرید  برنامه ابتدا باید در سایت ثبت نام کنید در صورتی که قبلا ثبت نام کرده اید وارد شوید.
                                         </div>
                                         <div className='mt-4 d-flex justify-content-center'>
-                                            <Link to='/' className='fflalezar send-btn px-4 py-2 '>
-                                                خانه
+                                            <Link to='/login' className='fflalezar send-btn px-4 py-2 '>
+                                                ورود
                                             </Link>
-                                            <Link to='/register' className='fflalezar send-btn px-4 py-2 me-4'>
+                                            <Link to='/register' className='fflalezar send-btn px-4 py-2 me-2'>
                                                 ثبت نام
                                             </Link>
                                         </div>
@@ -53,6 +51,11 @@ export default function UserPanelPrivateRoute() {
                             </Container>
                         </>
             }
+
+
+
+
+
         </>
 
 

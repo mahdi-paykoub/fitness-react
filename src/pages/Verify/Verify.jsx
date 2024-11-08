@@ -1,4 +1,4 @@
-import {React,useContext} from 'react'
+import { React, useContext, useState } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { TbEditCircle } from "react-icons/tb";
@@ -8,9 +8,12 @@ import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../Context/AuthContext";
+import BtnSpiner from '../../components/BtnSpiner/BtnSpiner';
 
 
 export default function Verify() {
+    const [btnLoader, setBtnLoader] = useState(false)
+
     const baseUrl = process.env.REACT_APP_BASE_URL
     const phoneNumber = JSON.parse(localStorage.getItem('phone'))
     const navigate = useNavigate();
@@ -24,6 +27,7 @@ export default function Verify() {
         let formData = new FormData()
         formData.append('code', data.code)
         formData.append('phone', phoneNumber)
+        setBtnLoader(true)
 
 
         fetch(`${baseUrl}verify-phone-number`,
@@ -41,6 +45,7 @@ export default function Verify() {
                         buttons: 'باشه'
                     }).then(response => {
                         reset();
+                        setBtnLoader(false)
                         navigate('/');
                     })
                 } else {
@@ -56,8 +61,8 @@ export default function Verify() {
     return (
         <>
             <Container fluid>
-                <Row>
-                    <Col lg={5} className='p-2 h-100vh'>
+                <Row className='justify-content-center'>
+                    <Col xl={5} className='p-2 h-100vh d-none d-xl-block'>
                         <div className='letf-login-side h-100'>
                             <div className=''>
                                 <img src="images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
@@ -70,7 +75,7 @@ export default function Verify() {
                             </div>
                         </div>
                     </Col>
-                    <Col lg={7} className='h-100vh'>
+                    <Col xs={10} xl={7} className='h-100vh'>
                         <Row className='justify-content-center h-100 align-items-center'>
                             <Col lg={6}>
                                 <div className='fw-bold text-center fs30'>
@@ -92,7 +97,15 @@ export default function Verify() {
                                         </p>
                                     </div>
                                     <div className='text-center'>
-                                        <button class="login-btn mt-4 fs15 w-100 text-white mt-4">تایید و ادامه</button>
+
+                                        {
+                                            btnLoader === false ?
+                                                <button class="login-btn mt-1 fs15 w-100 text-white">تایید و ادامه</button>
+                                                :
+                                                <button type='button' className='login-btn mt-1 w-100 text-white'>
+                                                    <BtnSpiner wid='30px' he='30px' />
+                                                </button>
+                                        }
                                     </div>
                                 </form>
                             </Col>

@@ -34,21 +34,43 @@ import UserPrograms from "./pages/UserDashboard/UserPrograms/UserPrograms";
 import ProgramDetail from "./pages/UserDashboard/ProgramDetail/ProgramDetail";
 import UserPanelPrivateRoute from "./pages/UserPanelPrivateRoute/UserPanelPrivateRoute";
 import AdminPanelPrivateRoute from "./pages/AdminPanelPrivateRoute/AdminPanelPrivateRoute";
+import Page404 from "./pages/Page404/Page404";
+import CheckoutPrivateRoute from "./pages/CheckoutPrivateRoute/CheckoutPrivateRoute";
+import LoginPrivateRoute from "./pages/LoginPrivateRoute/LoginPrivateRoute";
+import AllPeys from "./pages/AdminPanel/AllPeys/AllPeys";
+import Setting from "./pages/AdminPanel/Setting/Setting";
 
 
 const routes = [
     { path: '/', element: <Landing /> },
-    { path: '/login', element: <Login /> },
-    { path: '/register', element: <Register /> },
-    { path: '/verify-phone-number', element: <Verify /> },
     { path: '/plans', element: <Plans /> },
     { path: '/plans/:title', element: <SinglePlan /> },
     { path: '/courses', element: <Courses /> },
     { path: '/courses/:title', element: <SingleCourse /> },
     { path: '/courses/:title/:sectionId', element: <Section /> },
-    { path: '/checkout', element: <Checkout /> },
     { path: '/payment/success', element: <SuccessPay /> },
     { path: '/payment/fail', element: <FailPay /> },
+    //checkout
+    {
+        path: '/checkout', element: <CheckoutPrivateRoute />, children: [
+            { path: '/checkout', element: <Checkout /> },
+        ]
+    },
+
+    {
+        path: '/login', element: <LoginPrivateRoute />, children: [
+        ]
+    },
+    {
+        path: '/verify-phone-number', element: <LoginPrivateRoute />, children: [
+            { path: '/verify-phone-number', element: <Verify /> },
+        ]
+    },
+    {
+        path: '/register', element: <LoginPrivateRoute />, children: [
+            { path: '/register', element: <Register /> },
+        ]
+    },
 
     // user panel
     {
@@ -71,8 +93,6 @@ const routes = [
         ]
     },
 
-
-
     //admin panel
     {
         path: '/admin-panel/*', element: <AdminPanelPrivateRoute />, children: [
@@ -83,20 +103,20 @@ const routes = [
                     { path: "courses", element: <PanelCourses /> },
                     { path: 'session', element: <PanelSession /> },
                     { path: 'orders', element: <PanelOrders /> },
-                    { path: 'order-detail/:id', element: <PanelOrderDatail /> },
+                    { path: 'order-detail/:id/:userId', element: <PanelOrderDatail /> },
                     { path: 'plans', element: <PanelPlans /> },
                     { path: 'tickets', element: <PanelTicket /> },
                     { path: 'ticketable-users', element: <PanelSendTicketIndex /> },
                     { path: 'send-ticket/:id', element: <PanelSendTicket /> },
-                    { path: 'ticket-detail/:id/:user_id', element: <PanelTicketDetail /> },
-
+                    { path: 'ticket-detail/:id/:userId', element: <PanelTicketDetail /> },
+                    { path: 'payments/:page', element: <AllPeys /> },
+                    { path: 'setting', element: <Setting /> },
                 ]
             },
         ]
     },
 
-
-
+    { path: '*', element: <Page404 /> },
 
 ]
 

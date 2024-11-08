@@ -24,12 +24,13 @@ export default function Landing() {
                             <circle className='color-1' cx="15" cy="4" r="4" fill="currentColor" fillOpacity="0.7"></circle>
                         </svg>
                         <div className='header-text mt-4 text-center text-lg-end'>
-                            آکادمی ورزشی
+                            با کمک <span className='color-1'>مربی همراه </span> بهترین خودت باش!
+                            {/* آکادمی ورزشی
                             <br />
-                            مدال آوران <span className='color-1'>مربی همراه</span>
+                            مدال آوران <span className='color-1'>مربی همراه</span> */}
                         </div>
                         <p className='mt-3 header-subtext text-center text-lg-end'>
-                            با مربی های مجرب مربی همراه، علم  بدنسازی رو با خیال راحت یاد بگیر و پیشرفت کن
+                            مربی همراه در کنار شما تا رسیدن به یک تناسب اندام ایده آل خواهد بود.
                         </p>
                         <div className='mt-4 pt-4 d-flex justify-content-center justify-content-lg-start'>
                             <Link to="/plans" className='first-program-btn text-white'>
@@ -96,7 +97,7 @@ export default function Landing() {
                         <div className='ball ball-2'></div>
                     </Col>
                     <Col xs={{ order: 'first' }} xl={{ order: 'last' }} className='position-relative text-center mb-5 mb-lg-0'>
-                        <img className='w-100' src="images/banner/Sport Illustration Kit-02.png" alt="" />
+                        <img className='w-100' src="/images/banner/Sport Illustration Kit-02.png" alt="" />
                         {/* floats */}
                         <div className='position-absolute dumbbell-float-box align-items-center d-none justify-content-center d-lg-flex up-down-animation'>
                             <FaDumbbell className='text-white' />
@@ -104,9 +105,9 @@ export default function Landing() {
                         <div className='position-absolute fit-float-box align-items-center justify-content-center d-none d-lg-flex right-left-animation'>
                             <SiGoogledisplayandvideo360 className='text-white' />
                         </div>
-                        <div className='glass-box position-absolute d-flex align-items-center d-flex'>
+                        <div className='glass-box position-absolute d-lg-flex align-items-center d-flex d-none'>
                             <img src="/images/shape-2.svg" width={45} height={45} alt="" />
-                            <div className='fs13 me-1'>تربیت دانشجویان کشوری</div>
+                            <div className='fs13 me-1'>به جمع قهرمانان  بپیوندید</div>
                         </div>
                     </Col>
                 </Row>

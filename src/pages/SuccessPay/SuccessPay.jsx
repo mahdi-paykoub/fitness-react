@@ -11,7 +11,7 @@ export default function SuccessPay() {
         <>
             <Container>
                 <Row className='justify-content-center mt-5 pb-5'>
-                    <Col lg='4' className='text-center '>
+                    <Col xs='10' md='6' lg='4' className='text-center '>
                         <img src="/images/logo-morabihamrah-dark.png" width={150} alt="" />
                         <div className='bg-white p-5 mt-4' style={{ 'borderRadius': '20px' }}>
                             <img src="/images/2. Love.png" width={140} alt="" />

@@ -24,10 +24,10 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <NavLink
-                              to='/admin-panel/plans'
-                              className={({ isActive, isPending }) =>
-                                  isPending ? "" : isActive ? "active-menu" : ""
-                              }
+                                to='/admin-panel/plans'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
                             >
                                 برنامه ورزشی
                             </NavLink>
@@ -49,7 +49,7 @@ export default function Sidebar() {
                                     isPending ? "" : isActive ? "active-menu" : ""
                                 }
                             >
-                                افزودن جلسه ویدیویی 
+                                افزودن جلسه ویدیویی
                             </NavLink>
 
                         </li>
@@ -66,17 +66,6 @@ export default function Sidebar() {
 
                         <li>
                             <NavLink
-                                to='/admin-panel/users'
-                                className={({ isActive, isPending }) =>
-                                    isPending ? "" : isActive ? "active-menu" : ""
-                                }
-                            >
-                                کاربران
-                            </NavLink>
-                        </li>
-
-                        <li>
-                            <NavLink
                                 to=''
 
                             >
@@ -85,22 +74,22 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <NavLink
-                               to='/admin-panel/tickets'
-                               className={({ isActive, isPending }) =>
-                                   isPending ? "" : isActive ? "active-menu" : ""
-                               }
+                                to='/admin-panel/tickets'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
                             >
                                 تیکت های کاربران
                             </NavLink>
                         </li>
                         <li>
                             <NavLink
-                               to='/admin-panel/ticketable-users'
-                               className={({ isActive, isPending }) =>
-                                   isPending ? "" : isActive ? "active-menu" : ""
-                               }
+                                to='/admin-panel/ticketable-users'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
                             >
-                                ارسال تیکت  
+                                ارسال تیکت
                             </NavLink>
                         </li>
                         <li>
@@ -113,7 +102,26 @@ export default function Sidebar() {
                                 کدهای تخفیف
                             </NavLink>
                         </li>
-
+                        <li>
+                            <NavLink
+                                to='/admin-panel/payments/1'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
+                            >
+                                پرداخت ها 
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to='/admin-panel/setting'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
+                            >
+                                 تنظیمات 
+                            </NavLink>
+                        </li>
                         <li>
                             <Link to='exit'>
                                 خروج

@@ -2,10 +2,12 @@ body {
     font-family: 'iransans' !important;
     /* height: 5000px;  */
 }
+
 .ffir {
     font-family: 'iransans' !important;
 
 }
+
 .ffv {
     font-family: 'vazir' !important;
 
@@ -43,6 +45,7 @@ body {
 .fs12 {
     font-size: 12px !important;
 }
+
 .fs17 {
     font-size: 17px !important;
 }
@@ -189,6 +192,77 @@ input:checked+.slider:before {
 .swal-footer {
     text-align: center;
 }
+
 .box-child-table thead tr th {
     background: #dff2ff;
+}
+.ofcans-rigth-menu{
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
+
+
+@media only screen and (max-width: 767px) {
+    .header-text {
+        font-size: 1.9rem;
+    }
+
+    .header-subtext {
+        font-size: 1rem;
+    }
+    .text-50{
+        font-size: 30px !important;
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+    .header-text {
+        font-size: 2.625rem;
+    }
+
+    .header-subtext {
+        font-size: 1.4rem;
+    }
+    .text-50{
+        font-size: 50px !important;
+    }
+}
+
+
+
+
+@media only screen and (max-width: 576px) {
+    .container {
+        max-width: 570px !important;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .container {
+        max-width: 760px !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .container {
+        max-width: 985px !important;
+    }
+}
+
+
+@media only screen and (min-width: 992px) {
+    .container {
+        max-width: 1150px !important;
+    }
+    .col-9-5 {
+        width: 80% !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .container {
+        max-width: 1300px !important;
+    }
 }

@@ -1,13 +1,16 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaGoogle } from "react-icons/fa";
 import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import BtnSpiner from '../../components/BtnSpiner/BtnSpiner';
 
 
 export default function Register() {
+    const [btnLoader, setBtnLoader] = useState(false)
+
     const baseUrl = process.env.REACT_APP_BASE_URL
     const navigate = useNavigate();
 
@@ -21,7 +24,7 @@ export default function Register() {
         formData.append('name', data.name)
         formData.append('phone', data.phone)
 
-
+        setBtnLoader(true)
         fetch(`${baseUrl}register`,
             {
                 method: 'POST',
@@ -31,7 +34,7 @@ export default function Register() {
             .then(response => {
                 if (response.status !== false) {
                     localStorage.setItem('phone', JSON.stringify(response.phone))
-
+                    setBtnLoader(false)
                     reset();
                     navigate('/verify-phone-number');
 
@@ -48,8 +51,8 @@ export default function Register() {
     return (
         <>
             <Container fluid>
-                <Row>
-                    <Col  xl={5} className='p-2 h-100vh'>
+                <Row className='justify-content-center'>
+                    <Col xl={5} className='p-2 h-100vh d-none d-xl-block'>
                         <div className='letf-login-side h-100'>
                             <div className=''>
                                 <img src="images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
@@ -59,16 +62,19 @@ export default function Register() {
                                 <div className='mt-1 text-center text-secondary fs15 px-4 lh2'>
                                     با ثبت نام امکان خرید برنامه های تمرینی و دوره های ویدیویی برای شما فراهم میشود
                                     ابتدا شماره موبایل خود را وارد نمایید و در صفحه بعد آن را تایید کنید.
+
                                 </div>
+
                             </div>
                         </div>
                     </Col>
-                    <Col  xl={7} className='mt-5 mb-lg-0 mb-4 mt-lg-0'>
+                    <Col xs={10} xl={7} className='h-100vh'>
                         <Row className='justify-content-center h-100 align-items-center'>
                             <Col lg={6}>
                                 <div className='fw-bold text-center fs30'>
                                     به سایت <span className='color-1'>مربی همراه </span> خوش آمدید
                                 </div>
+
                                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
 
@@ -86,8 +92,21 @@ export default function Register() {
                                     <p className='mt-2 text-danger px-2 fs13'>
                                         {errors.phone?.message}
                                     </p>
-                                    <button className='login-btn mt-1 w-100 text-white'>ثبت نام</button>
+
+                                    {
+                                        btnLoader === false ?
+                                            <button className='login-btn mt-1 w-100 text-white'>ثبت نام</button>
+                                            :
+                                            <button type='button' className='login-btn mt-1 w-100 text-white'>
+                                                <BtnSpiner wid='30px' he='30px' />
+                                            </button>
+                                    }
+
                                 </form>
+                                
+                                <div className='fs14 mt-4 pt-2 text-center'>
+                                    در صورتی که قبلا ثبت نام کرده اید <Link className='color-1' to='/login'>وارد</Link> شوید
+                                </div>
                             </Col>
                         </Row>
                         <div className='ball ball-1'></div>

@@ -44,7 +44,7 @@ export default function MyCourses() {
                         <Row>
                             {
                                 courses.map((course) =>
-                                    <Col lg={4}>
+                                    <Col md={6} xl={4}>
                                         <Card className='buyed-course-box-card border-0 mt-4'>
                                             <div className='position-relative img-overly-course-p'>
                                                 <Card.Img variant="top" src={`${baseUrl}${course.orderable.image}`} />

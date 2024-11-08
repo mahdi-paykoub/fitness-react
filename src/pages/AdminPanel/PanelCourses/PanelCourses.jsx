@@ -10,11 +10,16 @@ import Table from "react-bootstrap/Table";
 import ErrorBox from "../../../components/AdminPanel/ErrorBox/ErrorBox";
 import FormBox from "../../../components/AdminPanel/FormBox/FormBox";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import axios from "axios";
 
 export default function PanelCourses() {
     const [courses, setCourses] = useState([])
     const [loader, setLoader] = useState(true)
-
+    const [editorPlanBody, setEditorPlanBody] = useState('')
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
+   
     const baseUrl = process.env.REACT_APP_BASE_URL
 
 
@@ -32,10 +37,9 @@ export default function PanelCourses() {
             if (response) {
                 fetch(`${baseUrl}admin/course/${id}`, {
                     method: 'DELETE',
-                    // headers: {
-                    //     'Content-Type': 'application/json',
-                    //     'Authorization': `Bearer ${userTokenLS.token}`
-                    // }
+                    headers: {
+                        Authorization: `Bearer ${userTokenLS.token}`
+                    },
                 })
                     .then(response =>
                         response.json()
@@ -67,7 +71,11 @@ export default function PanelCourses() {
     }
 
     const getCourses = () => {
-        fetch(`${baseUrl}admin/course`)
+        fetch(`${baseUrl}admin/course`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+        })
             .then(res => res.json())
             .then(res => {
                 setCourses(res.data)
@@ -86,12 +94,15 @@ export default function PanelCourses() {
         formData.append('slug', data.slug)
         formData.append('image', data.image[0])
         formData.append('price', data.price)
-        formData.append('body', data.body)
+        formData.append('body', editorPlanBody)
 
 
         fetch(`${baseUrl}admin/course`,
             {
                 method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
                 body: formData
             })
             .then(res => res.json())
@@ -114,6 +125,43 @@ export default function PanelCourses() {
                 }
 
             })
+    }
+
+    function uploadAdapter(loader) {
+        return {
+            upload: () => {
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        const file = await loader.file;
+                        const response = await axios.request({
+                            method: "POST",
+                            url: `${baseUrl}admin/upload-ck-image`,
+                            data: {
+                                files: file
+                            },
+                            headers: {
+                                "Content-Type": "multipart/form-data"
+                            }
+                        });
+
+
+                        resolve(
+                            {
+                                default: `${baseUrl}${response.data.url}`
+                            }
+                        );
+                    } catch (error) {
+                        reject("Hello");
+                    }
+                });
+            },
+            abort: () => { }
+        };
+    }
+    function uploadPlugin(editor) {
+        editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+            return uploadAdapter(loader);
+        };
     }
     return (
         <>
@@ -152,17 +200,24 @@ export default function PanelCourses() {
                                 {errors.image?.message}
                             </p>
                         </Col>
-                        <Col lg={12} className='mt-3'>
-                            <textarea name="" id="" cols="30" rows="10" className='form-control' placeholder='توضیحات دوره'
-                                {...register('description', formValidation('توضیحات دوره'))}
-                            ></textarea>
-                            <p className='mt-3 text-danger px-2'>
-                                {errors.description?.message}
-                            </p>
-                        </Col>
+                        <Col lg={12} className='mt-3 ffir'>
 
+                            <CKEditor
+                                config={{
+                                    // @ts-ignore
+                                    extraPlugins: [uploadPlugin]
+                                }}
+                                editor={ClassicEditor}
+                                data={editorPlanBody}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setEditorPlanBody(data)
+                                }}
+                            />
+
+                        </Col>
                         <div className='mt-2'>
-                            <button className='btn btn-primary'>
+                            <button className='btn btn-primary mt-4'>
                                 ثبت دوره
                             </button>
                         </div>

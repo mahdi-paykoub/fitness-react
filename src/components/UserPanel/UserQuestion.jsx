@@ -1,4 +1,4 @@
-import { React, useState, useContext } from 'react'
+import { React, useState, useEffect } from 'react'
 import { Col, Form, Row } from 'react-bootstrap';
 import { BiBaguette } from "react-icons/bi";
 import { IoMdImages } from "react-icons/io";
@@ -10,7 +10,7 @@ import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
 
-export default function UserQuestion() {
+export default function UserQuestion({ defaultUserQuestions }) {
     const [physicalInjury, setPhysicalInjury] = useState(false)
     const [heartDisease, setHeartDisease] = useState(false)
     const [gastroSensitivity, setGastroSensitivity] = useState(false)
@@ -25,7 +25,7 @@ export default function UserQuestion() {
 
 
     const form = useForm();
-    const { register, unregister, control, handleSubmit, formState, reset } = form
+    const { register, unregister, control, handleSubmit, formState, reset, setValue } = form
     const { errors } = formState;
 
     const onSubmit = (data) => {
@@ -87,7 +87,6 @@ export default function UserQuestion() {
             })
     }
 
-
     return (
         <>
 
@@ -98,7 +97,7 @@ export default function UserQuestion() {
                         <div className='color-2'>باید کامل آنالیز شوید پس لطفا پاسخ سوالات زیر را تایپ کنید  </div>
 
 
-                        <Col xs='12' className='mt-4'>
+                        <Col xs='12' className='mt-5'>
                             <div className='c-text-secondary fs15'>
                                 1-
                                 آیا سابقه دریافت برنامه تمرینی از مربی همراه را دارید؟
@@ -657,7 +656,7 @@ export default function UserQuestion() {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <textarea className='c-input w-100 c-textarea p-2'
-                                        {...register('final_question', formValidation('توضیحات' ,false))}
+                                        {...register('final_question', formValidation('توضیحات', false))}
                                     ></textarea>
                                     <p className=' text-danger px-2 fs14'>
                                         {errors.final_question?.message}
@@ -668,7 +667,22 @@ export default function UserQuestion() {
 
 
                     </Row>
-                    <button className='send-btn px-3 mt-4'>ارسال</button>
+                    {
+                        defaultUserQuestions != null ?
+                        defaultUserQuestions.length === 0 ?
+                                <div className='text-start'>
+                                    <button className='send-btn fflalezar px-4 mt-4'>ارسال</button>
+                                </div> :
+
+                                <div className='text-start'>
+                                    <button className='send-btn fflalezar px-4 mt-4'>آپدیت</button>
+                                </div>
+                            :
+                            <div className='text-start'>
+                                <button className='send-btn fflalezar px-4 mt-4'>ارسال</button>
+                            </div>
+
+                    }
                 </form>
             </div>
         </>

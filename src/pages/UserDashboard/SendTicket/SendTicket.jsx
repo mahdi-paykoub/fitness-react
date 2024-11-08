@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 export default function SendTicket() {
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
+   
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
     const { errors } = formState;
@@ -58,7 +59,7 @@ export default function SendTicket() {
                     <div className='bg-white p-3 br-10'>
 
                         <Row>
-                            <Col lg='5'>
+                            <Col lg='6' xl='5'>
                                 <div className='d-flex align-items-center mb-4'>
                                     <img src="/images/ask_answer.png" width={100} alt="" />
                                     <div className='fflalezar fs25 color-2 me-2'>ارسال تیکت جدید</div>

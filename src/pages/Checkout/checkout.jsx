@@ -68,9 +68,7 @@ export default function Checkout() {
                     <PlanCheckOut />
                     :
                     <CourseCheckOut />
-
             }
-
         </>
     )
 }

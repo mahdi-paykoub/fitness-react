@@ -110,7 +110,7 @@ export default function TicketDetail() {
                                 {
                                     chats.map((chat) =>
                                         <Row className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
-                                            <Col lg='7'>
+                                            <Col xs='11' lg='7'>
                                                 <div className='w-100 p-3 lh2 fs14 chat-box'>
                                                     <div className='texts-side px-1'>
                                                         <div className='fs18 '>

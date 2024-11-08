@@ -35,7 +35,7 @@ function App() {
           } else return response.json();
         }
         )
-        .then(res => {
+        .then(res => {          
           setIsLoggedIn(true)
           setUserInfo(res)
           setToken(userTokenLS.token)
@@ -98,17 +98,6 @@ function App() {
     setCartItem(null)
     localStorage.removeItem('cart')
   }
-
-  // function getCartItems() {
-  //   const cartItems = courseIds.map((id) => {
-  //     return courses.filter(course => course.id === id)[0]
-  //   })
-  //   return cartItems;
-  // }
-  // function getTotalPrice() {
-  //   return getCartItems().reduce((acc, item) => acc + item.price, 0)
-  // }
-
 
   return (
     <>

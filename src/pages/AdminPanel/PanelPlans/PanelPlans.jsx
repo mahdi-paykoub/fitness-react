@@ -9,13 +9,22 @@ import Table from "react-bootstrap/Table";
 import ErrorBox from "../../../components/AdminPanel/ErrorBox/ErrorBox";
 import FormBox from "../../../components/AdminPanel/FormBox/FormBox";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import axios from "axios";
 
+let nextId = 0;
 export default function PanelPlans() {
     const [plans, setPlans] = useState([])
+    const [name, setName] = useState('');
+    const [artists, setArtists] = useState([]);
+    const [editorPlanBody, setEditorPlanBody] = useState('')
+
     const [loader, setLoader] = useState(true)
     const [visitPStatus, setVisitPStatus] = useState(false)
 
     const baseUrl = process.env.REACT_APP_BASE_URL
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
 
 
     const form = useForm();
@@ -24,20 +33,25 @@ export default function PanelPlans() {
 
 
     const onSubmit = (data) => {
+
         let formData = new FormData()
         formData.append('title', data.title)
         formData.append('slug', data.slug)
         formData.append('description', data.description)
         formData.append('price', data.price)
-        formData.append('body', data.body)
+        formData.append('body', editorPlanBody)
         formData.append('visit', data.visit)
         formData.append('duration', data.duration)
         formData.append('visit_price', data.visit_price)
+        formData.append('features', JSON.stringify(artists))
 
 
         fetch(`${baseUrl}admin/plan`,
             {
                 method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
                 body: formData
             })
             .then(res => res.json())
@@ -49,6 +63,8 @@ export default function PanelPlans() {
                         buttons: 'باشه'
                     }).then(response => {
                         reset();
+                        setArtists([])
+                        setEditorPlanBody('')
                         getPlans()
                     })
                 } else {
@@ -60,11 +76,16 @@ export default function PanelPlans() {
                 }
 
             })
+
     }
 
 
     const getPlans = () => {
-        fetch(`${baseUrl}admin/plan`)
+        fetch(`${baseUrl}admin/plan`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+        })
             .then(res => res.json())
             .then(res => {
                 setPlans(res.data)
@@ -93,10 +114,9 @@ export default function PanelPlans() {
             if (response) {
                 fetch(`${baseUrl}admin/plan/${id}`, {
                     method: 'DELETE',
-                    // headers: {
-                    //     'Content-Type': 'application/json',
-                    //     'Authorization': `Bearer ${userTokenLS.token}`
-                    // }
+                    headers: {
+                        Authorization: `Bearer ${userTokenLS.token}`
+                    },
                 })
                     .then(response =>
                         response.json()
@@ -127,6 +147,48 @@ export default function PanelPlans() {
         })
     }
 
+    const handleDeleteItems = (id) => {
+        let newItems = artists.filter((item) => item.id !== id)
+        setArtists(newItems)
+    }
+
+
+    function uploadAdapter(loader) {
+        return {
+            upload: () => {
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        const file = await loader.file;
+                        const response = await axios.request({
+                            method: "POST",
+                            url: `${baseUrl}admin/upload-ck-image`,
+                            data: {
+                                files: file
+                            },
+                            headers: {
+                                "Content-Type": "multipart/form-data"
+                            }
+                        });
+
+
+                        resolve(
+                            {
+                                default: `${baseUrl}${response.data.url}`
+                            }
+                        );
+                    } catch (error) {
+                        reject("Hello");
+                    }
+                });
+            },
+            abort: () => { }
+        };
+    }
+    function uploadPlugin(editor) {
+        editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+            return uploadAdapter(loader);
+        };
+    }
     return (
         <>
             <FormBox title='برنامه جدید' >
@@ -202,24 +264,73 @@ export default function PanelPlans() {
 
                         </Row>
 
+                        <Col xs='12' className='mt-3 mb-3'>
+                            <div className='p-3 br-10' style={{ 'background': '#ededed' }}>
+                                افزودن ویژگی های  برنامه
+                                <div className='mt-4 d-flex pb-3'>
+                                    <input type="text" placeholder='ویژگی را وارد نمایید' className='form-control ms-lg-5'
+                                        value={name}
+                                        onChange={e => setName(e.target.value)}
+                                    />
+                                    <button type='button' className='btn btn-warning' onClick={() => {
+                                        setArtists([
+                                            ...artists,
+                                            { id: nextId++, name: name }
+                                        ]);
+                                        setName('')
+                                    }}>افزودن</button>
+                                </div>
+                                {artists.map((artist, index) => (
+                                    <Row className='mt-4'>
+
+                                        <Col lg='5'>
+
+                                            <>
+                                                <div key={artist.id}>{index + 1}-{artist.name}</div>
+                                            </>
+
+
+                                        </Col>
+                                        <Col lg='2'>
+                                            <div>
+                                                <button
+                                                    type='button'
+                                                    onClick={() => handleDeleteItems(artist.id)}
+                                                    className='btn btn-sm btn-danger'>حذف</button>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                ))}
+
+
+                            </div>
+                        </Col>
                         <Col lg={12} className='mt-3'>
-                            <textarea name="" id="" cols="30" rows="5" className='form-control' placeholder='توضیحات برنامه'
+                            <textarea name="" id="" cols="30" rows="3" className='form-control' placeholder='توضیحات برنامه'
                                 {...register('description', formValidation('توضیحات برنامه'))}
                             ></textarea>
                             <p className='mt-3 text-danger px-2'>
                                 {errors.description?.message}
                             </p>
                         </Col>
-                        <Col lg={12} className='mt-3'>
-                            <textarea name="" id="" cols="30" rows="10" className='form-control' placeholder='تکست ادیتور'
-                                {...register('body', formValidation('تکست ادیتور'))}
-                            ></textarea>
-                            <p className='mt-3 text-danger px-2'>
-                                {errors.body?.message}
-                            </p>
+                        <Col lg={12} className='mt-3 ffir'>
+
+                            <CKEditor
+                                config={{
+                                    // @ts-ignore
+                                    extraPlugins: [uploadPlugin]
+                                }}
+                                editor={ClassicEditor}
+                                data={editorPlanBody}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setEditorPlanBody(data)
+                                }}
+                            />
+
                         </Col>
 
-                        <div className='mt-2'>
+                        <div className='mt-4'>
                             <button className='btn btn-primary'>
                                 ثبت برنامه
                             </button>

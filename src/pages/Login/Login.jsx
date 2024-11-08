@@ -2,7 +2,7 @@ import { React, useContext } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaGoogle } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
@@ -49,8 +49,8 @@ export default function Login() {
     return (
         <>
             <Container fluid>
-                <Row>
-                    <Col xl={5} className='p-2 h-100vh'>
+                <Row className='justify-content-center'>
+                    <Col xl={5} className='p-2 h-100vh d-none d-xl-block'>
                         <div className='letf-login-side h-100'>
                             <div className=''>
                                 <img src="images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
@@ -64,7 +64,7 @@ export default function Login() {
                             </div>
                         </div>
                     </Col>
-                    <Col xl={7} className='mt-5 mb-lg-0 mb-4 mt-lg-0'>
+                    <Col xs={10} xl={7} className='h-100vh'>
                         <Row className='justify-content-center h-100 align-items-center'>
                             <Col lg={6}>
                                 <div className='fw-bold text-center fs30'>
@@ -98,6 +98,9 @@ export default function Login() {
                                     ورود با گوگل
 
                                 </button> */}
+                                <div className='fs14 mt-4 pt-2 text-center'>
+                                    در صورتی که قبلا ثبت نام نکرده‌اید اید <Link className='color-1' to='/register'>ثبت نام</Link> کنید
+                                </div>
 
                             </Col>
                         </Row>

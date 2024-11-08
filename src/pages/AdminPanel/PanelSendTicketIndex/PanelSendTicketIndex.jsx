@@ -10,9 +10,13 @@ export default function PanelSendTicketIndex() {
 
     const [users, setUsers] = useState([])
     const baseUrl = process.env.REACT_APP_BASE_URL
-
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
+    
     const getUsers = () => {
         fetch(`${baseUrl}admin/user/ticketable`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
         })
             .then(res => res.json())
             .then(res => {

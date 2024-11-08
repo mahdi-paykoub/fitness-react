@@ -31,19 +31,6 @@ export default function Section() {
             })
     }, [])
 
-
-    // const handleDownloadSession = () => {
-    //     fetch(`${baseUrl}session/${sessionId}/download`, {
-    //         headers: {
-    //             Authorization: `Bearer ${userTokenLS.token}`
-    //         },
-    //     })
-    //         .then(res => res.json())
-    //         .then(res => {
-    //            console.log(res);
-
-    //         })
-    // }
     return (
         <>
             {

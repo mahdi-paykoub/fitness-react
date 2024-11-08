@@ -16,6 +16,7 @@ import { CartContext } from "../../Context/CartContext";
 import MyModal from '../../components/MyModal/MyModal';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { IoLockOpenOutline } from "react-icons/io5";
+import DOMPurify from 'dompurify';
 
 
 export default function SingleCourse() {
@@ -57,7 +58,7 @@ export default function SingleCourse() {
             {
                 course.length !== 0 &&
                 <>
-                    <Container fluid className='bg-global-light mt-3 px-lg-5 pb-5'>
+                    <Container className='bg-global-light mt-3 px-lg-5 pb-5'>
                         <Row>
                             <Col lg={12}>
                                 <div className='course-top-box d-flex align-items-center justify-content-center position-relative'>
@@ -77,10 +78,10 @@ export default function SingleCourse() {
                                             </Link>
                                         </div>
                                     </div>
-                                    <img src="/images/breadcrumb_shape02.26314598.svg" alt="" className='position-absolute float-shape-1' />
-                                    <img src="/images/breadcrumb_shape01.df47cee2.svg" alt="" className='position-absolute float-shape-2' />
-                                    <img src="/images/breadcrumb_shape05.925251.svg" alt="" className='position-absolute float-shape-3' />
-                                    <img src="/images/star.svg" alt="" className='position-absolute float-shape-4' />
+                                    <img src="/images/breadcrumb_shape02.26314598.svg" alt="" className='position-absolute float-shape-1 d-none d-lg-block' />
+                                    <img src="/images/breadcrumb_shape01.df47cee2.svg" alt="" className='position-absolute float-shape-2 d-none d-lg-block' />
+                                    <img src="/images/breadcrumb_shape05.925251.svg" alt="" className='position-absolute float-shape-3  d-none d-lg-block' />
+                                    <img src="/images/star.svg" alt="" className='position-absolute float-shape-4 d-none d-lg-block' />
                                 </div>
                             </Col>
                         </Row>
@@ -136,7 +137,10 @@ export default function SingleCourse() {
                                 {
                                     tab === 'description' &&
                                     <div className='lh2 mt-3 text-editor px-3 bg-white br-4 p-4'>
-                                        {course.body}
+                                        <div className='text-secondary text-justify lh2 fs18'
+                                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(course.body) }}>
+
+                                        </div>
                                     </div>
                                 }
 

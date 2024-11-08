@@ -14,7 +14,7 @@ export default function PanelSession() {
     const [courses, setCourses] = useState([])
     const [courseID, setCourseID] = useState(null)
     const [sessions, setSessions] = useState([])
-
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
     const baseUrl = process.env.REACT_APP_BASE_URL
     const form = useForm()
     const { register, control, handleSubmit, formState, reset } = form
@@ -22,7 +22,11 @@ export default function PanelSession() {
 
 
     const getCourses = () => {
-        fetch(`${baseUrl}admin/course`)
+        fetch(`${baseUrl}admin/course`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+        })
             .then(res => res.json())
             .then(res => {
                 setCourses(res.data)
@@ -35,7 +39,11 @@ export default function PanelSession() {
 
     const getSessions = () => {
         courseID !== null &&
-            fetch(`${baseUrl}admin/session/${courseID}}`)
+            fetch(`${baseUrl}admin/session/${courseID}}`, {
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
+            })
                 .then(res => res.json())
                 .then(res => {
                     setSessions(res.data)
@@ -58,9 +66,9 @@ export default function PanelSession() {
         fetch(`${baseUrl}admin/session`,
             {
                 method: 'POST',
-                // headers: {
-                //     'Authorization': `Bearer ${userTokenLS.token}`
-                // },
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
                 body: formData
             })
             .then(response => response.json())

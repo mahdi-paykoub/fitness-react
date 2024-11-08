@@ -10,29 +10,53 @@ import { formValidation } from "../../../utils/Validations";
 import { useForm } from "react-hook-form";
 import Form from 'react-bootstrap/Form';
 import { compareAsc, format, newDate } from "date-fns-jalali";
+import { RiMailSendFill } from "react-icons/ri";
+import { Link, useLocation } from 'react-router-dom';
+import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 
 export default function PanelTicketDetail() {
+    const [chatLoader, setChatLoader] = useState(true)
+    const [otherLoader, setOtherLoader] = useState(true)
     const [chats, setChats] = useState([])
+    const [otherTickets, setOtherTickets] = useState([])
     const [ticket, setTicket] = useState([])
     const [modalShow, setModalShow] = useState(false);
+    const location = useLocation();
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
 
     const baseUrl = process.env.REACT_APP_BASE_URL
     const ticketId = useParams().id
-
+    const userId = useParams().userId
+    let statusColor = ''
+    let statusText = ''
     const getChats = () => {
-        fetch(`${baseUrl}admin/get-ticket-chats/${ticketId}`)
+        fetch(`${baseUrl}admin/get-ticket-chats/${ticketId}`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+        })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-                
                 setChats(res.data)
                 setTicket(res.ticket)
+                setChatLoader(false)
+
+            })
+        fetch(`${baseUrl}admin/get-user-other-ticket/${ticketId}/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(res => {
+                setOtherTickets(res.data)
+                setOtherLoader(false)
             })
     }
 
     useEffect(() => {
         getChats()
-    }, [])
+    }, [location.pathname])
 
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
@@ -46,6 +70,9 @@ export default function PanelTicketDetail() {
         fetch(`${baseUrl}admin/admin-answer-ticket`,
             {
                 method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
                 body: formData
             })
             .then(res => res.json())
@@ -82,7 +109,8 @@ export default function PanelTicketDetail() {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${userTokenLS.token}`
                 },
                 body: JSON.stringify({
                     status: e,
@@ -137,37 +165,40 @@ export default function PanelTicketDetail() {
                                 {/* reapeat */}
 
                                 {
-                                    chats.map((chat) =>
-                                        <Row className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
-                                            <Col lg='7'>
-                                                <div className='w-100 p-3 lh2 fs14 chat-box'>
-                                                    <div className='texts-side px-1'>
-                                                        <div className='fs18 '>
-                                                            نام کاربری
+                                    chatLoader === true ?
+                                        <SniperLoader newstyle='mt-5' />
+                                        :
+                                        chats.map((chat) =>
+                                            <Row className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
+                                                <Col lg='7'>
+                                                    <div className='w-100 p-3 lh2 fs14 chat-box'>
+                                                        <div className='texts-side px-1'>
+                                                            <div className='fs18 '>
+                                                                نام کاربری
+                                                            </div>
+                                                            <div className='mt-1 mb-1 text-secondary fs13'>
+
+                                                                {format(new Date(ticket.created_at), "yyyy-MM-dd")}
+                                                            </div>
                                                         </div>
-                                                        <div className='mt-1 mb-1 text-secondary fs13'>
-                                                        
-                                                            {format(new Date(ticket.created_at), "yyyy-MM-dd")}
+                                                        <div className='border-bottom pb-3 fs17'>
+                                                            {chat.message}
                                                         </div>
+                                                        {
+                                                            chat.file != null ?
+                                                                <a className='c-text-secondary' href={`${baseUrl}${chat.file}`} download="proposed_file_name">
+                                                                    <div className='mt-2 text-side' >
+                                                                        <LuFileSpreadsheet fontSize={20} />
+                                                                        <span className='fs13 me-1'>دانلود پیوست</span>
+                                                                    </div>
+                                                                </a>
+                                                                :
+                                                                <div className='mt-2 text-side fs13'>فاقد فایل پیوست</div>
+                                                        }
                                                     </div>
-                                                    <div className='border-bottom pb-3 fs17'>
-                                                        {chat.message}
-                                                    </div>
-                                                    {
-                                                        chat.file != null ?
-                                                            <a className='c-text-secondary' href={`${baseUrl}${chat.file}`} download="proposed_file_name">
-                                                                <div className='mt-2 text-side' >
-                                                                    <LuFileSpreadsheet fontSize={20} />
-                                                                    <span className='fs13 me-1'>دانلود پیوست</span>
-                                                                </div>
-                                                            </a>
-                                                            :
-                                                            <div className='mt-2 text-side fs13'>فاقد فایل پیوست</div>
-                                                    }
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    )
+                                                </Col>
+                                            </Row>
+                                        )
                                 }
 
 
@@ -176,6 +207,75 @@ export default function PanelTicketDetail() {
                     </Row>
 
                 }
+
+            </div>
+            <div className='admin-Data-box w-100 py-4 br-10 px-3 mt-3 mb-5'>
+                <RiMailSendFill className='text-primary' fontSize={20} />
+                <span className='fflalezar fs15 me-2 c-text-secondary mt-1'>تیکت های دیگر این کاربر</span>
+                <div className='mt-4'>
+                    {
+                        otherLoader === true ?
+                            <SniperLoader newstyle='mt-4' />
+                            :
+                            otherTickets.length !== 0 ?
+                                <table class="table box-child-table fflalezar mt-4">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">عنوان</th>
+                                            <th scope="col">تاریخ</th>
+                                            <th scope="col">وضعیت</th>
+                                            <th scope="col">عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className='ticket-table'>
+                                        {
+                                            otherTickets.map((ticket, index) => {
+                                                if (ticket.status === 'open') {
+                                                    statusColor = 'bg-danger';
+                                                    statusText = 'باز'
+                                                }
+                                                if (ticket.status === 'close') {
+                                                    statusColor = 'bg-secondary';
+                                                    statusText = 'بسته'
+
+                                                }
+                                                if (ticket.status === 'review') {
+                                                    statusColor = 'bg-primary';
+                                                    statusText = 'در حال بررسی'
+
+                                                }
+                                                if (ticket.status === 'answered') {
+                                                    statusColor = 'bg-success'
+                                                    statusText = 'پاسخ داده شده'
+
+                                                }
+                                                return <tr>
+                                                    <th scope="row">{index + 1}</th>
+                                                    <td><Link to={`/admin-panel/ticket-detail/${ticket.id}/${ticket.user_id}`} className='c-text-secondary'>{ticket.title} </Link></td>
+                                                    <td>  {format(new Date(ticket.created_at), "yyyy-MM-dd")}</td>
+
+                                                    <td><span className={`badge fs13 ${statusColor}`}>{statusText}</span></td>
+                                                    <td><Link to={`/admin-panel/ticket-detail/${ticket.id}/${ticket.user_id}`} className='btn btn-primary btn-sm'>مشاهده </Link></td>
+
+                                                </tr>
+                                            }
+
+                                            )
+
+
+                                        }
+
+
+
+
+                                    </tbody>
+                                </table>
+                                :
+                                <div className='bg-info text-white br-10 p-3'>این کاربر تیکت دیگری ندارد.</div>
+                    }
+
+                </div>
             </div>
 
 

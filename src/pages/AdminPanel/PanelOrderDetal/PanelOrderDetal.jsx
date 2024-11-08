@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { BiBaguette } from "react-icons/bi";
 import { IoMdImages } from "react-icons/io";
 import { LuClipboardCheck } from "react-icons/lu";
-import { Col, Row } from 'react-bootstrap';
-import { Link, useParams } from "react-router-dom";
+import { Col, Row, Table } from 'react-bootstrap';
+import { Link, useParams, useLocation } from "react-router-dom";
 import swal from "sweetalert";
 import { formValidation } from "../../../utils/Validations";
 import { useForm } from "react-hook-form";
@@ -13,22 +13,26 @@ import { GoFileZip } from "react-icons/go";
 import { IoMdCloudDownload } from "react-icons/io";
 import { FiShoppingBag } from "react-icons/fi";
 
-
 export default function PanelOrderDatail() {
     const [tab, setTab] = useState('size')
+    const [otherOrders, setOtherOrders] = useState([])
     const [getCurrentImg, setGetCurrentImg] = useState(null)
-
     const [images, setImages] = useState([])
     const [programs, setPrograms] = useState([])
     const [sizes, setSizes] = useState([])
     const [question, setQuestion] = useState([])
     const [modalShow, setModalShow] = useState(false);
+    const location = useLocation();
     const orderId = useParams().id
+    const userId = useParams().userId
     const baseUrl = process.env.REACT_APP_BASE_URL
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
+
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
     const { errors } = formState;
-    
+    let statusText = ''
+    let statusClass = ''
     const onSubmit = (data) => {
         let formData = new FormData()
         formData.append('title', data.title)
@@ -39,6 +43,10 @@ export default function PanelOrderDatail() {
         fetch(`${baseUrl}admin/program`,
             {
                 method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${userTokenLS.token}`
+                },
+
                 body: formData
             })
             .then(res => res.json())
@@ -67,7 +75,12 @@ export default function PanelOrderDatail() {
 
 
     const getUserInfo = () => {
-        fetch(`${baseUrl}admin/get-user-info-by-order/${orderId}`)
+        fetch(`${baseUrl}admin/get-user-info-by-order/${orderId}`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+
+        })
             .then(res => res.json())
             .then(res => {
                 setPrograms(res.programs)
@@ -75,11 +88,23 @@ export default function PanelOrderDatail() {
                 setQuestion(res.questions)
                 setImages(res.image)
             })
+        fetch(`${baseUrl}admin/get-other-orders/${orderId}/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${userTokenLS.token}`
+            },
+
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+
+                setOtherOrders(res.otherOrders)
+            })
     }
 
     useEffect(() => {
         getUserInfo()
-    }, [])
+    }, [location.pathname])
 
     return (
         <>
@@ -515,7 +540,79 @@ export default function PanelOrderDatail() {
                     </div>
                     <div className='admin-Data-box w-100 py-4 br-10 px-3 mt-3'>
                         <FiShoppingBag fontSize={19} />
-                        <span className='fflalezar fs15 me-1 c-text-secondary'>سفارشات قبلی کاربر</span>
+                        <span className='fflalezar fs15 me-1 c-text-secondary'>دیگر سفارشات این کاربر</span>
+                        <div className='mt-4'>
+                            {
+                                otherOrders.length !== 0 ?
+
+                                    <Table className='box-child-table' hover>
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>وضعیت سفارش </th>
+                                                <th>مراجعه حضوری</th>
+                                                <th>عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {otherOrders.map((order, index) => {
+                                                // if (order.status === 'complete') {
+                                                switch (order.status) {
+                                                    case 'complete':
+                                                        statusText = 'تکمیل اطلاعات'
+                                                        statusClass = 'btn-success'
+                                                        break;
+                                                    case 'paid_uncomplete':
+                                                        statusText = 'تکمیل نشده'
+                                                        statusClass = 'btn-danger'
+                                                        break;
+                                                    case 'received_program':
+                                                        statusText = 'برنامه دریافت کرده'
+                                                        statusClass = 'btn-secondary'
+                                                        break;
+
+                                                    default:
+                                                        break;
+                                                }
+                                                return <tr key={order.id}>
+                                                    <td>
+                                                        {index + 1}
+                                                    </td>
+
+                                                    <td>
+                                                        <button className={`btn btn-sm ${statusClass}`}>
+                                                            {statusText}
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        {
+                                                            order.visit ?
+                                                                <button className='btn btn-info fflalezar btn-sm text-white'>دارد</button>
+                                                                :
+                                                                <button className='btn btn-danger fflalezar btn-sm '>ندارد</button>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <Link to={`/admin-panel/order-detail/${order.id}/${userId}`} className='btn btn-primary btn-sm'>
+                                                            مشاهده
+                                                        </Link>
+                                                    </td>
+
+                                                </tr>
+                                                // }
+                                            }
+
+                                            )
+                                            }
+
+
+                                        </tbody>
+                                    </Table>
+                                    :
+                                    <div className='bg-info text-white br-10 p-3'>این کاربر برنامه دیگری ندارد.</div>
+                            }
+                        </div>
                     </div>
                 </>
             }

@@ -28,13 +28,14 @@
 .text-editor h2 {
     font-weight: bold;
     color: #27337c;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .text-editor p {
     text-align: justify;
-    line-height: 2.3 !important;
+    line-height: 2 !important;
     font-size: 15px;
+    margin-top: 15px;
 }
 
 .section-of-course-tab .active {
