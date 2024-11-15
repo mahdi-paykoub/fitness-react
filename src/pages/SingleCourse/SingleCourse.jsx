@@ -36,13 +36,17 @@ export default function SingleCourse() {
 
 
     useEffect(() => {
+        let newLsToken = userTokenLS != null ? userTokenLS.token : '';
+
         fetch(`${baseUrl}course/${courseSlug}`, {
             headers: {
-                Authorization: `Bearer ${userTokenLS.token}`
+                Authorization: `Bearer ${newLsToken}`
             },
         })
             .then(res => res.json())
             .then(res => {
+                console.log(res);
+
                 setIsUserRegister(res.data.info.isUserRegisteredToThisCourse)
                 setCourse(res.data)
             })
@@ -269,13 +273,40 @@ export default function SingleCourse() {
                                 {/* course info */}
                                 <div className='w-100 course-info-box'>
                                     <div className='d-flex justify-content-between border-padd-b pt-4 px-4'>
-                                        <div className='fs15 text-secondary'>
-                                            تخفیف : <span className='text-white fs12 discount-course fflalezar'>50%</span>
-                                        </div>
-                                        <div className='fs20 fw-bold color-2'>
-                                            {Number(course.price).toLocaleString()}
-                                            <span className='fs14 me-1'>تومان</span>
-                                        </div>
+
+                                        {
+                                            course.off_price === null ?
+                                                <>
+                                                    <div className='fs15 text-secondary'>
+                                                        <span className='fs13'>هزینه دوره:</span>
+                                                    </div>
+                                                    <div className='fs20 fw-bold color-2 fflalezar'>
+                                                        {Number(course.price).toLocaleString()}
+                                                        <span className='fs14 me-1'>تومان</span>
+                                                    </div>
+                                                </>
+                                                :
+                                                <>
+                                                    <div className='fs15 text-secondary'>
+                                                        تخفیف : <span className='text-white fs12 discount-course fflalezar'>
+                                                            {
+                                                                100 - (Math.round(course.off_price / course.price * 100))
+                                                            }
+                                                            ٪
+                                                        </span>
+                                                    </div>
+                                                    <div className='color-2 fflalezar'>
+                                                        <div >
+                                                            <span className='fs20'>{Number(course.off_price).toLocaleString()}</span>
+                                                            <span className='me-1'>تومان</span>
+                                                        </div>
+                                                        <div className='d-flex align-items-center mt-2 text-secondary'>
+                                                            <div className=' text-decoration-line-through ffir fs15 me-auto'>  {Number(course.price).toLocaleString()}  </div>
+                                                            <div className='fs12 me-1 ffir'>تومان</div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                        }
                                     </div>
                                     <div className='d-flex justify-content-between fs14 px-4 mt-4 pt-3 pb-4 border-bottom'>
                                         <div>
@@ -333,9 +364,16 @@ export default function SingleCourse() {
                                     </div>
                                     <div className='mt-4 pb-4'>
                                         <div className='px-4'>
-                                            <button className='buy-course-btn' onClick={(e) => handleAddToCart(course)}>
-                                                خرید دوره
-                                            </button>
+                                            {course.canBuy ?
+                                                <button className='buy-course-btn' onClick={(e) => handleAddToCart(course)}>
+                                                    خرید دوره
+                                                </button>
+                                                :
+                                                <button className='btn btn-secondary fflalezar w-100'>
+                                                    خریداری شده
+                                                </button>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>

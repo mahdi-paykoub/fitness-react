@@ -3,10 +3,14 @@ import { Link, useNavigate, Outlet } from 'react-router-dom'
 import { AuthContext } from "../../Context/AuthContext";
 import { Col, Container, Row } from 'react-bootstrap';
 import { ShimmerContentBlock, ShimmerDiv, ShimmerSectionHeader, ShimmerText } from 'shimmer-effects-react';
+import NotAccess from '../../components/NotAccess/NotAccess';
 
 export default function UserPanelPrivateRoute() {
     const authContext = useContext(AuthContext)
     const navigate = useNavigate();
+
+    console.log(authContext);
+
 
     return (
         <>
@@ -25,36 +29,22 @@ export default function UserPanelPrivateRoute() {
                             </Col>
                         </Row>
                     </Container>
-
                     :
-                    (authContext.isLoggedIn === true && JSON.parse(authContext.userInfo.data.status.length) > 0) ?
-                        <>
-                            <Outlet />
-                        </>
+                    (authContext.isLoggedIn === true) ?
+                        JSON.parse(authContext.userInfo.data.status)  != null ?
+                            JSON.parse(authContext.userInfo.data.status).length > 0 ?
+                                <>
+                                    <Outlet />
+                                </>
+                                :
+                                <NotAccess />
+                            :
+                            <NotAccess />
+
+
                         :
-                        <>
-                            <Container>
-                                <Row className='justify-content-center mt-5'>
-                                    <Col lg='3' className='text-center'>
-                                        <div className='fflalezar fs20 c-text-secondary'>
-                                            <img src="/images/3. Web Check.png" className='w-100' alt="" />
-                                            شما اجازه دسترسی به این صفحه را ندارید
-                                        </div>
-                                        <div className='mt-4 d-flex justify-content-center'>
-                                            <Link to='/' className='fflalezar send-btn px-4 py-2 '>
-                                                خانه
-                                            </Link>
-                                            <Link to='/register' className='fflalezar send-btn px-4 py-2 me-4'>
-                                                ثبت نام
-                                            </Link>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </>
+                        <NotAccess />
             }
         </>
-
-
     )
 }

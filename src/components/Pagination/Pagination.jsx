@@ -4,7 +4,7 @@ import { BiSolidChevronLeft } from 'react-icons/bi';
 import { BiSolidChevronRight } from 'react-icons/bi';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import { Link, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 
 
 export default function Pagination({
@@ -13,6 +13,7 @@ export default function Pagination({
     pathname,
     setShownCourses,
 }) {
+
     const [pagesCount, setPagesCount] = useState(null);
     const { page } = useParams();
 
@@ -22,8 +23,10 @@ export default function Pagination({
         let paginatedItems = items.slice(startIndex, endIndex);
         setShownCourses(paginatedItems);
 
+
         let pagesNumber = Math.ceil(items.length / itemsCount);
         setPagesCount(pagesNumber);
+
     }, [page, items]);
 
     return (
@@ -34,17 +37,23 @@ export default function Pagination({
                         className='text-start'>
 
                         <nav className='pagination-box mt-2'>
-                            <ul className='p-0'>
-                               
+                            <ul>
                                 {Array(pagesCount)
                                     .fill(0)
                                     .map((item, index) =>
-                                        <li><Link to={`${pathname}/${index + 1}`}>{index + 1}</Link></li>
+                                        <li
+                                            className="ms-1"
+                                        ><NavLink
+                                            className={({ isActive, isPending }) =>
+                                                isPending ? "" : isActive ? "active-pagination-cus" : ""
+                                            }
+                                            to={`${pathname}/${index + 1}`}
+                                        >{index + 1}</NavLink></li>
 
                                     )
                                 }
 
-                               
+
                             </ul>
                         </nav>
 

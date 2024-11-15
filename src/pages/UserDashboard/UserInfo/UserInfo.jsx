@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import UserImage from '../../../components/UserPanel/UserImage';
 import UserSize from '../../../components/UserPanel/UserSize';
 import UserQuestion from '../../../components/UserPanel/UserQuestion';
+import PlanRequired from '../../../components/PlanRequired/PlanRequired';
 
 export default function UserInfo() {
     const [tab, setTab] = useState('size')
@@ -85,7 +86,7 @@ export default function UserInfo() {
             }
         })
             .then(res => res.json())
-            .then(res => {                
+            .then(res => {
                 setDefaulSize(res.size)
                 setDefaultQuestion(res.question)
                 setDefaultImage(res.image)
@@ -98,7 +99,7 @@ export default function UserInfo() {
     }, [])
 
     return (
-        <>
+        <PlanRequired>
             {authContext.isLoggedIn &&
                 <Row className='mt-4 fflalezar'>
                     <div className='fflalezar fs30 c-text-secondary mb-4'>تکمیل پروفایل</div>
@@ -203,33 +204,84 @@ export default function UserInfo() {
                                                 placeholder='نام شهر'
                                                 {...register('city', formValidation('نام شهر'))}
                                             />
-                                            <p className='mt-3 text-danger'>
+                                            <p className='mt-3 text-danger fs14'>
                                                 {errors.city?.message}
                                             </p>
 
                                             <div className=' mt-4 fflalezar c-text-secondary'>تاریخ تولد</div>
                                             <div className='d-flex birth-inp-p justify-content-between mt-1'>
 
-                                                <input type="text" className='c-input' placeholder='روز'
-                                                    {...register('day', formValidation('روز'))}
+                                                <input type="number" className='c-input px-2' placeholder='روز'
+                                                    {...register('day', {
+                                                        required: {
+                                                            value: true,
+                                                            message: `روز تولد الزامی است `
+                                                        },
+                                                        valueAsNumber: {
+                                                            value: true,
+                                                            message: 'روز تولد باید عددی باشد'
+                                                        },
+                                                        max: {
+                                                            value: 31,
+                                                            message: 'روز تولد باید عددی بین 1 تا 31 باشد'
+                                                        },
+                                                        min: {
+                                                            value: 1,
+                                                            message: 'روز تولد باید عددی بین 1 تا 31 باشد'
+                                                        },
+                                                    })}
 
                                                 />
-                                                <input type="text" className='c-input' placeholder='ماه'
-                                                    {...register('month', formValidation('ماه'))}
+                                                <input type="number" className='c-input px-2' placeholder='ماه'
+                                                    {...register('month', {
+                                                        required: {
+                                                            value: true,
+                                                            message: `ماه تولد الزامی است `
+                                                        },
+                                                        valueAsNumber: {
+                                                            value: true,
+                                                            message: 'ماه تولد باید عددی باشد'
+                                                        },
+                                                        max: {
+                                                            value: 12,
+                                                            message: 'ماه تولد باید عددی بین 1 تا 12 باشد'
+                                                        },
+                                                        min: {
+                                                            value: 1,
+                                                            message: 'ماه تولد باید عددی بین 1 تا 12 باشد'
+                                                        },
+                                                    })}
 
                                                 />
-                                                <input type="text" className='c-input' placeholder='سال'
-                                                    {...register('year', formValidation('سال'))}
+                                                <input type="number" min={1330} max={1400} className='c-input px-2' placeholder='سال'
+                                                    {...register('year', {
+                                                        required: {
+                                                            value: true,
+                                                            message: `سال تولد الزامی است `
+                                                        },
+                                                        valueAsNumber: {
+                                                            value: true,
+                                                            message: 'سال تولد باید عددی باشد'
+                                                        },
+                                                        max: {
+                                                            value: 1400,
+                                                            message: 'سال تولد باید عددی بین 1330 تا 1400 باشد'
+                                                        },
+                                                        min: {
+                                                            value: 1330,
+                                                            message: 'سال تولد باید عددی بین 1330 تا 1400 باشد'
+                                                        },
+                                                    })}
 
                                                 />
                                             </div>
-                                            <p className='mt-3 text-danger'>
+                                            <p className='mt-3 fs14 text-danger'>
                                                 {errors.day?.message}
                                             </p>
-                                            <p className='mt-1 text-danger'>
+                                            <p className='mt-1 fs14 text-danger'>
                                                 {errors.month?.message}
                                             </p>
-                                            <p className='mt-1 text-danger'>
+                                            <p className='mt-1 fs14 text-danger'>
                                                 {errors.year?.message}
                                             </p>
                                             <div className='mt-4 c-text-secondary'>
@@ -248,7 +300,7 @@ export default function UserInfo() {
                                                     خانوم
                                                 </label>
                                             </div>
-                                            <p className='mt-3 text-danger px-2'>
+                                            <p className='mt-3 text-danger px-2 fs14'>
                                                 {errors.gender?.message}
                                             </p>
 
@@ -361,24 +413,24 @@ export default function UserInfo() {
                         {/* size */}
                         {
                             tab === 'size' &&
-                            <UserSize defaultUserSize={defaultSize}/>
+                            <UserSize defaultUserSize={defaultSize} />
                         }
 
                         {/* images */}
                         {
                             tab === 'image' &&
-                            <UserImage defaultUserImage={defaultImage}/>
+                            <UserImage defaultUserImage={defaultImage} />
                         }
 
                         {/* questions */}
                         {
                             tab === 'question' &&
-                            <UserQuestion defaultUserQuestions={defaultQuestion}/>
+                            <UserQuestion defaultUserQuestions={defaultQuestion} />
                         }
                     </Col>
                 </Row>
             }
 
-        </>
+        </PlanRequired>
     )
 }

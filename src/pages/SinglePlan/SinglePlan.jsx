@@ -25,16 +25,26 @@ export default function SinglePlan() {
     const baseUrl = process.env.REACT_APP_BASE_URL
     const cartContext = useContext(CartContext)
     const navigate = useNavigate();
-
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
 
 
 
     useEffect(() => {
-        fetch(`${baseUrl}plan/${courseSlug}`)
+        let newLsToken = userTokenLS != null ? userTokenLS.token : '';
+        fetch(`${baseUrl}plan/${courseSlug}`, {
+            headers: {
+                Authorization: `Bearer ${newLsToken}`
+            },
+        })
             .then(res => res.json())
             .then(res => {
+                console.log(res);
+
                 setPlan(res.data)
             })
+
+
+
     }, [])
 
 
@@ -81,28 +91,51 @@ export default function SinglePlan() {
                     <Row className='mt-4 align-items-center pe-3'>
                         <Col lg={6}>
                             <div className='text-50 c-text-secondary fflalezar'>
-
                                 جزئیات برنامه
-                                <LiaDumbbellSolid className='me-4 mb-3' />
                             </div>
                             <div className='mt-1 c-text-secondary fs15 lh2 text-justify'>
                                 {plan.description}
                             </div>
 
                             <div className='d-flex justify-content-between align-items-center mt-5'>
+                                {plan.canBuy == true ?
+                                    <button onClick={(e) => handleAddToCart(plan)} className='fflalezar send-btn cc-btn'>
+                                        <svg className='ms-2' width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.50847 10.9168C12.107 14.744 12.9322 14.744 19.5307 10.9168C26.1292 7.08956 26.1292 7.08956 19.5307 3.26237C12.9322 -0.564826 12.107 -0.564837 5.50847 3.26237C2.20921 5.17597 0.55957 6.13277 0.55957 7.08957V15.7008C0.55957 16.2292 0.987944 16.6576 1.51637 16.6576C2.0448 16.6576 2.47317 16.2292 2.47317 15.7008L2.47317 9.45617C2.47317 9.30453 2.64132 9.21274 2.76975 9.29336C3.50113 9.75249 4.41404 10.282 5.50847 10.9168Z" fill="#fff"></path>
+                                            <path d="M5.50847 11.8736C12.107 15.7008 12.9322 15.7008 19.5307 11.8736L19.9071 11.6553C20.2058 11.4819 20.5824 11.672 20.6043 12.0167C20.6375 12.5376 20.6524 13.125 20.6524 13.7872C20.6524 18.5712 18.7388 19.528 12.4867 19.528C5.81641 19.528 4.38677 18.5712 4.38677 13.7872C4.38677 13.1253 4.40096 12.5382 4.43295 12.0175C4.45418 11.672 4.83143 11.4807 5.13075 11.6545L5.50847 11.8736Z" fill="#fff"></path>
+                                        </svg>
+                                        خرید برنامه تمرینی
 
-                                <button onClick={(e) => handleAddToCart(plan)} className='fflalezar send-btn cc-btn'>
-                                    <svg className='ms-2' width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.50847 10.9168C12.107 14.744 12.9322 14.744 19.5307 10.9168C26.1292 7.08956 26.1292 7.08956 19.5307 3.26237C12.9322 -0.564826 12.107 -0.564837 5.50847 3.26237C2.20921 5.17597 0.55957 6.13277 0.55957 7.08957V15.7008C0.55957 16.2292 0.987944 16.6576 1.51637 16.6576C2.0448 16.6576 2.47317 16.2292 2.47317 15.7008L2.47317 9.45617C2.47317 9.30453 2.64132 9.21274 2.76975 9.29336C3.50113 9.75249 4.41404 10.282 5.50847 10.9168Z" fill="#fff"></path>
-                                        <path d="M5.50847 11.8736C12.107 15.7008 12.9322 15.7008 19.5307 11.8736L19.9071 11.6553C20.2058 11.4819 20.5824 11.672 20.6043 12.0167C20.6375 12.5376 20.6524 13.125 20.6524 13.7872C20.6524 18.5712 18.7388 19.528 12.4867 19.528C5.81641 19.528 4.38677 18.5712 4.38677 13.7872C4.38677 13.1253 4.40096 12.5382 4.43295 12.0175C4.45418 11.672 4.83143 11.4807 5.13075 11.6545L5.50847 11.8736Z" fill="#fff"></path>
-                                    </svg>
-                                    خرید برنامه تمرینی
+                                    </button>
+                                    :
+                                    <div className='text-secondary fflalezar'>برای خرید اطلاعات خرید قبلی را تکمیل کنید</div>
+                                }
+                                <div className='color-2 fflalezar'>
+                                    {
+                                        plan.off_price === null ?
+                                            <div className=''>
+                                                <span className='fs30'>  {Number(plan.price).toLocaleString()}</span>
+                                                <span  className='fs16 me-1'>تومان</span>
+                                            </div>
+                                            :
+                                            <>
+                                                <div className='fs30'>
+                                                    {Number(plan.off_price).toLocaleString()}
+                                                    <span className='fs16 me-1'>تومان</span>
+                                                </div>
+                                                <div className='d-flex align-items-center mt-2'>
+                                                    <div className=' text-decoration-line-through ffir fs17'>  {Number(plan.price).toLocaleString()}  </div>
+                                                    <div className='fs14 me-1 ffir'>تومان</div>
+                                                    <div className='badge bg-danger ffir me-auto'>
+                                                        {
+                                                            100 - (Math.round(plan.off_price / plan.price * 100))
+                                                        }
+                                                        ٪
+                                                    </div>
+                                                </div>
 
-                                </button>
-
-                                <div className='fflalezar color-2'>
-                                    <span className='fs30'>  {Number(plan.price).toLocaleString()}</span>
-                                    <span>تومان</span>
+                                            </>
+                                    }
                                 </div>
                             </div>
 

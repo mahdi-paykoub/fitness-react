@@ -5,6 +5,7 @@ import swal from "sweetalert";
 import { formValidation } from "../../../utils/Validations";
 import { useForm } from "react-hook-form";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import PlanRequired from '../../../components/PlanRequired/PlanRequired';
 
 export default function Inquiry() {
     const [inqureyCodes, setInqureyCodes] = useState([])
@@ -84,7 +85,7 @@ export default function Inquiry() {
     }
 
     return (
-        <>
+        <PlanRequired>
             <Row className='mt-3'>
                 <Col>
                     <div className='inquiry-box p-3 d-flex br-10 d-flex justify-content-between px-lg-5 align-items-center'>
@@ -160,12 +161,7 @@ export default function Inquiry() {
                         }
                     </div>
                 </Col>
-
-
-
-
-
             </Row>
-        </>
+        </PlanRequired>
     )
 }

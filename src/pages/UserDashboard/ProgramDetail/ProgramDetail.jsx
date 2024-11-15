@@ -7,6 +7,7 @@ import { IoMdImages } from "react-icons/io";
 import { LuClipboardCheck } from "react-icons/lu";
 import { GoFileZip } from "react-icons/go";
 import { Link, useParams } from "react-router-dom";
+import PlanRequired from '../../../components/PlanRequired/PlanRequired';
 
 export default function SendTicket() {
     const baseUrl = process.env.REACT_APP_BASE_URL
@@ -45,7 +46,7 @@ export default function SendTicket() {
 
     return (
 
-        <>
+        <PlanRequired>
             <Row className='mt-4'>
                 <Col>
                     <div className='bg-white br-10'>
@@ -447,6 +448,6 @@ export default function SendTicket() {
 
                 </Col>
             </Row >
-        </>
+        </PlanRequired>
     )
 }

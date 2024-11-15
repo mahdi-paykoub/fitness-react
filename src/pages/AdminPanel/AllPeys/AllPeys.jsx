@@ -24,8 +24,8 @@ export default function AllPeys() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
+                // console.log(res);
+                
                 setPays(res.data)
                 setshownPays(res.data)
                 setLoader(false)
@@ -91,7 +91,7 @@ export default function AllPeys() {
                                     <Pagination
                                         hasPage={false}
                                         items={pays}
-                                        itemsCount={10}
+                                        itemsCount={20}
                                         pathname={`/admin-panel/payments`}
                                         setShownCourses={setshownPays}
                                     />

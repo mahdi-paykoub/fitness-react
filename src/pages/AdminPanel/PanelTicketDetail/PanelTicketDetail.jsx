@@ -13,8 +13,11 @@ import { compareAsc, format, newDate } from "date-fns-jalali";
 import { RiMailSendFill } from "react-icons/ri";
 import { Link, useLocation } from 'react-router-dom';
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import BtnSpiner from '../../../components/BtnSpiner/BtnSpiner';
 
 export default function PanelTicketDetail() {
+    const [btnLoader, setBtnLoader] = useState(false)
+
     const [chatLoader, setChatLoader] = useState(true)
     const [otherLoader, setOtherLoader] = useState(true)
     const [chats, setChats] = useState([])
@@ -62,6 +65,8 @@ export default function PanelTicketDetail() {
     const { register, control, handleSubmit, formState, reset } = form
     const { errors } = formState;
     const onSubmit = (data) => {
+        setBtnLoader(true)
+
         let formData = new FormData()
         formData.append('message', data.message)
         formData.append('ticket_id', ticketId)
@@ -88,6 +93,8 @@ export default function PanelTicketDetail() {
                         reset();
                         getChats();
                         setModalShow(false)
+                        setBtnLoader(false)
+
                     })
 
                 } else {
@@ -95,6 +102,9 @@ export default function PanelTicketDetail() {
                         title: response.message[0],
                         icon: "error",
                         buttons: 'باشه'
+                    }).then(response => {                   
+                        setBtnLoader(false)
+
                     })
                 }
 
@@ -309,7 +319,15 @@ export default function PanelTicketDetail() {
                             </p>
                         </div>
                         <div className='text-start mt-2'>
-                            <button className='fflalezar send-btn px-4'>ارسال </button>
+                            {
+                                btnLoader == false ?
+                                    <button className='fflalezar send-btn px-4'>ارسال </button>
+                                    :
+                                    <button className='send-btn fflalezar px-4 pt-2'>
+                                        <BtnSpiner wid='25px' he='25px' />
+                                    </button>
+
+                            }
                         </div>
                     </form>
                 </div>

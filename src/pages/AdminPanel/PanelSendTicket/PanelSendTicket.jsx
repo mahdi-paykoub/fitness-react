@@ -9,11 +9,14 @@ import swal from "sweetalert";
 import { formValidation } from "../../../utils/Validations";
 import { useForm } from "react-hook-form";
 import Form from 'react-bootstrap/Form';
+import BtnSpiner from '../../../components/BtnSpiner/BtnSpiner';
 
 export default function PanelSendTicket() {
+    const [btnLoader, setBtnLoader] = useState(false)
+
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
-   
+
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
     const { errors } = formState;
@@ -22,6 +25,7 @@ export default function PanelSendTicket() {
 
 
     const onSubmit = (data) => {
+        setBtnLoader(true)
         let formData = new FormData()
         formData.append('message', data.message)
         formData.append('title', data.title)
@@ -47,6 +51,7 @@ export default function PanelSendTicket() {
                         buttons: 'باشه'
                     }).then(response => {
                         reset();
+                        setBtnLoader(false)
                     })
 
                 } else {
@@ -54,6 +59,8 @@ export default function PanelSendTicket() {
                         title: response.message[0],
                         icon: "error",
                         buttons: 'باشه'
+                    }).then(response => {
+                        setBtnLoader(false)
                     })
                 }
 
@@ -91,19 +98,28 @@ export default function PanelSendTicket() {
                                     </p>
                                 </div>
                                 <div className='me-3'>
-                                        <label for="mess_file" class="fflalezar w-100">
-                                            <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
-                                        </label>
-                                        <input type="file" id='mess_file' className='d-none'
-                                            {...register('file', formValidation('فایل', false))} placeholder='hasxasx' />
-                                        <p className='text-danger px-2 fs13'>
-                                            {errors.file?.message}
-                                        </p>
-                                    </div>
+                                    <label for="mess_file" class="fflalezar w-100">
+                                        <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
+                                    </label>
+                                    <input type="file" id='mess_file' className='d-none'
+                                        {...register('file', formValidation('فایل', false))} placeholder='hasxasx' />
+                                    <p className='text-danger px-2 fs13'>
+                                        {errors.file?.message}
+                                    </p>
+                                </div>
                                 <div className='text-start mt-4'>
-                                    <button className='send-btn fflalezar px-4'>
-                                        ارسال تیکت
-                                    </button>
+                                    {
+                                        btnLoader == false ?
+                                            <button className='send-btn fflalezar px-4'>
+                                                ارسال تیکت
+                                            </button>
+                                            :
+                                            <button className='send-btn fflalezar px-4 pt-2'>
+                                                <BtnSpiner wid='25px' he='25px'/>
+                                            </button>
+
+                                    }
+
                                 </div>
                             </form>
 

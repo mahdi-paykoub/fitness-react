@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import Pagination from '../../../components/Pagination/Pagination';
 
 export default function PanelSendTicketIndex() {
     const [loader, setLoader] = useState(true)
-
     const [users, setUsers] = useState([])
+    const [lastShownTickets, setLastShownTickets] = useState([])
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
-    
+
     const getUsers = () => {
         fetch(`${baseUrl}admin/user/ticketable`, {
             headers: {
@@ -34,7 +35,7 @@ export default function PanelSendTicketIndex() {
             <DataBox title='کاربران'>
                 {
                     loader ?
-                        <SniperLoader newstyle='mt-4'/>
+                        <SniperLoader newstyle='mt-4' />
                         :
                         users.length !== 0 ?
                             <Row className=''>
@@ -43,7 +44,7 @@ export default function PanelSendTicketIndex() {
 
 
 
-                                        <table class="table fflalezar mt-4">
+                                        <table class="table fflalezar box-child-table mt-4">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -79,6 +80,15 @@ export default function PanelSendTicketIndex() {
                             </Row>
                             :
                             <div className='p-3 mt-3 bg-danger fflalezar text-white br-10'>  کاربری یافت نشد.</div>
+                }
+                {
+                    <Pagination
+                        items={users}
+                        itemsCount={15}
+                        pathname={`/admin-panel/ticketable-users`}
+                        setShownCourses={setLastShownTickets}
+                    />
+
                 }
             </DataBox>
         </>

@@ -53,6 +53,8 @@ export default function Verify() {
                         title: response.message[0],
                         icon: "error",
                         buttons: 'باشه'
+                    }).then(() => {
+                        setBtnLoader(false)
                     })
                 }
 
@@ -90,7 +92,7 @@ export default function Verify() {
                                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                                     <div className='mt-3 text-center'>
                                         <input type="text" className='w-100 custom-input text-center px-3 mt-4' placeholder='کد تایید را وارد نمایید'
-                                            {...register('code', formValidation('کد'))}
+                                            {...register('code', formValidation('کد', true, 6, 6,/^\d+$/))}
                                         />
                                         <p className='mt-2 text-danger px-2 fs13'>
                                             {errors.code?.message}

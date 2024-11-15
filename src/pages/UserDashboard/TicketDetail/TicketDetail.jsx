@@ -10,8 +10,10 @@ import { formValidation } from "../../../utils/Validations";
 import { useForm } from "react-hook-form";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 import { compareAsc, format, newDate } from "date-fns-jalali";
+import BtnSpiner from '../../../components/BtnSpiner/BtnSpiner';
 
 export default function TicketDetail() {
+    const [btnLoader, setBtnLoader] = useState(false)
     const [chats, setChats] = useState([])
     const [loader, setLoader] = useState(true)
     const [modalShow, setModalShow] = useState(false);
@@ -42,6 +44,7 @@ export default function TicketDetail() {
     const { register, control, handleSubmit, formState, reset } = form
     const { errors } = formState;
     const onSubmit = (data) => {
+        setBtnLoader(true)
         let formData = new FormData()
         formData.append('message', data.message)
         formData.append('ticket_id', ticketId)
@@ -58,8 +61,8 @@ export default function TicketDetail() {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
-
+                setBtnLoader(false)
+                setModalShow(false)
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -68,7 +71,7 @@ export default function TicketDetail() {
                     }).then(response => {
                         reset();
                         getChats();
-                        setModalShow(false)
+
                     })
 
                 } else {
@@ -117,7 +120,7 @@ export default function TicketDetail() {
                                                             نام کاربری
                                                         </div>
                                                         <div className='mt-1 mb-1 text-secondary fs13'>
-                                                          
+
                                                             {format(new Date(chat.created_at), "yyyy-MM-dd")}
                                                         </div>
                                                     </div>
@@ -181,7 +184,15 @@ export default function TicketDetail() {
                             </p>
                         </div>
                         <div className='text-start mt-3'>
-                            <button className='fflalezar send-btn px-4'>ارسال </button>
+                            {
+                                btnLoader == false ?
+                                    <button className='fflalezar send-btn px-4'>ارسال </button>
+                                    :
+                                    <button className='send-btn fflalezar px-4 pt-2'>
+                                        <BtnSpiner wid='25px' he='25px' />
+                                    </button>
+
+                            }
                         </div>
                     </form>
                 </div>

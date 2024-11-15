@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useForm } from "react-hook-form";
@@ -8,24 +8,21 @@ import Form from 'react-bootstrap/Form';
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 import { compareAsc, format, newDate } from "date-fns-jalali";
 import Pagination from '../../../components/Pagination/Pagination';
-import { useNavigate } from "react-router-dom";
 
-export default function PanelTicket() {
+export default function PanelAdminTicekts() {
 
     const [tickets, setTickets] = useState([])
     const [shownTickets, setShownTickets] = useState([])
     const [lastShownTickets, setLastShownTickets] = useState([])
+
     const [loader, setLoader] = useState(true)
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
-    const navigate = useNavigate();
-
 
     const baseUrl = process.env.REACT_APP_BASE_URL
     let statusColor = ''
     let statusText = ''
-
     const getTickets = () => {
-        fetch(`${baseUrl}admin/ticket`, {
+        fetch(`${baseUrl}admin/admin-ticket`, {
             headers: {
                 Authorization: `Bearer ${userTokenLS.token}`
             },
@@ -34,12 +31,9 @@ export default function PanelTicket() {
             .then(res => {
                 setTickets(res.data)
                 setShownTickets(res.data.filter(ticket => ticket.status === 'open'))
-                setLastShownTickets(res.data.filter(ticket => ticket.status === 'open'))
                 setLoader(false)
             })
     }
-
-
 
 
     useEffect(() => {
@@ -52,37 +46,30 @@ export default function PanelTicket() {
         switch (value) {
             case 'open':
                 {
-                    navigate('/admin-panel/tickets/1')
                     const orderedTickets = tickets.filter(ticket => (ticket.status === 'open'))
                     setShownTickets(orderedTickets)
                     break;
                 }
             case 'close':
                 {
-                    navigate('/admin-panel/tickets/1')
                     const orderedTickets = tickets.filter(ticket => (ticket.status === 'close'))
                     setShownTickets(orderedTickets)
                     break;
                 }
             case 'answered':
                 {
-                    navigate('/admin-panel/tickets/1')
-
                     const orderedTickets = tickets.filter(ticket => (ticket.status === 'answered'))
                     setShownTickets(orderedTickets)
                     break;
                 }
             case 'review':
                 {
-                    navigate('/admin-panel/tickets/1')
-
                     const orderedTickets = tickets.filter(ticket => (ticket.status === 'review'))
                     setShownTickets(orderedTickets)
                     break;
                 }
         }
     }
-
     return (
         <>
             <div className='admin-Data-box w-100 py-4 br-10 px-2'>
@@ -106,7 +93,7 @@ export default function PanelTicket() {
                     loader ?
                         <SniperLoader />
                         :
-                        (lastShownTickets.length !== 0) ?
+                        shownTickets.length !== 0 ?
                             <Row className=''>
                                 <Col>
                                     <div className='all-tickets-box bg-white p-4'>
@@ -122,7 +109,7 @@ export default function PanelTicket() {
                                             </thead>
                                             <tbody className='ticket-table'>
                                                 {
-                                                    lastShownTickets.map((ticket, index) => {
+                                                    shownTickets.map((ticket, index) => {
                                                         if (ticket.status === 'open') {
                                                             statusColor = 'bg-danger';
                                                             statusText = 'باز'
@@ -154,13 +141,21 @@ export default function PanelTicket() {
                                                     }
 
                                                     )
+
+
                                                 }
+
+
+
+
                                             </tbody>
                                         </table>
+
+
+
+
                                     </div>
                                 </Col>
-
-
                             </Row>
                             :
                             <div className='p-3 mt-3 bg-danger fflalezar text-white br-10'>تیکتی وجود ندارد.</div>
@@ -169,13 +164,12 @@ export default function PanelTicket() {
                     <Pagination
                         items={shownTickets}
                         itemsCount={15}
-                        pathname={`/admin-panel/tickets`}
+                        pathname={`/admin-panel/admin-tickets`}
                         setShownCourses={setLastShownTickets}
                     />
 
                 }
             </div>
-
         </>
     )
 }

@@ -2,6 +2,7 @@ export const formValidation = (inputName,
     isRequired = true,
     minLength = null,
     maxLength = null,
+    // valueAsNumber = false,
     pattern = null) => {
     return {
         required: {

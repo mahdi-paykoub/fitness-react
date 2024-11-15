@@ -43,6 +43,8 @@ export default function Register() {
                         title: response.message[0],
                         icon: "error",
                         buttons: 'باشه'
+                    }).then(() => {
+                        setBtnLoader(false)
                     })
                 }
 
@@ -81,13 +83,13 @@ export default function Register() {
                                     <div className='fs14 mt-5'>سلام!</div>
                                     <div className='fs14 mt-3'>لطفا اطلاعات خود را وارد نمایید</div>
                                     <input type="text" className='w-100 custom-input px-3 mt-4' placeholder='نام و نام خانوادگی'
-                                        {...register('name', formValidation('نام'))}
+                                        {...register('name', formValidation('نام', true, 2, 30))}
                                     />
                                     <p className='mt-2 text-danger px-2 fs13'>
                                         {errors.name?.message}
                                     </p>
                                     <input type="text" className='w-100 custom-input px-3' placeholder='شماره موبایل'
-                                        {...register('phone', formValidation('شماره موبایل'))}
+                                        {...register('phone', formValidation('شماره موبایل', true, null, null, /^(?:98|\+98|0098|0)?9[0-9]{9}$/))}
                                     />
                                     <p className='mt-2 text-danger px-2 fs13'>
                                         {errors.phone?.message}
@@ -103,7 +105,7 @@ export default function Register() {
                                     }
 
                                 </form>
-                                
+
                                 <div className='fs14 mt-4 pt-2 text-center'>
                                     در صورتی که قبلا ثبت نام کرده اید <Link className='color-1' to='/login'>وارد</Link> شوید
                                 </div>

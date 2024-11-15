@@ -121,7 +121,7 @@ export default function Tickets() {
                                         <tbody className='ticket-table'>
                                             {
 
-                                                tickets.map((ticket, index) => {
+                                                tickets.reverse().map((ticket, index) => {
                                                     if (ticket.status === 'open') {
                                                         statusColor = 'bg-danger';
                                                         statusText = 'باز'

@@ -6,6 +6,7 @@ import './styles/reset.css';
 import './styles/fonts.css';
 import './styles/global.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 import './index.css';
 import App from './App';
@@ -14,6 +15,8 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+      <ScrollToTop />
+
     <App />
   </BrowserRouter>
 );

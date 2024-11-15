@@ -12,8 +12,11 @@ import { SiAnswer } from "react-icons/si";
 import { GoFileZip } from "react-icons/go";
 import { IoMdCloudDownload } from "react-icons/io";
 import { FiShoppingBag } from "react-icons/fi";
+import BtnSpiner from '../../../components/BtnSpiner/BtnSpiner';
 
 export default function PanelOrderDatail() {
+    const [btnLoader, setBtnLoader] = useState(false)
+
     const [tab, setTab] = useState('size')
     const [otherOrders, setOtherOrders] = useState([])
     const [getCurrentImg, setGetCurrentImg] = useState(null)
@@ -34,10 +37,11 @@ export default function PanelOrderDatail() {
     let statusText = ''
     let statusClass = ''
     const onSubmit = (data) => {
+        setBtnLoader(true)
         let formData = new FormData()
         formData.append('title', data.title)
         formData.append('user_info_status_id', data.user_info_status_id)
-        // formData.append('file', data.file)
+        formData.append('file', data.file[0])
 
 
         fetch(`${baseUrl}admin/program`,
@@ -52,6 +56,7 @@ export default function PanelOrderDatail() {
             .then(res => res.json())
             .then(response => {
                 if (response.status !== false) {
+                    setModalShow(false)
                     swal({
                         title: response.message[0],
                         icon: "success",
@@ -59,14 +64,15 @@ export default function PanelOrderDatail() {
                     }).then((res) => {
                         reset()
                         getUserInfo()
-                        setModalShow(false)
-
+                        setBtnLoader(false)
                     })
                 } else {
                     swal({
                         title: response.message[0],
                         icon: "error",
                         buttons: 'باشه'
+                    }).then((res) => {
+                        setBtnLoader(false)
                     })
                 }
 
@@ -635,12 +641,24 @@ export default function PanelOrderDatail() {
                                     <input type="text" className='px-1 mt-1 c-input w-100' placeholder='عنوان برنامه'
                                         {...register('title', formValidation('عنوان'))}
                                     />
+                                    <input type="file" className='mt-3 form-control w-100' placeholder='قایل'
+                                        {...register('file', formValidation('قایل'))}
+                                    />
                                     <p className='mt-2 text-danger px-2 fs13 fflalezar'>
                                         {errors.title?.message}
                                     </p>
                                 </div>
                                 <div className='text-start mt-2'>
-                                    <button className='fflalezar send-btn px-4'>ارسال </button>
+                                    {
+                                        btnLoader == false ?
+                                            <button className='fflalezar send-btn px-4'>ارسال </button>
+                                            :
+                                            <button className='send-btn fflalezar px-4 pt-2'>
+                                                <BtnSpiner wid='25px' he='25px' />
+                                            </button>
+
+                                    }
+
                                 </div>
                             </form>
                         </div>

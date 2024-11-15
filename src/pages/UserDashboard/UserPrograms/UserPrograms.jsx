@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import { compareAsc, format, newDate } from "date-fns-jalali";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import PlanRequired from '../../../components/PlanRequired/PlanRequired';
 
 
 export default function UserPrograms() {
@@ -35,7 +36,7 @@ export default function UserPrograms() {
     }, [])
 
     return (
-        <>
+        <PlanRequired>
             <Row className='mt-3'>
                 <Col>
                     <div className='bg-white p-4 br-10'>
@@ -111,6 +112,6 @@ export default function UserPrograms() {
                     </div>
                 </Col>
             </Row>
-        </>
+        </PlanRequired>
     )
 }

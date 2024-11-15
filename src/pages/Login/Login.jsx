@@ -1,4 +1,4 @@
-import { React, useContext } from 'react'
+import { React, useState } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaGoogle } from "react-icons/fa";
@@ -6,9 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
+import BtnSpiner from '../../components/BtnSpiner/BtnSpiner';
 
 
 export default function Login() {
+    const [btnLoader, setBtnLoader] = useState(false)
+
     const baseUrl = process.env.REACT_APP_BASE_URL
     const navigate = useNavigate();
 
@@ -23,6 +26,7 @@ export default function Login() {
         let formData = new FormData()
         formData.append('phone', data.phone)
 
+        setBtnLoader(true)
 
         fetch(`${baseUrl}login`,
             {
@@ -41,6 +45,8 @@ export default function Login() {
                         title: response.message[0],
                         icon: "error",
                         buttons: 'باشه'
+                    }).then(() => {
+                        setBtnLoader(false)
                     })
                 }
 
@@ -74,13 +80,19 @@ export default function Login() {
                                 <div className='fs14 mt-3'>لطفا شماره موبایل خود را وارد نمایید</div>
                                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                                     <input type="text" className='w-100 custom-input px-3 mt-4' placeholder=''
-                                        {...register('phone', formValidation('شماره موبایل'))}
+                                        {...register('phone', formValidation('شماره موبایل', true, null, null, /^(?:98|\+98|0098|0)?9[0-9]{9}$/))}
                                     />
                                     <p className='mt-2 text-danger px-2 fs13'>
                                         {errors.phone?.message}
                                     </p>
-                                    <button className='login-btn mt-2 w-100 text-white'>ورود</button>
-
+                                    {
+                                        btnLoader === false ?
+                                            <button className='login-btn mt-2 w-100 text-white'>ورود</button>
+                                            :
+                                            <button type='button' className='login-btn mt-1 w-100 text-white'>
+                                                <BtnSpiner wid='30px' he='30px' />
+                                            </button>
+                                    }
                                 </form>
                                 {/* <div className='d-flex my-4 align-items-center justify-content-center'>
                                         <hr className='w-25' />

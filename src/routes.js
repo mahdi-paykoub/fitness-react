@@ -39,6 +39,13 @@ import CheckoutPrivateRoute from "./pages/CheckoutPrivateRoute/CheckoutPrivateRo
 import LoginPrivateRoute from "./pages/LoginPrivateRoute/LoginPrivateRoute";
 import AllPeys from "./pages/AdminPanel/AllPeys/AllPeys";
 import Setting from "./pages/AdminPanel/Setting/Setting";
+import PanelAdminTicekts from "./pages/AdminPanel/PanelAdminTickets/PanelAdminTickets";
+import PanelAddPlans from "./pages/AdminPanel/PanelAddPlans/PanelAddPlans";
+import PanelAddCourses from "./pages/AdminPanel/PanelAddCourses/PanelAddCourses";
+import PanelUpdateCourse from "./pages/AdminPanel/PanelUpdateCourse/PanelUpdateCourse";
+import PanelUpdatePlan from "./pages/AdminPanel/PanelUpdatePlan/PanelUpdatePlan";
+import PanelAddUser from "./pages/AdminPanel/PanelAddUser/PanelAddUser";
+import PanelAddUserPrevInfos from "./pages/AdminPanel/PanelAddUserPrevInfos/PanelAddUserPrevInfos";
 
 
 const routes = [
@@ -59,6 +66,7 @@ const routes = [
 
     {
         path: '/login', element: <LoginPrivateRoute />, children: [
+            { path: '/login', element: <Login /> },
         ]
     },
     {
@@ -79,15 +87,15 @@ const routes = [
                 path: '/dashboard/*', element: <UserDashboard />,
                 children: [
                     { path: '', element: <IndexDashboard /> },
+                    { path: 'user-info', element: <UserInfo /> },
+                    { path: 'inqiry', element: <Inquiry /> },
+                    { path: 'program-detail/:id', element: <ProgramDetail /> },
+                    { path: 'my-programs', element: <UserPrograms /> },
                     { path: 'my-courses', element: <MyCourses /> },
                     { path: 'tickets', element: <Tickets /> },
                     { path: 'send-ticket', element: <SendTicket /> },
                     { path: 'ticket-detail/:id', element: <TicketDetail /> },
-                    { path: 'my-programs', element: <UserPrograms /> },
-                    { path: 'program-detail/:id', element: <ProgramDetail /> },
-                    { path: 'inqiry', element: <Inquiry /> },
                     { path: 'faqs', element: <Faqs /> },
-                    { path: 'user-info', element: <UserInfo /> },
                 ]
             },
         ]
@@ -99,14 +107,21 @@ const routes = [
             {
                 path: '/admin-panel/*', element: <AdminPanel />,
                 children: [
-                    { path: "", element: <PanelIndex /> },
-                    { path: "courses", element: <PanelCourses /> },
+                    { path: "users/:page", element: <PanelIndex /> },
+                    { path: "add-user", element: <PanelAddUser /> },
+                    { path: "add-user-prev-infos", element: <PanelAddUserPrevInfos /> },
+                    { path: "add-courses", element: <PanelAddCourses /> },
+                    { path: "update-course/:slug", element: <PanelUpdateCourse /> },
+                    { path: "all-courses", element: <PanelCourses /> },
                     { path: 'session', element: <PanelSession /> },
                     { path: 'orders', element: <PanelOrders /> },
                     { path: 'order-detail/:id/:userId', element: <PanelOrderDatail /> },
-                    { path: 'plans', element: <PanelPlans /> },
-                    { path: 'tickets', element: <PanelTicket /> },
-                    { path: 'ticketable-users', element: <PanelSendTicketIndex /> },
+                    { path: 'add-plans', element: <PanelAddPlans /> },
+                    { path: 'update-plan/:slug', element: <PanelUpdatePlan /> },
+                    { path: 'all-plans', element: <PanelPlans /> },
+                    { path: 'tickets/:page', element: <PanelTicket /> },
+                    { path: 'admin-tickets/:page', element: <PanelAdminTicekts /> },
+                    { path: 'ticketable-users/:page', element: <PanelSendTicketIndex /> },
                     { path: 'send-ticket/:id', element: <PanelSendTicket /> },
                     { path: 'ticket-detail/:id/:userId', element: <PanelTicketDetail /> },
                     { path: 'payments/:page', element: <AllPeys /> },

@@ -105,7 +105,7 @@ export default function UserSize({ defaultUserSize }) {
                                     </div>
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
-                                            {...register('height', formValidation('قد'))}
+                                            {...register('height', formValidation('قد', true, null, null, /^\d+$/))}
                                         />
                                         <p className='mt-2 text-danger px-2 fs13 fflalezar'>
                                             {errors.height?.message}
@@ -121,7 +121,7 @@ export default function UserSize({ defaultUserSize }) {
                                     </div>
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
-                                            {...register('weight', formValidation('وزن'))}
+                                            {...register('weight', formValidation('وزن', true, null, null, /^\d+$/))}
                                         />
                                         <p className='mt-2 text-danger px-2 fs13 fflalezar'>
                                             {errors.weight?.message}
@@ -137,8 +137,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('neck', formValidation('دور گردن', false))}
+                                            {...register('neck', formValidation('دور گردن', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.neck?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -150,8 +153,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('shoulder', formValidation('دور شانه', false))}
+                                            {...register('shoulder', formValidation('دور شانه', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.shoulder?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -163,8 +169,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('arm', formValidation('دور بازو در حالت عادی', false))}
+                                            {...register('arm', formValidation('دور بازو در حالت عادی', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.arm?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -176,8 +185,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('contracted_arm', formValidation(' دور بازو در حالت منقبض', false))}
+                                            {...register('contracted_arm', formValidation(' دور بازو در حالت منقبض', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.contracted_arm?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -189,8 +201,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('forearm', formValidation('دور ساعد', false))}
+                                            {...register('forearm', formValidation('دور ساعد', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.forearm?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -202,8 +217,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('wrist', formValidation(' دور مچ دست', false))}
+                                            {...register('wrist', formValidation(' دور مچ دست', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.wrist?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -215,8 +233,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('chest', formValidation('دور سینه', false))}
+                                            {...register('chest', formValidation('دور سینه', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.chest?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -228,8 +249,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('belly', formValidation('دور شکم', false))}
+                                            {...register('belly', formValidation('دور شکم', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.belly?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -241,8 +265,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('waist', formValidation('دور کمر', false))}
+                                            {...register('waist', formValidation('دور کمر', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.waist?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -254,8 +281,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('hips', formValidation('دور باسن', false))}
+                                            {...register('hips', formValidation('دور باسن', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.hips?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -267,8 +297,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('thigh', formValidation('دور ران', false))}
+                                            {...register('thigh', formValidation('دور ران', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.thigh?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -280,8 +313,11 @@ export default function UserSize({ defaultUserSize }) {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('leg', formValidation('دور ساق', false))}
+                                            {...register('leg', formValidation('دور ساق', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.leg?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -292,8 +328,11 @@ export default function UserSize({ defaultUserSize }) {
                                     </div>
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
-                                            {...register('ankle', formValidation('دور مچ پا', false))}
+                                            {...register('ankle', formValidation('دور مچ پا', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.ankle?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
