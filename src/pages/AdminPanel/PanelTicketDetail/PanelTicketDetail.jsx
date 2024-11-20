@@ -102,7 +102,7 @@ export default function PanelTicketDetail() {
                         title: response.message[0],
                         icon: "error",
                         buttons: 'باشه'
-                    }).then(response => {                   
+                    }).then(response => {
                         setBtnLoader(false)
 
                     })
@@ -323,7 +323,7 @@ export default function PanelTicketDetail() {
                                 btnLoader == false ?
                                     <button className='fflalezar send-btn px-4'>ارسال </button>
                                     :
-                                    <button className='send-btn fflalezar px-4 pt-2'>
+                                    <button type='button' className='send-btn fflalezar px-4 pt-2'>
                                         <BtnSpiner wid='25px' he='25px' />
                                     </button>
 

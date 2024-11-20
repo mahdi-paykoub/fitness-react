@@ -188,7 +188,7 @@ export default function TicketDetail() {
                                 btnLoader == false ?
                                     <button className='fflalezar send-btn px-4'>ارسال </button>
                                     :
-                                    <button className='send-btn fflalezar px-4 pt-2'>
+                                    <button type='button' className='send-btn fflalezar px-4 pt-2'>
                                         <BtnSpiner wid='25px' he='25px' />
                                     </button>
 

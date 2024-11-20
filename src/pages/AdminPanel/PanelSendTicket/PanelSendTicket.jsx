@@ -114,8 +114,8 @@ export default function PanelSendTicket() {
                                                 ارسال تیکت
                                             </button>
                                             :
-                                            <button className='send-btn fflalezar px-4 pt-2'>
-                                                <BtnSpiner wid='25px' he='25px'/>
+                                            <button type='button' className='send-btn fflalezar px-4 pt-2'>
+                                                <BtnSpiner wid='25px' he='25px' />
                                             </button>
 
                                     }
