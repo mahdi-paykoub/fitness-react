@@ -11,11 +11,13 @@ import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
 
 export default function UserImage({ defaultUserImage }) {
+    console.log(defaultUserImage);
+    
     const baseUrl = process.env.REACT_APP_BASE_URL
 
-    const [front, setFront] = useState(baseUrl + defaultUserImage.front);
-    const [back, setBack] = useState(baseUrl + defaultUserImage.back);
-    const [side, setSide] = useState(baseUrl + defaultUserImage.side);
+    const [front, setFront] = useState(baseUrl + (defaultUserImage == null ? '' : defaultUserImage.front));
+    const [back, setBack] = useState(baseUrl + (defaultUserImage == null ? '' : defaultUserImage.back));
+    const [side, setSide] = useState(baseUrl + (defaultUserImage == null ? '' : defaultUserImage.side));
 
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
 
@@ -42,7 +44,6 @@ export default function UserImage({ defaultUserImage }) {
             })
             .then(res => res.json())
             .then(response => {
-
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -88,8 +89,8 @@ export default function UserImage({ defaultUserImage }) {
                             />
 
                             <label style={{ 'height': "150px" }} htmlFor="uploadImage1" className='w-100 mt-2 cursor-pointer position-relative w-100 w-100 br-10 d-flex justify-content-center align-items-center'>
-
                                 <img src={front} className='w-100 position-absolute object-fit-cover inn-im' />
+
                                 <div className='un-img position-absolute' >
                                     <HiOutlineCamera fontSize={40} color='#ecedee' />
                                 </div>

@@ -14,6 +14,7 @@ import UserSize from '../../../components/UserPanel/UserSize';
 import UserQuestion from '../../../components/UserPanel/UserQuestion';
 import PlanRequired from '../../../components/PlanRequired/PlanRequired';
 import { FaStar } from 'react-icons/fa';
+import { BsBack } from 'react-icons/bs';
 
 export default function UserInfo() {
     const [tab, setTab] = useState('size')
@@ -88,7 +89,8 @@ export default function UserInfo() {
         })
             .then(res => res.json())
             .then(res => {
-                
+                console.log(res.image);
+
                 setDefaulSize(res.size)
                 setDefaultQuestion(res.question)
                 setDefaultImage(res.image)
@@ -423,7 +425,7 @@ export default function UserInfo() {
                         {/* images */}
                         {
                             tab === 'image' &&
-                            <UserImage defaultUserImage={defaultImage} />
+                                <UserImage defaultUserImage={defaultImage} />
                         }
 
                         {/* questions */}
