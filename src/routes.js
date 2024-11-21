@@ -55,7 +55,7 @@ const routes = [
     { path: '/courses', element: <Courses /> },
     { path: '/courses/:title', element: <SingleCourse /> },
     { path: '/courses/:title/:sectionId', element: <Section /> },
-    { path: '/payment/success', element: <SuccessPay /> },
+    { path: '/payment/:type/success', element: <SuccessPay /> },
     { path: '/payment/fail', element: <FailPay /> },
     //checkout
     {

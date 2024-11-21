@@ -4,7 +4,7 @@ import DataBox from '../../../components/AdminPanel/DataBox/DataBox'
 import { Table } from 'react-bootstrap'
 import SniperLoader from '../../../components/SniperLoader/SniperLoader'
 import ErrorBox from '../../../components/AdminPanel/ErrorBox/ErrorBox'
-// import XLSX from "xlsx";
+import swal from "sweetalert";
 import { read, utils, writeFile } from 'xlsx';
 import Pagination from '../../../components/Pagination/Pagination'
 import { Link, useNavigate } from "react-router-dom";
@@ -105,6 +105,53 @@ export default function PanelIndex() {
         break;
     }
   }
+
+
+  const handleDeleteUser = (id) => {
+    swal({
+      title: 'آیا از حذف اطمینان دارید؟',
+      icon: "error",
+      buttons: ['خیر', 'بله']
+    }).then(response => {
+      if (response) {
+        fetch(`${baseUrl}admin/user/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userTokenLS.token}`
+          },
+        })
+          .then(response =>
+            response.json()
+          )
+          .then(res => {
+
+            if (res.status !== false) {
+              swal({
+                title: "کاربر با موفقیت حذف شد",
+                icon: "success",
+                buttons: 'باشه'
+              }).then(response => {
+                console.log(response);
+
+                getCourses();
+              })
+            } else {
+              swal({
+                title: "مشکلی در حذف بوجود آمد!",
+                icon: "error",
+                buttons: 'باشه'
+              }).then(response => {
+                getCourses();
+              })
+            }
+
+          })
+
+      }
+    })
+  }
   return (
     <>
       <div className='mt-5 mb-5 pb-5'>
@@ -114,7 +161,7 @@ export default function PanelIndex() {
             :
 
             <>
-            
+
               <div className='admin-Data-box w-100 py-4 br-10 px-2'>
                 <div className=' d-flex justify-content-between'>
                   <div className='fs20'>لیست <span className='text-primary'>کاربران</span>
@@ -157,11 +204,15 @@ export default function PanelIndex() {
                               <td>{user.phone}</td>
 
                               <td>
-                                <button className='btn btn-danger btn-sm'
-                                // onClick={() => handleDeleteCourse(course.id)}
-                                >
-                                  حذف
-                                </button>
+                                {
+                                  user.admin != true &&
+                                  <button className='btn btn-danger btn-sm'
+                                    onClick={() => handleDeleteUser(user.id)}
+                                  >
+                                    حذف
+                                  </button>
+                                }
+
                               </td>
                             </tr>
                           )

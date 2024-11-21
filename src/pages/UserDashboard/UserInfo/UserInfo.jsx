@@ -13,6 +13,7 @@ import UserImage from '../../../components/UserPanel/UserImage';
 import UserSize from '../../../components/UserPanel/UserSize';
 import UserQuestion from '../../../components/UserPanel/UserQuestion';
 import PlanRequired from '../../../components/PlanRequired/PlanRequired';
+import { FaStar } from 'react-icons/fa';
 
 export default function UserInfo() {
     const [tab, setTab] = useState('size')
@@ -102,9 +103,12 @@ export default function UserInfo() {
         <PlanRequired>
             {authContext.isLoggedIn &&
                 <Row className='mt-4 fflalezar'>
-                    <div className='fflalezar fs30 c-text-secondary mb-4'>تکمیل پروفایل</div>
-                    <Col lg={4}>
-                        <div className='user-personal-info bg-white mb-4 br-10'>
+                    <div className='fflalezar fs30 c-text-secondary mb-4 d-flex align-items-center'>
+                        <FaStar fontSize={25} />
+                        <div className='me-1 mt-1'>تکمیل پروفایل</div>
+                    </div>
+                    <Col lg={4} className=''>
+                        <div className='user-personal-info bg-white mb-4 br-10 top-5px sticky-lg-top'>
                             <div className='position-relative'>
                                 <img src="/images/user-grid-bg1.png" className='w-100 backeimg' alt="" />
                                 <img src="/images/avatar-1.jpg" width={100} height={100} className='rounded-circle position-absolute user-avatar-img' alt="" />
@@ -122,6 +126,7 @@ export default function UserInfo() {
                                 }
 
                             </div>
+
 
                             <div className='px-3'>
 
@@ -390,7 +395,6 @@ export default function UserInfo() {
 
                             </div>
                         </div>
-
                     </Col>
                     <Col lg={8}>
                         {/* tabs */}

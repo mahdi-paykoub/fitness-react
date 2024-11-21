@@ -3,13 +3,14 @@ import { json, useNavigate, useRoutes } from 'react-router-dom'
 import routes from './routes'
 import { AuthContext } from "./Context/AuthContext";
 import { CartContext } from "./Context/CartContext";
+import swal from "sweetalert";
 
 function App() {
   const router = useRoutes(routes)
   const [isLoggedIn, setIsLoggedIn] = useState(null)
   const [token, setToken] = useState(null)
   const [userInfo, setUserInfo] = useState(null)
-
+  const navigate = useNavigate();
 
   const [cartItem, setCartItem] = useState([])
 
@@ -27,20 +28,22 @@ function App() {
           Authorization: `Bearer ${userTokenLS.token}`
         }
       })
-        .then(response => {
-          if (!response.ok) {
-            return response.json().then(error => {
-              throw new Error('توکن معتبر نیست');
-            })
-          } else return response.json();
-        }
-        )
-        .then(res => {          
-          setIsLoggedIn(true)
-          setUserInfo(res)
-          setToken(userTokenLS.token)
+        .then(response => response.json())
+        .then(res => {
+          if (res.status == true) {
+            setIsLoggedIn(true)
+            setUserInfo(res)
+            setToken(userTokenLS.token)
+          } else {
+            localStorage.removeItem('user')
+            setToken(null)
+            setUserInfo({})
+            setIsLoggedIn(false)
+            navigate('/')
+          }
+
         })
-    }else{
+    } else {
       setIsLoggedIn(false)
     }
   }, [token]);
@@ -60,32 +63,46 @@ function App() {
   }
 
 
-  // function logout() {
-  //   const userTokenLS = JSON.parse(localStorage.getItem('user'))
-  //   if (userTokenLS) {
-  //     fetch(`${baseUrl}logout`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Accept': 'application/vnd.api+json',
-  //         'Content-Type': 'application/vnd.api+json',
-  //         Authorization: `Bearer ${userTokenLS.token}`
-  //       }
-  //     }).then(response => {
-  //       return response.json();
-  //     }
-  //     )
-  //       .then(res => {
-  //         localStorage.removeItem('user')
-  //         setToken(null)
-  //         setUserInfo({})
-  //         setIsLoggedIn(false)
-  //         navigate('/')
-  //       }).catch(err => {
-  //       })
-  //   }
+  function logout() {
+    const userTokenLS = JSON.parse(localStorage.getItem('user'))
+    if (userTokenLS) {
+      fetch(`${baseUrl}logout`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/vnd.api+json',
+          'Content-Type': 'application/vnd.api+json',
+          Authorization: `Bearer ${userTokenLS.token}`
+        }
+      }).then(response => {
+        return response.json();
+      }
+      )
+        .then(res => {
+          if (res.status != false) {
+            localStorage.removeItem('user')
+            setToken(null)
+            setUserInfo({})
+            setIsLoggedIn(false)
+            navigate('/')
+            swal({
+              title: res.message[0],
+              icon: "success",
+              buttons: 'باشه'
+            })
+          } else {
+            swal({
+              title: res.message[0],
+              icon: "success",
+              buttons: 'باشه'
+            })
+          }
+
+        }).catch(err => {
+        })
+    }
 
 
-  // }
+  }
 
 
 
@@ -106,7 +123,7 @@ function App() {
         token,
         userInfo: userInfo,
         login: login,
-        // logout: logout
+        logout: logout
       }}>
         <CartContext.Provider value={{
           cartItem: cartItem,

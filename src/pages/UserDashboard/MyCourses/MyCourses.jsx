@@ -6,6 +6,7 @@ import { FiUserCheck } from 'react-icons/fi';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import { ShimmerDiv, ShimmerSectionHeader, ShimmerText } from 'shimmer-effects-react';
 
 
 export default function MyCourses() {
@@ -35,11 +36,30 @@ export default function MyCourses() {
 
     return (
         <>
+
             {
                 loader ?
-                    <SniperLoader newstyle='mt-5'/>
+                    <Container className='mt-4'>
+                        <Row>
+                            <Col lg='4' className='mt-3'>
+                                <ShimmerDiv mode="light" width='100%' height={200} rounded={1} />
+                                <ShimmerText mode="light" line={5} gap={6} className='mt-3' />
+
+
+                            </Col>
+                            <Col lg='4' className='mt-3'>
+                                <ShimmerDiv mode="light" width='100%' height={200} rounded={1} />
+                                <ShimmerText mode="light" line={5} gap={6} className='mt-3' />
+
+                            </Col>
+                            <Col lg='4' className='mt-3'>
+                                <ShimmerDiv mode="light" width='100%' height={200} rounded={1} />
+                                <ShimmerText mode="light" line={5} gap={6} className='mt-3' />
+                            </Col>
+                        </Row>
+                    </Container>
                     :
-                    courses.length !== 0 &&
+                    courses.length !== 0 ?
                     <Container className='mb-5'>
                         <Row>
                             {
@@ -78,6 +98,8 @@ export default function MyCourses() {
 
                         </Row>
                     </Container>
+                    :
+                    <div className='bg-danger text-white br-10 p-3 mt-4 fflalezar'>دوره ای یافت نشد</div>
             }
 
 

@@ -226,7 +226,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     physicalInjury === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='مشکلات ژنتیکی، اسکلتی، عضلانی و... بطور کامل شررح دهید'
                                             {...register('physical_injury_text', formValidation('توضیحات سوابق ورزشی'))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -274,7 +274,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     heartDisease === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='هرنوع بیماری و یا احساس مشکل را شرح دهید'
                                             {...register('heart_disease_text', formValidation('توضیحات  مشکلات قلبی تنفسی'))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -288,7 +288,8 @@ export default function UserQuestion({ defaultUserQuestions }) {
                         <Col xs='12' className='mt-4'>
                             <div className='c-text-secondary fs15'>
                                 7-
-                                آیا حساسیت گوارشی دارید؟                                                                                      </div>
+                                آیا حساسیت گوارشی دارید؟
+                            </div>
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
@@ -320,7 +321,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     gastroSensitivity === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='هرگونه حساسیت به مواد غذایی و یا مکمل را شرح دهید'
                                             {...register('gastro_sensitivity_text', formValidation('توضیحات حساسیت گوارشی  '))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -398,7 +399,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     medicine === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='نام دارو، دوز مصرف بطور دقیق شرح دهید'
                                             {...register('medicine_text', formValidation('دارو'))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -445,7 +446,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     smoking === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='میزان مصرف'
                                             {...register('smoking_text', formValidation(' سیگار یا الکل '))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -542,7 +543,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     liverEnzymes === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='وضعیت و نتیجه آزمایش'
                                             {...register('liver_enzymes_text', formValidation(' سیگار یا الکل '))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -589,7 +590,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     historySteroid === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='نام، زمان و مقدار هر کدام را کامل شرح دهید'
                                             {...register('history_steroid_text', formValidation('سابقه مصرف '))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -636,7 +637,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 {
                                     supplementUse === true &&
                                     <>
-                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                        <textarea className='c-input w-100 c-textarea p-2' placeholder='سقف بودجه مدنظر را بنویسید'
                                             {...register('supplement_use_text', formValidation('سابقه مصرف '))}
                                         ></textarea>
                                         <p className='text-danger px-2 fs14'>
@@ -669,7 +670,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                     </Row>
                     {
                         defaultUserQuestions != null ?
-                        defaultUserQuestions.length === 0 ?
+                            defaultUserQuestions.length === 0 ?
                                 <div className='text-start'>
                                     <button className='send-btn fflalezar px-4 mt-4'>ارسال</button>
                                 </div> :

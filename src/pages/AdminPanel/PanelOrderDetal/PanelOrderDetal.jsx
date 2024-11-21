@@ -528,11 +528,17 @@ export default function PanelOrderDatail() {
                                                         <span className='me-1'>{program.title}</span>
 
                                                     </div>
-                                                    <div className='text-primary cursor-pointer d-flex align-items-center'>
+                                                    <a download={true} href={`${baseUrl}${program.file}`} >
+                                                        <div className='text-primary cursor-pointer d-flex align-items-center'>
 
-                                                        <IoMdCloudDownload fontSize={25} />
-                                                        <div className='me-2 mt-1'>دانلود برنامه</div>
-                                                    </div>
+
+
+                                                            <IoMdCloudDownload fontSize={25} />
+                                                            <div className='me-2 mt-1'>دانلود برنامه</div>
+
+
+                                                        </div>
+                                                    </a>
                                                 </div>)
                                             :
                                             <div className='fflalezar bg-danger text-white br-10 p-3'>برنامه ای وجود ندار.</div>

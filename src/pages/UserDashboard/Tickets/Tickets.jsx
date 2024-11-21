@@ -7,6 +7,7 @@ import { PiTicketBold } from "react-icons/pi";
 import { BiCube } from "react-icons/bi";
 import { compareAsc, format, newDate } from "date-fns-jalali";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
+import { ShimmerTable } from 'shimmer-effects-react';
 
 
 
@@ -15,7 +16,7 @@ export default function Tickets() {
     const [loader, setLoader] = useState(true)
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
-  
+
 
 
     let statusColor = '';
@@ -94,14 +95,19 @@ export default function Tickets() {
                 </Col>
 
             </Row>
-
+        
             <Row className='mt-4 mb-5'>
                 <Col>
                     <div className='all-tickets-box bg-white p-4'>
                         <div className='fflalezar fs20 c-text-secondary'>تیکت ها</div>
                         {
                             loader ?
-                                <SniperLoader />
+                                <>
+                                    
+                                    <div className='mt-4'>
+                                        <ShimmerTable className='mt-5' mode="light" row={3} col={4} border={1} borderColor={"#cbd5e1"} rounded={0.25} rowGap={16} colPadding={[10, 5, 10, 5]} />
+                                    </div>
+                                </>
                                 :
                                 tickets.length !== 0 ?
                                     <table class="table box-child-table fflalezar mt-4">

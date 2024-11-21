@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { compareAsc, format, newDate } from "date-fns-jalali";
 import SniperLoader from '../../../components/SniperLoader/SniperLoader';
 import PlanRequired from '../../../components/PlanRequired/PlanRequired';
+import { ShimmerTable } from 'shimmer-effects-react';
 
 
 export default function UserPrograms() {
@@ -53,7 +54,9 @@ export default function UserPrograms() {
 
                         {
                             loder ?
-                                <SniperLoader newstyle='mt-5 mb-4'/>
+                                <div className='mt-4'>
+                                    <ShimmerTable className='mt-5' mode="light" row={3} col={4} border={1} borderColor={"#cbd5e1"} rounded={0.25} rowGap={16} colPadding={[10, 5, 10, 5]} />
+                                </div>
                                 :
                                 orders.length !== 0 ?
                                     <table class="table box-child-table mt-5 fflalezar">
