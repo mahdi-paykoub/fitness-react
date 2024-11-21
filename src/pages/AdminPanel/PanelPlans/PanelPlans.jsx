@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 let nextId = 0;
 export default function PanelPlans() {
     const [plans, setPlans] = useState([])
-
     const [loader, setLoader] = useState(true)
 
     const baseUrl = process.env.REACT_APP_BASE_URL
@@ -43,12 +42,6 @@ export default function PanelPlans() {
         getPlans()
     }, [])
 
-    const showDescription = (description) => {
-        swal({
-            text: description,
-            buttons: 'باشه'
-        })
-    }
 
     const handleDeletePlan = (id) => {
         swal({
@@ -94,6 +87,52 @@ export default function PanelPlans() {
         })
     }
 
+    const handleActivation = (id, activation) => {
+
+        swal({
+            title: 'آیا  اطمینان دارید؟',
+            icon: "info",
+            buttons: ['خیر', 'بله']
+        }).then(response => {
+            if (response) {
+                fetch(`${baseUrl}admin/handle-plan-active/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${userTokenLS.token}`
+                    },
+                    body: JSON.stringify({
+                        activation
+                    })
+                })
+                    .then(res => res.json())
+                    .then(response => {
+                        if (response.status !== false) {
+                            swal({
+                                title: response.message[0],
+                                icon: "success",
+                                buttons: 'باشه'
+                            }).then(response => {
+                                getPlans();
+                            })
+                        } else {
+                            swal({
+                                title: response.message[0],
+                                icon: "error",
+                                buttons: 'باشه'
+                            })
+                        }
+                    })
+
+            }
+        })
+
+
+
+
+    }
+
 
 
     return (
@@ -113,6 +152,7 @@ export default function PanelPlans() {
                                             <th>نامک</th>
                                             <th>قیمت اصلی</th>
                                             <th>قیمت با تخفیف</th>
+                                            <th>وضعیت</th>
                                             <th>عملیات</th>
                                         </tr>
                                     </thead>
@@ -125,6 +165,7 @@ export default function PanelPlans() {
                                                 <td>{plan.slug}</td>
                                                 <td>{plan.price === 0 ? 'رایگان' : Number(plan.price).toLocaleString()}</td>
                                                 <td>{plan.off_price === null ? 'ندار' : Number(plan.off_price).toLocaleString()}</td>
+                                                <td className='fs15'>{plan.active == true ? <div className='text-primary'>فعال</div> : <div className='text-secondary'>غیر فعال</div>}</td>
 
                                                 <td>
                                                     <Link className='btn btn-primary btn-sm'
@@ -137,6 +178,22 @@ export default function PanelPlans() {
                                                     >
                                                         حذف
                                                     </button>
+                                                    {
+                                                        plan.active == true ?
+                                                            <button className='btn btn-secondary btn-sm me-2'
+                                                                onClick={() => handleActivation(plan.slug, false)}
+                                                            >
+                                                                غیر فعال کردن
+                                                            </button>
+                                                            :
+                                                            <button className='btn btn-success btn-sm me-2'
+                                                                onClick={() => handleActivation(plan.slug, true)}
+                                                            >
+                                                                فعال کردن
+                                                            </button>
+                                                    }
+
+
                                                 </td>
                                             </tr>)
                                         }
