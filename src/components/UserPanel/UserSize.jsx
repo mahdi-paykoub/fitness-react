@@ -63,7 +63,6 @@ export default function UserSize({ defaultUserSize }) {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
 
                 if (response.status !== false) {
                     swal({

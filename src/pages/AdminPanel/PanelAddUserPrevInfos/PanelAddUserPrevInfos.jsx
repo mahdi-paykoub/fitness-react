@@ -8,6 +8,9 @@ import { HiOutlineCamera } from 'react-icons/hi2';
 
 
 function PanelAddUserPrevInfos() {
+    const [front, setFront] = useState();
+    const [back, setBack] = useState();
+    const [side, setSide] = useState();
     const [plans, setPlans] = useState([])
     const [physicalInjury, setPhysicalInjury] = useState(false)
     const [heartDisease, setHeartDisease] = useState(false)
@@ -18,13 +21,12 @@ function PanelAddUserPrevInfos() {
     const [historySteroid, setHistorySteroid] = useState(false)
     const [supplementUse, setSupplementUse] = useState(false)
 
-
     const form = useForm();
     const { register, control, handleSubmit, formState, reset, unregister } = form
     const { errors } = formState;
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
-
     const baseUrl = process.env.REACT_APP_BASE_URL
+
     const onSubmit = (data) => {
         let formData = new FormData()
         formData.append('phone', data.phone)
@@ -153,7 +155,7 @@ function PanelAddUserPrevInfos() {
 
 
                         <Row>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         قد
@@ -161,7 +163,7 @@ function PanelAddUserPrevInfos() {
                                     </div>
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
-                                            {...register('height', formValidation('قد'))}
+                                            {...register('height', formValidation('قد', true, null, null, /^\d+$/))}
                                         />
                                         <p className='mt-2 text-danger px-2 fs13 fflalezar'>
                                             {errors.height?.message}
@@ -169,7 +171,7 @@ function PanelAddUserPrevInfos() {
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         وزن
@@ -177,7 +179,7 @@ function PanelAddUserPrevInfos() {
                                     </div>
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
-                                            {...register('weight', formValidation('وزن'))}
+                                            {...register('weight', formValidation('وزن', true, null, null, /^\d+$/))}
                                         />
                                         <p className='mt-2 text-danger px-2 fs13 fflalezar'>
                                             {errors.weight?.message}
@@ -185,7 +187,7 @@ function PanelAddUserPrevInfos() {
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور گردن
@@ -193,12 +195,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('neck', formValidation('دور گردن', false))}
+                                            {...register('neck', formValidation('دور گردن', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.neck?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور شانه
@@ -206,12 +211,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('shoulder', formValidation('دور شانه', false))}
+                                            {...register('shoulder', formValidation('دور شانه', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.shoulder?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور بازو در حالت عادی
@@ -219,12 +227,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('arm', formValidation('دور بازو در حالت عادی', false))}
+                                            {...register('arm', formValidation('دور بازو در حالت عادی', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.arm?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور بازو در حالت منقبض
@@ -232,12 +243,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('contracted_arm', formValidation(' دور بازو در حالت منقبض', false))}
+                                            {...register('contracted_arm', formValidation(' دور بازو در حالت منقبض', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.contracted_arm?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور ساعد
@@ -245,12 +259,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('forearm', formValidation('دور ساعد', false))}
+                                            {...register('forearm', formValidation('دور ساعد', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.forearm?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور مچ دست
@@ -258,12 +275,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('wrist', formValidation(' دور مچ دست', false))}
+                                            {...register('wrist', formValidation(' دور مچ دست', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.wrist?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور سینه
@@ -271,12 +291,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('chest', formValidation('دور سینه', false))}
+                                            {...register('chest', formValidation('دور سینه', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.chest?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور شکم
@@ -284,12 +307,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('belly', formValidation('دور شکم', false))}
+                                            {...register('belly', formValidation('دور شکم', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.belly?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور کمر
@@ -297,12 +323,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('waist', formValidation('دور کمر', false))}
+                                            {...register('waist', formValidation('دور کمر', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.waist?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور باسن
@@ -310,12 +339,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('hips', formValidation('دور باسن', false))}
+                                            {...register('hips', formValidation('دور باسن', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.hips?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور ران
@@ -323,12 +355,15 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('thigh', formValidation('دور ران', false))}
+                                            {...register('thigh', formValidation('دور ران', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.thigh?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور ساق
@@ -336,20 +371,26 @@ function PanelAddUserPrevInfos() {
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
 
-                                            {...register('leg', formValidation('دور ساق', false))}
+                                            {...register('leg', formValidation('دور ساق', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.leg?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg='6' xl='4'>
+                            <Col lg={6}>
                                 <div className='mt-3 px-3'>
                                     <div className='fflalezar c-text-secondary'>
                                         دور مچ پا
                                     </div>
                                     <div>
                                         <input type="text" className='px-1 mt-1 c-input w-100'
-                                            {...register('ankle', formValidation('دور مچ پا', false))}
+                                            {...register('ankle', formValidation('دور مچ پا', false, null, null, /^\d+$/))}
                                         />
+                                        <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                            {errors.ankle?.message}
+                                        </p>
                                     </div>
                                 </div>
                             </Col>
@@ -358,7 +399,7 @@ function PanelAddUserPrevInfos() {
                         {/* size */}
                         <div className='text-secondary fs15 mt-4 pt-3'>تصاویر کاربر</div>
                         <Row className='px-2'>
-                            <Col lg={4} className='mt-3'>
+                            {/* <Col lg={4} className='mt-3'>
                                 <div className='fflalezar'>
                                     تصویر جلوی بدن
                                 </div>
@@ -410,6 +451,90 @@ function PanelAddUserPrevInfos() {
                                     {errors.side?.message}
                                 </p>
                             </Col>
+                             */}
+                            <Col lg={4} className='mt-4'>
+                                <div className='fflalezar'>
+                                    تصویر جلوی بدن
+                                </div>
+                                <input type="file" className='d-none' id='uploadImage1'
+                                    {...register('front', {
+                                        required: {
+                                            value: true,
+                                            message: `تصویر جلو بدن الزامی است `
+                                        },
+                                        onChange: (e) => { setFront(URL.createObjectURL(e.target.files[0])) },
+
+                                    })}
+
+                                />
+
+                                <label style={{ 'height': "150px" }} htmlFor="uploadImage1" className='w-100 mt-2 cursor-pointer position-relative w-100 w-100 br-10 d-flex justify-content-center align-items-center'>
+
+                                    <img src={front} className='w-100 position-absolute object-fit-cover inn-im' />
+                                    <div className='un-img position-absolute' >
+                                        <HiOutlineCamera fontSize={40} color='#ecedee' />
+                                    </div>
+                                </label>
+                                <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                    {errors.front?.message}
+                                </p>
+
+                            </Col>
+
+                            <Col lg={4} className='mt-4'>
+                                <div className='fflalezar'>
+                                    تصویر پشت بدن
+                                </div>
+                                <input type="file" className='d-none' id='uploadImage2'
+                                    {...register('back', {
+                                        required: {
+                                            value: true,
+                                            message: `تصویر پشت بدن الزامی است `
+                                        },
+                                        onChange: (e) => { setBack(URL.createObjectURL(e.target.files[0])); },
+
+                                    })}
+                                />
+                                <label style={{ 'height': "150px" }} htmlFor="uploadImage2" className='w-100 mt-2 cursor-pointer position-relative w-100 w-100 br-10 d-flex justify-content-center align-items-center'>
+
+
+                                    <img src={back} className='w-100 position-absolute object-fit-cover inn-im' />
+
+                                    <div className='un-img position-absolute' >
+                                        <HiOutlineCamera fontSize={40} color='#ecedee' />
+                                    </div>
+                                </label>
+                                <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                    {errors.back?.message}
+                                </p>
+
+                            </Col>
+                            <Col lg={4} className='mt-4'>
+                                <div className='fflalezar'>
+                                    تصویر از پهلو
+                                </div>
+                                <input type="file" className='d-none' id='uploadImage3'
+                                    {...register('side', {
+                                        required: {
+                                            value: true,
+                                            message: `تصویر پهلو بدن الزامی است `
+                                        },
+                                        onChange: (e) => { setSide(URL.createObjectURL(e.target.files[0])); },
+
+                                    })}
+                                />
+                                <label style={{ 'height': "150px" }} htmlFor="uploadImage3" className='w-100 mt-2 cursor-pointer position-relative w-100 w-100 br-10 d-flex justify-content-center align-items-center'>
+
+                                    <img src={side} className='w-100 position-absolute object-fit-cover inn-im' />
+                                    <div className='un-img position-absolute' >
+                                        <HiOutlineCamera fontSize={40} color='#ecedee' />
+                                    </div>
+                                </label>
+                                <p className='mt-2 text-danger px-2 fs13 fflalezar'>
+                                    {errors.side?.message}
+                                </p>
+
+                            </Col>
 
                         </Row>
 
@@ -419,7 +544,10 @@ function PanelAddUserPrevInfos() {
                         {/* questions */}
                         <div className='text-secondary fs15 mt-4 pt-3'>سوالات کاربر</div>
                         <Row>
-                            <Col xs='12' className='mt-3'>
+                            <div className='color-2'>باید کامل آنالیز شوید پس لطفا پاسخ سوالات زیر را تایپ کنید  </div>
+
+
+                            <Col xs='12' className='mt-5'>
                                 <div className='c-text-secondary fs15'>
                                     1-
                                     آیا سابقه دریافت برنامه تمرینی از مربی همراه را دارید؟
@@ -548,7 +676,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         physicalInjury === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='مشکلات ژنتیکی، اسکلتی، عضلانی و... بطور کامل شررح دهید'
                                                 {...register('physical_injury_text', formValidation('توضیحات سوابق ورزشی'))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -596,7 +724,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         heartDisease === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='هرنوع بیماری و یا احساس مشکل را شرح دهید'
                                                 {...register('heart_disease_text', formValidation('توضیحات  مشکلات قلبی تنفسی'))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -610,7 +738,8 @@ function PanelAddUserPrevInfos() {
                             <Col xs='12' className='mt-4'>
                                 <div className='c-text-secondary fs15'>
                                     7-
-                                    آیا حساسیت گوارشی دارید؟                                                                                      </div>
+                                    آیا حساسیت گوارشی دارید؟
+                                </div>
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
@@ -642,7 +771,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         gastroSensitivity === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='هرگونه حساسیت به مواد غذایی و یا مکمل را شرح دهید'
                                                 {...register('gastro_sensitivity_text', formValidation('توضیحات حساسیت گوارشی  '))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -720,7 +849,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         medicine === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='نام دارو، دوز مصرف بطور دقیق شرح دهید'
                                                 {...register('medicine_text', formValidation('دارو'))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -767,7 +896,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         smoking === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='میزان مصرف'
                                                 {...register('smoking_text', formValidation(' سیگار یا الکل '))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -864,7 +993,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         liverEnzymes === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='وضعیت و نتیجه آزمایش'
                                                 {...register('liver_enzymes_text', formValidation(' سیگار یا الکل '))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -911,7 +1040,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         historySteroid === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='نام، زمان و مقدار هر کدام را کامل شرح دهید'
                                                 {...register('history_steroid_text', formValidation('سابقه مصرف '))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -958,7 +1087,7 @@ function PanelAddUserPrevInfos() {
                                     {
                                         supplementUse === true &&
                                         <>
-                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='شرح دهید'
+                                            <textarea className='c-input w-100 c-textarea p-2' placeholder='سقف بودجه مدنظر را بنویسید'
                                                 {...register('supplement_use_text', formValidation('سابقه مصرف '))}
                                             ></textarea>
                                             <p className='text-danger px-2 fs14'>
@@ -986,10 +1115,7 @@ function PanelAddUserPrevInfos() {
                                     </div>
                                 </div>
                             </Col>
-
-
                         </Row>
-
 
                         {/*  plan */}
                         <div className='bg-body-secondary br-10'>
@@ -1039,13 +1165,9 @@ function PanelAddUserPrevInfos() {
                                 </Col>
 
                             </Row>
-
-
-
                             <div className='text-secondary fs15 mt-4 pt-3'>برنامه تمرینی کاربر</div>
                             <Row className='mt-3 px-2'>
                                 <Col>
-
                                     <input type="text" className='form-control' placeholder='عنوان برنامه'
                                         {...register('program_title', formValidation('عنوان برنامه'))}
                                     />
@@ -1069,9 +1191,6 @@ function PanelAddUserPrevInfos() {
                             ثبت کاربر
                         </button>
                     </div>
-
-
-
                 </form>
             </FormBox>
         </>

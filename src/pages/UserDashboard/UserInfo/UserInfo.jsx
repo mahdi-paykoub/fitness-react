@@ -88,6 +88,7 @@ export default function UserInfo() {
         })
             .then(res => res.json())
             .then(res => {
+                
                 setDefaulSize(res.size)
                 setDefaultQuestion(res.question)
                 setDefaultImage(res.image)
@@ -118,22 +119,21 @@ export default function UserInfo() {
                             </div>
                             <div className='mt-1 fflalezar text-center c-text-secondary border-bottom pb-3'>
                                 example@gmail.com
-                                {
-                                    personalInfo == null &&
-                                    <div className='color-2 mt-1 text-center'>
-                                        این قسمت حتما تکمیل شود.
-                                    </div>
-                                }
 
                             </div>
 
 
                             <div className='px-3'>
-
+                                {
+                                    personalInfo == null &&
+                                    <div className='bg-secondary p-2 text-white mt-3 br-10'>
+                                        این قسمت حتما تکمیل شود.
+                                    </div>
+                                }
                                 {
                                     personalInfo == null ?
                                         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                                            <div className=' mt-4 fflalezar c-text-secondary'>نحوه آشنایی</div>
+                                            <div className='mt-4 fflalezar c-text-secondary'>نحوه آشنایی</div>
                                             <select className='c-input w-100 mt-1'
                                                 {...register('how_know', formValidation('نحوه آشنایی'))}
                                                 onChange={(e) => setKnowStatus(e.target.value)}>

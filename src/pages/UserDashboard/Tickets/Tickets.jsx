@@ -50,7 +50,7 @@ export default function Tickets() {
                         <img src="/images/1-C-Qe7Wvt.png" alt="" />
                         <div>
                             <div className='fs30 fflalezar text-white me-4 mt-4'>تیکت های پشتیبانی</div>
-                            <div className='mt-3 text-white fs15 fflalezar pe-4 ps-5'>چنان چه در اجرا برنامه ها دچار مشکل شدید میتوانید با ارسال تیکت ما را مطلع نمایید تا در اسرع وقت به مشکل شما رسیدگی شود.</div>
+                            <div className='mt-3 text-white fs15 fflalezar pe-4 ps-5 lh-1-8'>چنان چه در اجرا برنامه ها دچار مشکل شدید میتوانید با ارسال تیکت ما را مطلع نمایید تا در اسرع وقت به مشکل شما رسیدگی شود.</div>
                             <div className='me-4 mt-4 pt-3'>
                                 <Link to='/dashboard/send-ticket' className='fflalezar fs15 text-white send-t-page-btn'>
                                     ارسال تیکت
@@ -68,7 +68,7 @@ export default function Tickets() {
                             </div>
 
                             <div>
-                                <span className='fflalezar color-2'>20</span>
+                                <span className='fflalezar color-2'>{tickets.length}</span>
                             </div>
                         </div>
                         <div className='d-flex justify-content-between mt-3'>
@@ -78,7 +78,9 @@ export default function Tickets() {
                             </div>
 
                             <div>
-                                <span className='fflalezar color-2'>8</span>
+                                <span className='fflalezar color-2'>{
+                                    tickets.filter((ticket) => ticket.status == 'open').length
+                                }</span>
                             </div>
                         </div>
                         <div className='d-flex justify-content-between mt-3'>
@@ -88,14 +90,34 @@ export default function Tickets() {
                             </div>
 
                             <div>
-                                <span className='fflalezar color-2'>15</span>
+                                <span className='fflalezar color-2'>{tickets.filter((ticket) => ticket.status == 'close').length}</span>
+                            </div>
+                        </div>
+                        <div className='d-flex justify-content-between mt-3'>
+                            <div className=''>
+                                <PiTicketBold fontSize={20} />
+                                <span className='fflalezar me-2 c-text-secondary'>تیکت های پاسخ داده شده</span>
+                            </div>
+
+                            <div>
+                                <span className='fflalezar color-2'>{tickets.filter((ticket) => ticket.status == 'answered').length}</span>
+                            </div>
+                        </div>
+                        <div className='d-flex justify-content-between mt-3'>
+                            <div className=''>
+                                <PiTicketBold fontSize={20} />
+                                <span className='fflalezar me-2 c-text-secondary'>تیکت های درحال بررسی   </span>
+                            </div>
+
+                            <div>
+                                <span className='fflalezar color-2'>{tickets.filter((ticket) => ticket.status == 'review').length}</span>
                             </div>
                         </div>
                     </div>
                 </Col>
 
             </Row>
-        
+
             <Row className='mt-4 mb-5'>
                 <Col>
                     <div className='all-tickets-box bg-white p-4'>
@@ -103,7 +125,7 @@ export default function Tickets() {
                         {
                             loader ?
                                 <>
-                                    
+
                                     <div className='mt-4'>
                                         <ShimmerTable className='mt-5' mode="light" row={3} col={4} border={1} borderColor={"#cbd5e1"} rounded={0.25} rowGap={16} colPadding={[10, 5, 10, 5]} />
                                     </div>

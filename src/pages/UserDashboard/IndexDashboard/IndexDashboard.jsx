@@ -8,7 +8,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Pie } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 import { IoMdImages } from "react-icons/io";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaStar } from "react-icons/fa";
 import { BiBaguette } from "react-icons/bi";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { LuClipboardCheck } from "react-icons/lu";
@@ -155,7 +155,7 @@ export default function IndexDashboard() {
                                         %
                                     </div>
                                     <div className='fs14 text-secondary lh-1-8'>
-                                        برای دریافت برنامه و قرار گرفتن در نوبت دریافت، ابتدا باید پروفایل کاربری و اطلاعات و سایز های خودتان را تکمیل کنیید.
+                                        برای دریافت برنامه و قرار گرفتن در نوبت، ابتدا باید  اطلاعات و سایز های خودتان را تکمیل کنید و درصد تکمیل اطلاعات   <span className='color-1 fflalezar'>%100</span> شود.
                                     </div>
                                 </div>
 
@@ -165,9 +165,9 @@ export default function IndexDashboard() {
                     {
                         userData.length !== 0 &&
                         <Row className='mt-3 mb-5'>
-                            <div className='fflalezar fs20 d-flex align-items-center me-2 c-text-secondary'>
-                                <FaCircleDot fontSize={15} className='ms-2' />
-                                <div> اطلاعات لازم برای تکمیل</div>
+                            <div className='fflalezar fs25 d-flex align-items-center me-2 c-text-secondary'>
+                                <FaStar fontSize={25} className='ms-2' />
+                                <div className='pt-1'> اطلاعات لازم برای تکمیل</div>
                             </div>
 
                             <Col lg='6' className='mt-3'>
