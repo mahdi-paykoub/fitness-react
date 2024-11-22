@@ -46,6 +46,8 @@ import PanelUpdateCourse from "./pages/AdminPanel/PanelUpdateCourse/PanelUpdateC
 import PanelUpdatePlan from "./pages/AdminPanel/PanelUpdatePlan/PanelUpdatePlan";
 import PanelAddUser from "./pages/AdminPanel/PanelAddUser/PanelAddUser";
 import PanelAddUserPrevInfos from "./pages/AdminPanel/PanelAddUserPrevInfos/PanelAddUserPrevInfos";
+import PanelLanding from "./pages/AdminPanel/PanelLanding/PanelLanding";
+import PanelFreePlans from "./pages/AdminPanel/PanelFreePlans/PanelFreePlans";
 
 
 const routes = [
@@ -107,7 +109,9 @@ const routes = [
             {
                 path: '/admin-panel/*', element: <AdminPanel />,
                 children: [
+                    { path: "", element: <PanelLanding /> },
                     { path: "users/:page", element: <PanelIndex /> },
+                    { path: "add-free-plans", element: <PanelFreePlans /> },
                     { path: "add-user", element: <PanelAddUser /> },
                     { path: "add-user-prev-infos", element: <PanelAddUserPrevInfos /> },
                     { path: "add-courses", element: <PanelAddCourses /> },

@@ -58,8 +58,6 @@ export default function PanelCourses() {
                                 icon: "success",
                                 buttons: 'باشه'
                             }).then(response => {
-                                console.log(response);
-
                                 getCourses();
                             })
                         } else {

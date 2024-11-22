@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
 import { PiClipboardTextDuotone } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
-import { TbMessage2Down } from "react-icons/tb";
+import { TbFreeRights, TbMessage2Down } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
 import { FaPlay } from "react-icons/fa6";
@@ -20,7 +20,9 @@ export default function Sidebar() {
         <>
             <div className='admin-menu'>
                 <div className='admin-logo text-center py-4'>
-                    <img src="/images/logo-morabihamrah-light.png" className='w-50' alt="" />
+                    <Link to='/admin-panel'>
+                        <img src="/images/logo-morabihamrah-light.png" className='w-50' alt="" />
+                    </Link>
                 </div>
                 <div className='admin-links border-top'>
                     <ul className='mt-4 px-0'>
@@ -88,6 +90,27 @@ export default function Sidebar() {
                             </NavLink>
                         </li>
 
+
+
+
+                        {/* plans */}
+
+                        <div className='ffir text-secondary fs13 mt-3 mb-2 me-1'>
+                            <TbFreeRights fontSize={20} />
+
+                            <span className='me-'> برنامه رایگان</span>
+                        </div>
+                        <li>
+                            <NavLink
+                                to='/admin-panel/add-free-plans'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
+                            >
+                                 برنامه رایگان 
+                            </NavLink>
+                        </li>
+                  
 
 
 
