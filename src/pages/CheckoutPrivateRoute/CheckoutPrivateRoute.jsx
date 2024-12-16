@@ -39,10 +39,10 @@ export default function CheckoutPrivateRoute() {
                                             برای خرید  برنامه ابتدا باید در سایت ثبت نام کنید در صورتی که قبلا ثبت نام کرده اید وارد شوید.
                                         </div>
                                         <div className='mt-4 d-flex justify-content-center'>
-                                            <Link to='/login' className='fflalezar send-btn px-4 py-2 '>
+                                            <Link to='/login/2' className='fflalezar send-btn px-4 py-2' state={{ endPoint: "/checkout" }}>
                                                 ورود
                                             </Link>
-                                            <Link to='/register' className='fflalezar send-btn px-4 py-2 me-2'>
+                                            <Link to='/register/2' className='fflalezar send-btn px-4 py-2 me-2' state={{ endPoint: "/checkout" }}>
                                                 ثبت نام
                                             </Link>
                                         </div>

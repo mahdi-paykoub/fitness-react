@@ -1,13 +1,41 @@
-.admin-panel{
+.admin-panel {
     font-family: 'Lalezar' !important;
     font-size: 18px;
 }
-.bg-c-sec{
+
+.bg-c-sec {
     background: #f3f3f3;
 }
-.ck.ck-content{
+
+.ck.ck-content {
     height: 500px;
 }
-.ciw{
+
+.ciw {
     width: 60px;
+}
+
+
+/* src/App.css */
+.suggestions {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 0 0 10px 10px;
+    max-height: 150px;
+    /* حداکثر ارتفاع لیست */
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+}
+
+.suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #f0f0f0;
 }

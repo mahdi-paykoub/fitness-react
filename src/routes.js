@@ -48,6 +48,20 @@ import PanelAddUser from "./pages/AdminPanel/PanelAddUser/PanelAddUser";
 import PanelAddUserPrevInfos from "./pages/AdminPanel/PanelAddUserPrevInfos/PanelAddUserPrevInfos";
 import PanelLanding from "./pages/AdminPanel/PanelLanding/PanelLanding";
 import PanelFreePlans from "./pages/AdminPanel/PanelFreePlans/PanelFreePlans";
+import UserMustLoginPrivate from "./pages/UserMustLoginPrivate/UserMustLoginPrivate";
+import ContactIndex from "./pages/ContactUs/ContactIndex";
+import PanelRequestLists from "./pages/AdminPanel/PanelRequestLists/PanelRequestLists";
+import PanelSubscribeCodes from "./pages/AdminPanel/PanelSubscribeCodes/PanelSubscribeCodes";
+import CooperationCode from "./pages/ContactUs/CooperationCode/CooperationCode";
+import ContactLayout from "./pages/ContactUs/ContactLayout/ContactLayout";
+import BankaAccount from "./pages/ContactUs/BankaAccount/BankaAccount";
+import Message from "./pages/ContactUs/Message/Message";
+import Settlement from "./pages/ContactUs/Settlement/settlement";
+import PanelSettlementRequests from "./pages/AdminPanel/PanelSettlementRequests/PanelSettlementRequests";
+import PanelSattlementInfo from "./pages/AdminPanel/PanelSattlementInfo/PanelSattlementInfo";
+import PanelOffs from "./pages/AdminPanel/PanelOffs/PanelOffs";
+import GetFreePlans from "./pages/GetFreePlans/GetFreePlans";
+import PanelAddOffs from "./pages/AdminPanel/PanelAddOffs/PanelAddOffs";
 
 
 const routes = [
@@ -68,17 +82,17 @@ const routes = [
 
     {
         path: '/login', element: <LoginPrivateRoute />, children: [
-            { path: '/login', element: <Login /> },
+            { path: '/login/:endPoint', element: <Login /> },
         ]
     },
     {
         path: '/verify-phone-number', element: <LoginPrivateRoute />, children: [
-            { path: '/verify-phone-number', element: <Verify /> },
+            { path: '/verify-phone-number/:endPoint', element: <Verify /> },
         ]
     },
     {
         path: '/register', element: <LoginPrivateRoute />, children: [
-            { path: '/register', element: <Register /> },
+            { path: '/register/:endPoint', element: <Register /> },
         ]
     },
 
@@ -130,12 +144,43 @@ const routes = [
                     { path: 'ticket-detail/:id/:userId', element: <PanelTicketDetail /> },
                     { path: 'payments/:page', element: <AllPeys /> },
                     { path: 'setting', element: <Setting /> },
+
+                    { path: 'request-lists', element: <PanelRequestLists /> },
+                    { path: 'subscribe-codes', element: <PanelSubscribeCodes /> },
+                    { path: 'settlement-requests', element: <PanelSettlementRequests /> },
+                    { path: 'settlement-info/:settlement_id', element: <PanelSattlementInfo /> },
+                    { path: 'add-offs', element: <PanelAddOffs /> },
+                    { path: 'offs', element: <PanelOffs /> },
+
                 ]
             },
         ]
     },
 
     { path: '*', element: <Page404 /> },
+
+    {
+        path: '/get-free-plans', element: <UserMustLoginPrivate endPoint={3} />, children: [
+            { path: "/get-free-plans", element: <GetFreePlans /> },
+        ]
+    },
+    // contact us
+    {
+        path: '/cooperate-with-us/*', element: <UserMustLoginPrivate endPoint={4} />, children: [
+            {
+                path: '/cooperate-with-us/*', element: <ContactLayout />,
+                children: [
+                    { path: '', element: <ContactIndex /> },
+                    { path: 'cooperation-code', element: <CooperationCode /> },
+                    { path: 'bank-account', element: <BankaAccount /> },
+                    { path: 'messages', element: <Message /> },
+                    { path: 'settlement', element: <Settlement /> },
+
+                ]
+            },
+        ]
+    },
+
 
 ]
 

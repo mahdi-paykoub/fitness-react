@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,7 @@ export default function Login() {
     const baseUrl = process.env.REACT_APP_BASE_URL
     const navigate = useNavigate();
 
+    const endPoint = useParams().endPoint
 
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
@@ -39,7 +40,7 @@ export default function Login() {
                 if (response.status !== false) {
                     localStorage.setItem('phone', JSON.stringify(response.phone))
                     reset();
-                    navigate('/verify-phone-number');
+                    navigate(`/verify-phone-number/${endPoint}`);
                 } else {
                     swal({
                         title: response.message[0],
@@ -59,7 +60,7 @@ export default function Login() {
                     <Col xl={5} className='p-2 h-100vh d-none d-xl-block'>
                         <div className='letf-login-side h-100'>
                             <div className=''>
-                                <img src="images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
+                                <img src="/images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
                                 <div className='text-center l-r-text mt-2'>
                                     ورود به حساب کاربری
                                 </div>
@@ -111,7 +112,7 @@ export default function Login() {
 
                                 </button> */}
                                 <div className='fs14 mt-4 pt-2 text-center'>
-                                    در صورتی که قبلا ثبت نام نکرده‌اید اید <Link className='color-1' to='/register'>ثبت نام</Link> کنید
+                                    در صورتی که قبلا ثبت نام نکرده‌اید اید <Link className='color-1' to={`/register/${endPoint}`}>ثبت نام</Link> کنید
                                 </div>
 
                             </Col>

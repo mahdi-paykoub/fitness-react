@@ -1,0 +1,15 @@
+.circle-box-usage{
+    background: #efefef;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+}
+.sheba-ir-text{
+    background: #5b69bf;
+    border-radius: 5px;
+    left: 0;
+    top: 0;
+    height: 40px;
+    width: 40px;
+    color: white;
+}

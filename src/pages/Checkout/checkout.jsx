@@ -11,7 +11,6 @@ import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import PlanCheckOut from '../../components/PlanCheckOut/PlanCheckOut';
-import CourseCheckOut from '../../components/CourseCheckOut/CourseCheckOut';
 
 
 export default function Checkout() {
@@ -64,10 +63,10 @@ export default function Checkout() {
         <>
             {
                 item.length !== 0 &&
-                    item[1] === 'plan' ?
+                    // item[1] === 'plan' ?
                     <PlanCheckOut />
-                    :
-                    <CourseCheckOut />
+                    // :
+                    // <CourseCheckOut />
             }
         </>
     )

@@ -2,7 +2,7 @@ import { React, useContext, useState } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { TbEditCircle } from "react-icons/tb";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
@@ -12,12 +12,15 @@ import BtnSpiner from '../../components/BtnSpiner/BtnSpiner';
 
 
 export default function Verify() {
+
     const [btnLoader, setBtnLoader] = useState(false)
 
     const baseUrl = process.env.REACT_APP_BASE_URL
     const phoneNumber = JSON.parse(localStorage.getItem('phone'))
     const navigate = useNavigate();
     const authContext = useContext(AuthContext)
+    const endPoint = useParams().endPoint
+
 
     const form = useForm();
     const { register, control, handleSubmit, formState, reset } = form
@@ -46,7 +49,35 @@ export default function Verify() {
                     }).then(response => {
                         reset();
                         setBtnLoader(false)
-                        navigate('/');
+
+
+                        switch (Number(endPoint)) {
+                            case 1:
+                                {
+                                    console.log(endPoint);
+                                    navigate('/');
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    navigate('/checkout');
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    navigate('/get-free-plans');
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    navigate('/cooperate-with-us');
+                                    break;
+                                }
+
+                            default:
+                                break;
+                        }
+
                     })
                 } else {
                     swal({
@@ -67,7 +98,7 @@ export default function Verify() {
                     <Col xl={5} className='p-2 h-100vh d-none d-xl-block'>
                         <div className='letf-login-side h-100'>
                             <div className=''>
-                                <img src="images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
+                                <img src="/images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
                                 <div className='text-center l-r-text mt-2'>
                                     تایید شماره موبایل
                                 </div>
@@ -92,7 +123,7 @@ export default function Verify() {
                                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                                     <div className='mt-3 text-center'>
                                         <input type="text" className='w-100 custom-input text-center px-3 mt-4' placeholder='کد تایید را وارد نمایید'
-                                            {...register('code', formValidation('کد', true, 6, 6,/^\d+$/))}
+                                            {...register('code', formValidation('کد', true, 6, 6, /^\d+$/))}
                                         />
                                         <p className='mt-2 text-danger px-2 fs13'>
                                             {errors.code?.message}

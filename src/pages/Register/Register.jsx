@@ -4,7 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import BtnSpiner from '../../components/BtnSpiner/BtnSpiner';
 
 
@@ -13,6 +13,7 @@ export default function Register() {
 
     const baseUrl = process.env.REACT_APP_BASE_URL
     const navigate = useNavigate();
+    const endPoint = useParams().endPoint
 
 
     const form = useForm();
@@ -32,32 +33,50 @@ export default function Register() {
             })
             .then(res => res.json())
             .then(response => {
+
                 if (response.status !== false) {
                     localStorage.setItem('phone', JSON.stringify(response.phone))
                     setBtnLoader(false)
                     reset();
-                    navigate('/verify-phone-number');
-
-                } else {
                     swal({
                         title: response.message[0],
-                        icon: "error",
-                        buttons: 'باشه'
-                    }).then(() => {
-                        setBtnLoader(false)
+                        icon: "success",
+                        buttons: 'باشه',
+                    }).then((status) => {
+                        navigate(`/verify-phone-number/${endPoint}`);
                     })
-                }
+                } else {
+                    setBtnLoader(false)
+                    if (response.unPhone == 1) {
+                        swal({
+                            title: response.message[0],
+                            icon: "error",
+                            buttons: 'ورود',
+                        }).then((status) => {
+                            if (status) {
+                                navigate(`/login/${endPoint}`)
+                            }
+                        })
+                    } else {
+                        swal({
+                            title: response.message[0],
+                            icon: "error",
+                            buttons: 'باشه',
+                        })
+                    }
 
+                }
             })
     }
     return (
         <>
+
             <Container fluid>
                 <Row className='justify-content-center'>
                     <Col xl={5} className='p-2 h-100vh d-none d-xl-block'>
                         <div className='letf-login-side h-100'>
                             <div className=''>
-                                <img src="images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
+                                <img src="/images/banner/Sport Illustration Kit-10.png" className='w-100' alt="" />
                                 <div className='text-center l-r-text mt-2'>
                                     ساخت حساب کاربری
                                 </div>
@@ -107,7 +126,7 @@ export default function Register() {
                                 </form>
 
                                 <div className='fs14 mt-4 pt-2 text-center'>
-                                    در صورتی که قبلا ثبت نام کرده اید <Link className='color-1' to='/login'>وارد</Link> شوید
+                                    در صورتی که قبلا ثبت نام کرده اید <Link className='color-1' to={`/login/${endPoint}`}>وارد</Link> شوید
                                 </div>
                             </Col>
                         </Row>

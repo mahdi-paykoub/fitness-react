@@ -196,11 +196,13 @@ input:checked+.slider:before {
 .box-child-table thead tr th {
     background: #dff2ff;
 }
-.ofcans-rigth-menu{
+
+.ofcans-rigth-menu {
     max-height: 100vh;
     overflow-y: scroll;
 }
-.top-5px{
+
+.top-5px {
     top: 5px !important;
 }
 
@@ -213,8 +215,12 @@ input:checked+.slider:before {
     .header-subtext {
         font-size: 1rem;
     }
-    .text-50{
+
+    .text-50 {
         font-size: 30px !important;
+    }
+    .l-img-res-w{
+        width: 50%;
     }
 }
 
@@ -227,8 +233,12 @@ input:checked+.slider:before {
     .header-subtext {
         font-size: 1.4rem;
     }
-    .text-50{
+
+    .text-50 {
         font-size: 50px !important;
+    }
+    .l-img-res-w{
+        width: 100%;
     }
 }
 
@@ -258,6 +268,7 @@ input:checked+.slider:before {
     .container {
         max-width: 1150px !important;
     }
+
     .col-9-5 {
         width: 80% !important;
     }
@@ -267,4 +278,8 @@ input:checked+.slider:before {
     .container {
         max-width: 1300px !important;
     }
+}
+
+.swal-title {
+    font-size: 20px !important;
 }

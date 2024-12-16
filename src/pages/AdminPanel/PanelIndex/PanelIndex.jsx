@@ -8,6 +8,7 @@ import swal from "sweetalert";
 import { read, utils, writeFile } from 'xlsx';
 import Pagination from '../../../components/Pagination/Pagination'
 import { Link, useNavigate } from "react-router-dom";
+import { compareAsc, format, newDate } from "date-fns-jalali";
 
 
 export default function PanelIndex() {
@@ -133,8 +134,6 @@ export default function PanelIndex() {
                 icon: "success",
                 buttons: 'باشه'
               }).then(response => {
-                console.log(response);
-
                 getCourses();
               })
             } else {
@@ -159,9 +158,7 @@ export default function PanelIndex() {
           loader ?
             <SniperLoader />
             :
-
             <>
-
               <div className='admin-Data-box w-100 py-4 br-10 px-2'>
                 <div className=' d-flex justify-content-between'>
                   <div className='fs20'>لیست <span className='text-primary'>کاربران</span>
@@ -189,9 +186,9 @@ export default function PanelIndex() {
                     <Table className='box-child-table mt-4' hover>
                       <thead>
                         <tr>
-
                           <th>نام</th>
                           <th>شماره تلفن</th>
+                          <th>تاریخ عضویت</th>
                           <th>عملیات</th>
                         </tr>
                       </thead>
@@ -199,9 +196,9 @@ export default function PanelIndex() {
                         {
                           paginateUsers.map((user, index) =>
                             <tr key={user.id}>
-
                               <td>{user.name}</td>
                               <td>{user.phone}</td>
+                              <td> {format(new Date(user.created_at), "yyyy-MM-dd")}</td>
 
                               <td>
                                 {
@@ -212,7 +209,6 @@ export default function PanelIndex() {
                                     حذف
                                   </button>
                                 }
-
                               </td>
                             </tr>
                           )

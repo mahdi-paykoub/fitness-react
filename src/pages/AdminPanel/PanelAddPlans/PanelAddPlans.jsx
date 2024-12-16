@@ -211,7 +211,7 @@ export default function PanelAddPlans() {
                                         value={name}
                                         onChange={e => setName(e.target.value)}
                                     />
-                                    <button type='button' className='btn btn-warning' onClick={() => {
+                                    <button type='button' className='btn btn-secondary' onClick={() => {
                                         setArtists([
                                             ...artists,
                                             { id: nextId++, name: name }

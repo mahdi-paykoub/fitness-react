@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
 import { PiClipboardTextDuotone } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
-import { TbFreeRights, TbMessage2Down } from "react-icons/tb";
+import { TbFreeRights, TbMessage2Down, TbRosetteDiscount } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
 import { FaPlay } from "react-icons/fa6";
@@ -24,7 +24,11 @@ export default function Sidebar() {
                         <img src="/images/logo-morabihamrah-light.png" className='w-50' alt="" />
                     </Link>
                 </div>
-                <div className='admin-links border-top'>
+                <div className='admin-links border-top' style={{
+                    // 'height': '100vh',
+                    'maxHeight': '100vh',
+                    'overflowY': 'scroll'
+                }}>
                     <ul className='mt-4 px-0'>
                         {/* users */}
                         <div className='ffir text-secondary fs13 mt-3 mb-2 me-1'>
@@ -107,10 +111,10 @@ export default function Sidebar() {
                                     isPending ? "" : isActive ? "active-menu" : ""
                                 }
                             >
-                                 برنامه رایگان 
+                                برنامه رایگان
                             </NavLink>
                         </li>
-                  
+
 
 
 
@@ -176,12 +180,10 @@ export default function Sidebar() {
                             </NavLink>
                         </li>
 
-
-
-
-
-
-                        {/* offs */}
+                        <div className='ffir text-secondary fs13 mt-2 mb-2 me-1'>
+                            <TbRosetteDiscount fontSize={20} />
+                            <span className='me-'>  کد تخفیف </span>
+                        </div>
                         <li>
                             <NavLink
                                 to='/admin-panel/offs'
@@ -189,7 +191,55 @@ export default function Sidebar() {
                                     isPending ? "" : isActive ? "active-menu" : ""
                                 }
                             >
-                                کدهای تخفیف
+                                کد تخفیف
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to='/admin-panel/add-offs'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
+                            >
+                                افزودن کد تخفیف
+                            </NavLink>
+                        </li>
+
+
+                        {/* code moaref */}
+                        <div className='ffir text-secondary fs13 mt-2 mb-2 me-1'>
+                            <TbRosetteDiscount fontSize={20} />
+                            <span className='me-'>  کد معرف </span>
+                        </div>
+                        <li>
+                            <NavLink
+                                to='/admin-panel/request-lists'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
+                            >
+                                درخواست های کد معرف
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink
+                                to='/admin-panel/subscribe-codes'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
+                            >
+                                کدهای معرف
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to='/admin-panel/settlement-requests'
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "" : isActive ? "active-menu" : ""
+                                }
+                            >
+                                درخواست های تسویه
                             </NavLink>
                         </li>
 

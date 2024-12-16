@@ -14,7 +14,7 @@ export default function Landing() {
 
     return (
         <>
-
+           
             <Container className='bg-global-light mt-5'>
                 <Row>
                     <Col xs={{ order: 'last' }} xl={{ order: 'first', span: 5 }} className='align-content-center position-relative '>

@@ -7,9 +7,12 @@ import Col from "react-bootstrap/Col";
 import { Container } from 'react-bootstrap';
 import { AiOutlinePhone } from "react-icons/ai";
 import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
+import ScoreSetting from '../../../components/ScoreSetting/ScoreSetting';
 
 export default function Setting() {
     const [tab, setTab] = useState('sms')
+    const [maxScoreValues, setMaxScoreValues] = useState(null)
+    const [useScoreValues, setUseScoreValues] = useState(null)
 
     const [adminTsms, setAdminTsms] = useState(null)
     const [adminRsms, setAdminRsms] = useState(null)
@@ -85,6 +88,12 @@ export default function Setting() {
                         case 'ADMIN_REGISTER_PHONE':
                             setValue('value2', (element.value == 'undefined' || element.value == null) ? '' : element.value)
                             break;
+                        case 'MAX_SCORE_FOR_SETTLEMENT':
+                            setMaxScoreValues((element.value == 'undefined' || element.value == null) ? '' : element.value)
+                            break;
+                        case 'SCORE_PER_USE':
+                            setUseScoreValues((element.value == 'undefined' || element.value == null) ? '' : element.value)
+                            break;
 
                         default:
                             break;
@@ -144,6 +153,10 @@ export default function Setting() {
                 <div className={`py-3 me-3 ${tab === 'phoneNumber' ? 'c-tab-active' : ''} cursor-pointer`} onClick={e => setTab('phoneNumber')}>
                     <AiOutlinePhone fontSize={20} className='ms-1' />
                     شماره پیامک
+                </div>
+                <div className={`py-3 me-3 ${tab === 'score' ? 'c-tab-active' : ''} cursor-pointer`} onClick={e => setTab('score')}>
+                    <AiOutlinePhone fontSize={20} className='ms-1' />
+                    تنظیمات امتیاز
                 </div>
 
             </div>
@@ -244,6 +257,10 @@ export default function Setting() {
                     </div>
                 }
 
+                {
+                    tab === 'score' &&
+                    <ScoreSetting maxScoreValues={maxScoreValues} useScoreValues={useScoreValues} />
+                }
 
 
 

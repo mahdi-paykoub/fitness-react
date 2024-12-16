@@ -31,7 +31,7 @@ export default function UserPanelPrivateRoute() {
                     </Container>
                     :
                     (authContext.isLoggedIn === true) ?
-                        JSON.parse(authContext.userInfo.data.status)  != null ?
+                        JSON.parse(authContext.userInfo.data.status) != null ?
                             JSON.parse(authContext.userInfo.data.status).length > 0 ?
                                 <>
                                     <Outlet />
@@ -40,8 +40,6 @@ export default function UserPanelPrivateRoute() {
                                 <NotAccess />
                             :
                             <NotAccess />
-
-
                         :
                         <NotAccess />
             }

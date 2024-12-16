@@ -10,18 +10,25 @@ import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { FaLastfm } from 'react-icons/fa';
+import SniperLoader from '../SniperLoader/SniperLoader';
+import BtnSpiner from '../BtnSpiner/BtnSpiner';
 
 export default function PlanCheckOut() {
+    const [btnLoader, setBtnLoader] = useState(false)
+
     const cartContext = useContext(CartContext)
     const item = cartContext.cartItem
 
     const [visitOption, setVisitOption] = useState(0)
-    const [totalPrice, setTotalPrice] = useState(item[0].price)
+    const [offCode, setOffCode] = useState(null)
+    const [totalPrice, setTotalPrice] = useState(item[0].off_price != null ? item[0].off_price : item[0].price)
+    const [discountAmount, setDiscountAmount] = useState(0)
+    const [payPrice, setPayPrice] = useState(item[0].off_price != null ? item[0].off_price : item[0].price)
 
 
     const baseUrl = process.env.REACT_APP_BASE_URL
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
-  
+
     const navigate = useNavigate();
 
     const form = useForm();
@@ -30,14 +37,57 @@ export default function PlanCheckOut() {
 
 
 
+    const handleValidationCode = () => {
+        if (offCode != null) {
+            fetch(`${baseUrl}validation-off`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${userTokenLS.token}`
+                    },
+                    body: JSON.stringify({
+                        id: item[0].id,
+                        type: item[1],
+                        visit: visitOption,
+                        off_code: offCode
+                    })
+                })
+                .then(res => res.json())
+                .then(response => {
+                    if (response.status !== false) {
+                        console.log(Number(totalPrice));
+                        console.log(Number(response.price));
+
+                        setDiscountAmount(Number(totalPrice) - Number(response.price))
+                        setPayPrice(Number(response.price))
+                        swal({
+                            title: "کد با موفقیت اعمال شد.",
+                            icon: "success",
+                            buttons: 'باشه'
+                        })
+                    } else {
+                        swal({
+                            title: "کد نامعتبر است.",
+                            icon: "error",
+                            buttons: 'باشه'
+                        }).then(response => {
+                        })
+                    }
+                })
+        }
+    }
 
 
 
     const onSubmit = (data) => {
+        setBtnLoader(true)
         let formData = new FormData()
-        formData.append('id', data.id)
-        formData.append('type', data.type)
+        formData.append('id', item[0].id)
+        formData.append('type', item[1])
         formData.append('visit', visitOption)
+        formData.append('off_code', offCode)
 
         fetch(`${baseUrl}payment`,
             {
@@ -49,7 +99,7 @@ export default function PlanCheckOut() {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
+                setBtnLoader(false)
                 if (response.action) {
                     window.location = response.action;
                 } else {
@@ -69,9 +119,11 @@ export default function PlanCheckOut() {
         if (e.target.checked === true) {
             setVisitOption(1)
             setTotalPrice(Number(item[0].visit_price) + Number(totalPrice))
+            setPayPrice(Number(item[0].visit_price) + Number(totalPrice) - Number(discountAmount))
         } else {
             setVisitOption(0)
             setTotalPrice(Number(totalPrice) - Number(item[0].visit_price))
+            setPayPrice(Number(totalPrice) - Number(item[0].visit_price) - Number(discountAmount))
         }
     }
 
@@ -92,6 +144,7 @@ export default function PlanCheckOut() {
                 <Row>
                     <Col lg={9}>
                         {
+                            item[1] == 'plan' &&
                             item[0].visit === 1 &&
                             <div className='mt-4 bg-white br-10 p-4 mt-4'>
                                 <div className='fflalezar c-text-secondary fs18 d-flex justify-content-between'>
@@ -131,7 +184,13 @@ export default function PlanCheckOut() {
                         <div className='bg-white br-10 p-4 mt-4'>
                             <div className='d-flex justify-content-between align-items-center'>
                                 <div className='d-flex justify-content-between align-items-center'>
-                                    <img src="/images/banner/Sport Illustration Kit-08.png" width={250} height={180} className='object-fit-cover br-10' alt="" />
+                                    {
+                                        item[1] == 'plan' ?
+                                            <img src="/images/banner/Sport Illustration Kit-08.png" width={250} height={180} className='object-fit-cover br-10' alt="" />
+
+                                            :
+                                            <img src={baseUrl + item[0].image} width={250} height={180} className='object-fit-cover br-10' alt="" />
+                                    }
                                     <div className='fflalezar  c-text-secondary me-3'>
                                         <span className='fs25'> {item[0].title}</span>
                                         <div className='mt-4 d-flex align-items-center'>
@@ -151,7 +210,7 @@ export default function PlanCheckOut() {
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center'>
                                     <div className='fs25 color-2 fflalezar'>
-                                        {Number(item[0].price).toLocaleString()}
+                                        {Number(item[0].off_price != null ? item[0].off_price : item[0].price).toLocaleString()}
                                     </div>
                                     <div className='me-1 color-2 fflalezar'>تومان</div>
                                     <div className='me-4 '>
@@ -167,32 +226,39 @@ export default function PlanCheckOut() {
                                 اطلاعات پرداخت
                             </div>
                             <div className='mt-4 pb-4 border-bottom'>
-                                <div className='fflalezar c-text-secondary'>کد معرف</div>
+                                <div className='fflalezar c-text-secondary'>کد تخفیف یا معرف</div>
                                 <div className='mt-2 position-relative'>
-                                    <input type="text" className='w-100 c-input px-2' placeholder='کد معرف را وارد کنید' />
-                                    <button className='fs15 fflalezar position-absolute send-btn cc-inp'>اعمال</button>
+                                    <input type="text" className='w-100 c-input px-2 text-secondary' placeholder='کد  را وارد کنید'
+                                        onChange={e => setOffCode(e.target.value)}
+                                    />
+                                    <button className='fs15 fflalezar position-absolute send-btn cc-inp'
+                                        onClick={handleValidationCode}
+                                    >اعمال</button>
                                 </div>
                             </div>
                             <div className='pt-4 d-flex justify-content-between align-items-center'>
                                 <div className='fflalezar fs18 c-text-secondary'>جمع کل</div>
-                                <div className='fflalezar fs18 c-text-secondary'>   {Number(totalPrice).toLocaleString()} <span className='fs15 fflalezar'>تومان</span></div>
+                                <div className='fflalezar fs18 c-text-secondary'>{Number(totalPrice).toLocaleString()} <span className='fs15 fflalezar'>تومان</span></div>
                             </div>
                             <div className='pt-4 d-flex justify-content-between align-items-center border-bottom pb-4'>
                                 <div className='fflalezar fs18 c-text-secondary color-1'> تخفیف</div>
-                                <div className='fflalezar fs18 c-text-secondary color-1'> 590,000 <span className='fs15 fflalezar color-1'>تومان</span></div>
+                                <div className='fflalezar fs18 c-text-secondary color-1'>{Number(discountAmount).toLocaleString()} <span className='fs15 fflalezar color-1'>تومان</span></div>
                             </div>
                             <div className='pt-4 d-flex justify-content-between align-items-center'>
                                 <div className='fflalezar fs18 c-text-secondary color-1'> مبلغ قابل پرداخت</div>
-                                <div className='fflalezar fs18 c-text-secondary color-1'> 590,000 <span className='fs15 fflalezar color-1'>تومان</span></div>
+                                <div className='fflalezar fs18 c-text-secondary color-1'> {Number(payPrice).toLocaleString()} <span className='fs15 fflalezar color-1'>تومان</span></div>
                             </div>
                             <div>
                                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                                    <input type="hidden" value={item[0].id}
-                                        {...register('id', formValidation('id'))}
-                                    />
-                                    <input type="hidden" value={item[1]}
-                                        {...register('type', formValidation('نوع محصول'))} />
-                                    <button className='send-btn fflalezar w-100 mt-4 fs18'>پرداخت</button>
+                                    {
+                                        btnLoader == false ?
+                                            <button className='send-btn fflalezar w-100 mt-4 fs18'>پرداخت</button>
+                                            :
+                                            <button type='button' className='send-btn fflalezar w-100 mt-4 fs18 pt-1'>
+                                                <BtnSpiner wid='30px' he='30px' />
+                                            </button>
+                                    }
+
                                 </form>
                             </div>
                         </div>
