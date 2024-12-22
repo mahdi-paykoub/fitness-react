@@ -5,16 +5,30 @@ import { Link } from 'react-router-dom';
 import { HiMiniPlay } from "react-icons/hi2";
 import { FaDumbbell } from "react-icons/fa6";
 import { SiGoogledisplayandvideo360 } from "react-icons/si";
-import { GiHandGrip } from "react-icons/gi";
 import { AuthContext } from "../../Context/AuthContext";
+import swal from "sweetalert";
+import { FaPlus } from 'react-icons/fa';
 
 
 export default function Landing() {
     const authContext = useContext(AuthContext)
 
+
+    const handleLogout = () => {
+        console.log(authContext);
+
+        swal({
+            title: 'آیا از خروج اطمینان دارید؟',
+            icon: "error",
+            buttons: ['خیر', 'بله']
+        }).then(response => {
+            if (response) {
+                authContext.logout()
+            }
+        })
+    }
     return (
         <>
-           
             <Container className='bg-global-light mt-5'>
                 <Row>
                     <Col xs={{ order: 'last' }} xl={{ order: 'first', span: 5 }} className='align-content-center position-relative '>
@@ -66,9 +80,18 @@ export default function Landing() {
                                 </div>
 
                                 <div className='me-1'>
-                                    <Link to='/dashboard' className='color-2 fs14'>
-                                        ورود به پنل کاربری
-                                    </Link>
+                                    {authContext.userInfo.data.status != null ?
+                                        <Link to='/dashboard' className='color-2 fs14'
+                                        >
+                                            پنل کاربری
+                                        </Link>
+                                        :
+                                        <div className='color-2 fs14'
+                                            onClick={() => {
+                                                handleLogout()
+                                            }}>خروج</div>
+                                    }
+
                                 </div>
                             </div>
                             :
@@ -86,12 +109,15 @@ export default function Landing() {
                                 </div>
 
                                 <div className='me-1'>
-                                    <Link to='login' className='color-2'>
+                                    <Link to='/login/1' className='color-2'>
                                         ورود
                                     </Link>
                                 </div>
+
+                                
                             </div>
                         }
+
 
                         <div className='ball ball-1'></div>
                         <div className='ball ball-2'></div>
@@ -107,10 +133,11 @@ export default function Landing() {
                         </div>
                         <div className='glass-box position-absolute d-lg-flex align-items-center d-flex d-none'>
                             <img src="/images/shape-2.svg" width={45} height={45} alt="" />
-                            <div className='fs13 me-1'>به جمع قهرمانان  بپیوندید</div>
+                            <Link to='/cooperate-with-us' className='fs13 me-1 text-white'> همکاری با ما <span className='text-warning'>(دریافت کد معرف)</span> </Link>
                         </div>
                     </Col>
                 </Row>
+
             </Container>
         </>
     )

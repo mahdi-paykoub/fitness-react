@@ -7,14 +7,18 @@
 
 
 .box-1 {
-    background-color: #5b68bfe4;
-}
-.inner-box-1{
-    width: 60px;
-    height: 60px;
+    /* background-color: #5b68bfe4; */
+    background-color: #ffffffe4;
 }
 
-.cc-btn{
+.inner-box-1 {
+    width: 60px;
+    height: 60px;
+    background-color: #5b69bf !important;
+    color: white !important;
+}
+
+.cc-btn {
     height: 54px;
     width: 181px;
 }

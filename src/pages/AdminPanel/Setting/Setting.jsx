@@ -18,6 +18,8 @@ export default function Setting() {
     const [adminRsms, setAdminRsms] = useState(null)
     const [userTsms, setUserTsms] = useState(null)
     const [userWsms, setUserWsms] = useState(null)
+    const [userProgramSMS, setUserProgramSMS] = useState(null)
+    const [userVisitSMS, setUserVisitSMS] = useState(null)
 
 
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
@@ -82,6 +84,12 @@ export default function Setting() {
                         case 'USER_WELCOME_SMS':
                             setUserWsms(Number(element.value));
                             break;
+                        case 'USER_PROGRAM_SMS':
+                            setUserProgramSMS(Number(element.value));
+                            break;
+                        case 'USER_VISIT_SMS':
+                            setUserVisitSMS(Number(element.value));
+                            break;
                         case 'ADMIN_TICKET_PHONE':
                             setValue('value1', (element.value == 'undefined' || element.value == null) ? '' : element.value)
                             break;
@@ -94,6 +102,7 @@ export default function Setting() {
                         case 'SCORE_PER_USE':
                             setUseScoreValues((element.value == 'undefined' || element.value == null) ? '' : element.value)
                             break;
+
 
                         default:
                             break;
@@ -166,7 +175,7 @@ export default function Setting() {
                     <div>
                         <Row>
                             <Col lg='4'>
-                                پیامک تیکت به ادمین
+                                پیامک تیکت ارسال شده کاربران به ادمین
                             </Col>
                             <Col lg='8'>
                                 <input type="checkbox" className='form-check-input ms-1'
@@ -181,22 +190,7 @@ export default function Setting() {
                         </Row>
                         <Row className='mt-4'>
                             <Col lg='4'>
-                                پیامک ثبت نام به ادمین
-                            </Col>
-                            <Col lg='8'>
-                                <input type="checkbox" className='form-check-input ms-1'
-                                    onChange={(e) => {
-                                        handleChangeOfSelector(e.target.checked, 'ADMIN_REGISTER_SMS')
-                                        setAdminRsms(e.target.checked)
-                                    }}
-                                    checked={adminRsms}
-                                />
-                                <span className='fs15 text-secondary'>فعال شود؟</span>
-                            </Col>
-                        </Row>
-                        <Row className='mt-4'>
-                            <Col lg='4'>
-                                پیامک  تیکت به کاربر
+                                پیامک  تیکت ادمین به کاربر
                             </Col>
                             <Col lg='8'>
                                 <input type="checkbox" className='form-check-input ms-1'
@@ -211,6 +205,22 @@ export default function Setting() {
                         </Row>
                         <Row className='mt-4'>
                             <Col lg='4'>
+                                پیامک ثبت نام کاربر به ادمین
+                            </Col>
+                            <Col lg='8'>
+                                <input type="checkbox" className='form-check-input ms-1'
+                                    onChange={(e) => {
+                                        handleChangeOfSelector(e.target.checked, 'ADMIN_REGISTER_SMS')
+                                        setAdminRsms(e.target.checked)
+                                    }}
+                                    checked={adminRsms}
+                                />
+                                <span className='fs15 text-secondary'>فعال شود؟</span>
+                            </Col>
+                        </Row>
+
+                        <Row className='mt-4'>
+                            <Col lg='4'>
                                 پیامک خوش امد گویی به کاربر
                             </Col>
                             <Col lg='8'>
@@ -220,6 +230,36 @@ export default function Setting() {
                                         setUserWsms(e.target.checked)
                                     }}
                                     checked={userWsms}
+                                />
+                                <span className='fs15 text-secondary'>فعال شود؟</span>
+                            </Col>
+                        </Row>
+                        <Row className='mt-4'>
+                            <Col lg='4'>
+                                پیامک اطلاع رسانی برنامه آپلود شده به کاربر
+                            </Col>
+                            <Col lg='8'>
+                                <input type="checkbox" className='form-check-input ms-1'
+                                    onChange={(e) => {
+                                        handleChangeOfSelector(e.target.checked, 'USER_PROGRAM_SMS')
+                                        setUserProgramSMS(e.target.checked)
+                                    }}
+                                    checked={userProgramSMS}
+                                />
+                                <span className='fs15 text-secondary'>فعال شود؟</span>
+                            </Col>
+                        </Row>
+                        <Row className='mt-4'>
+                            <Col lg='4'>
+                                پیامک مراجعه حضوری به کاربر
+                            </Col>
+                            <Col lg='8'>
+                                <input type="checkbox" className='form-check-input ms-1'
+                                    onChange={(e) => {
+                                        handleChangeOfSelector(e.target.checked, 'USER_VISIT_SMS')
+                                        setUserVisitSMS(e.target.checked)
+                                    }}
+                                    checked={userVisitSMS}
                                 />
                                 <span className='fs15 text-secondary'>فعال شود؟</span>
                             </Col>

@@ -16,18 +16,22 @@
     font-size: 1rem;
     transition: .3s;
 }
+
 .first-program-btn:hover {
     background: #4b56a0;
 }
+
 .second-program-btn {
     width: 50px;
     height: 50px;
     background-color: #4ab9ab;
     transition: .3s;
 }
+
 .second-program-btn:hover {
     background-color: #3c9b8e;
 }
+
 .second-program-btn svg {
     font-size: 21px;
 }
@@ -137,6 +141,7 @@
     border-radius: 34px;
     box-shadow: 5px 4px 10px #12121259;
 }
+
 .teacher-img ul {
     text-align: center;
 }
@@ -157,13 +162,15 @@
     position: relative;
     z-index: 10;
 }
-.-mr-20{
+
+.-mr-20 {
     margin-right: -20px;
 }
-.user-img{
-    /* border: 2px solid #5b69bf; */
+
+.user-img {
     border-radius: 50%;
 }
-.logo-land{
+
+.logo-land {
     width: 100px;
 }

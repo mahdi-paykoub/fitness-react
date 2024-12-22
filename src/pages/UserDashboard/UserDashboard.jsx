@@ -10,7 +10,7 @@ import { PiGooglePlayLogoLight } from "react-icons/pi";
 import { FaToggleOff } from "react-icons/fa6";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
-import { LuFileSpreadsheet } from "react-icons/lu";
+import { LuBookPlus, LuFileSpreadsheet } from "react-icons/lu";
 import { BiBell } from "react-icons/bi";
 import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -121,6 +121,12 @@ export default function UserDashboard() {
                                         <div className='fs14 me-2'>ارسال تیکت</div>
                                     </div>
                                 </NavLink>
+                                <NavLink to="/cooperate-with-us" className={setActive}>
+                                    <div className='d-flex align-items-center mt-3 panel-items'>
+                                        <LuBookPlus fontSize={20} />
+                                        <div className='fs14 me-2'>همکاری با ما</div>
+                                    </div>
+                                </NavLink>
 
                                 <div className='fs13 text-secondary mb-2 mt-4'>
                                     خروج
@@ -177,15 +183,15 @@ export default function UserDashboard() {
 
 
             <Offcanvas className='d-lg-none ofcans-rigth-menu' placement='end' show={show} onHide={handleClose}>
-                <div className='px-3'>
+                <div className='ck-sticky-panel__content'>
                     <div className='d-flex align-items-center mt-3 border-bottom pb-4'>
                         <div className='user-img-back d-flex justify-content-center align-items-center'>
                             <img src="/images/buddy-idle.svg" width={60} height={60} alt="" />
                         </div>
                         <div className='me-2 pe-1'>
-                            <div className='fs14 fw-bold'> {authContext.userInfo.data.name}</div>
+                            <div className='fs14 fw-bold'> {authContext.userInfo.data.name} </div>
                             <div className='mt-2 ffv text-secondary fs12'>
-                                09309519365
+                                {authContext.userInfo.data.phone}
                                 <Link className='me-1' to="/dashboard/user-info">
                                     <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle opacity="0.15" cx="19.7208" cy="19.8873" r="13.8275" transform="rotate(-36.651 19.7208 19.8873)" fill="#5b69bf"></circle><path d="M3 13C3 15.4477 3.13246 17.3463 3.46153 18.827C3.78807 20.2963 4.29478 21.2921 5.00136 21.9986C5.70794 22.7052 6.70365 23.2119 8.17298 23.5385C9.65366 23.8675 11.5523 24 14 24C16.4477 24 18.3463 23.8675 19.827 23.5385C21.2963 23.2119 22.2921 22.7052 22.9986 21.9986C23.7052 21.2921 24.2119 20.2963 24.5385 18.827C24.8675 17.3463 25 15.4477 25 13C25 10.5523 24.8675 8.65366 24.5385 7.17298C24.2119 5.70365 23.7052 4.70794 22.9986 4.00136C22.2921 3.29478 21.2963 2.78807 19.827 2.46153C18.3463 2.13246 16.4477 2 14 2C11.5523 2 9.65366 2.13246 8.17298 2.46153C6.70365 2.78807 5.70794 3.29478 5.00136 4.00136C4.29478 4.70794 3.78807 5.70365 3.46153 7.17298C3.13246 8.65366 3 10.5523 3 13Z" stroke="#5b69bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13.1577 9.18182L14.9195 7.33429C15.3244 6.90978 16.0046 6.88646 16.4388 7.2822L19.658 10.2159C20.0923 10.6117 20.1161 11.2766 19.7113 11.7011L17.8182 13.6864M13.1577 9.18182L8.28868 14.2877C8.08633 14.4999 7.98271 14.7844 8.00236 15.0738L8.20234 18.0187C8.23993 18.5724 8.71141 19.0021 9.27903 19L12.2983 18.9888C12.595 18.9877 12.8781 18.8667 13.0805 18.6545L17.8182 13.6864M13.1577 9.18182L17.8182 13.6864" stroke="#5b69bf" stroke-width="2" stroke-linejoin="round"></path></svg>
                                 </Link>
@@ -221,9 +227,9 @@ export default function UserDashboard() {
                                     <PiGooglePlayLogoLight fontSize={20} />
                                     <div className='fs14 me-2'>ویدیو های من</div>
                                 </div>
-                                <div className='panel-badge d-flex justify-content-center align-items-center fs14 fw-bold'>
-                                    <span className='mt-1'>2</span>
-                                </div>
+                                {/* <div className='panel-badge d-flex justify-content-center align-items-center fs14 fw-bold'>
+                                        <span className='mt-1'>2</span>
+                                    </div> */}
                             </div>
                         </NavLink>
                         <NavLink to="/dashboard/inqiry" className={setActive}>
@@ -243,21 +249,31 @@ export default function UserDashboard() {
                         </NavLink>
                         <NavLink to="/dashboard/send-ticket" className={setActive}>
                             <div className='d-flex align-items-center mt-3 panel-items'>
-                                <FaQuestion fontSize={20} />
+                                <BsSendCheck fontSize={20} />
                                 <div className='fs14 me-2'>ارسال تیکت</div>
+                            </div>
+                        </NavLink>
+                        <NavLink to="/cooperate-with-us" className={setActive}>
+                            <div className='d-flex align-items-center mt-3 panel-items'>
+                                <LuBookPlus fontSize={20} />
+                                <div className='fs14 me-2'>همکاری با ما</div>
                             </div>
                         </NavLink>
 
                         <div className='fs13 text-secondary mb-2 mt-4'>
                             خروج
                         </div>
-                        <Link className='text-dark'>
+                        <Link className='text-dark' to='/'>
                             <div className='d-flex align-items-center mt-3 panel-items'>
                                 <RiArrowGoBackLine fontSize={20} />
                                 <div className='fs14 me-2'>  بازگشت به صفحه اصلی </div>
                             </div>
                         </Link>
-                        <Link className='text-dark'>
+                        <Link className='text-dark'
+                            onClick={() => {
+                                handleLogout()
+                            }}
+                        >
                             <div className='d-flex align-items-center panel-items'>
                                 <FaToggleOff fontSize={20} />
                                 <div className='fs14 me-2'>خروج  از حساب  </div>

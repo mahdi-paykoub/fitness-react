@@ -235,7 +235,7 @@ input:checked+.slider:before {
     }
 
     .text-50 {
-        font-size: 50px !important;
+        font-size: 40px !important;
     }
     .l-img-res-w{
         width: 100%;
