@@ -65,18 +65,18 @@ export default function Courses() {
                             <div className='bg-white filter-box d-flex justify-content-between align-items-center mt-3'>
                                 <div className='fw-bold fs14 c-text-secondary'> فقط دوره های رایگان</div>
                                 <div className=''>
-                                    <label class="switch">
+                                    <label className="switch">
                                         <input type="checkbox" />
-                                        <span class="slider round"></span>
+                                        <span className="slider round"></span>
                                     </label>
                                 </div>
                             </div>
                             <div className='bg-white filter-box d-flex justify-content-between align-items-center mt-3'>
                                 <div className='fw-bold fs14 c-text-secondary'> دوره های خریداری شده  </div>
                                 <div className=''>
-                                    <label class="switch">
+                                    <label className="switch">
                                         <input type="checkbox" />
-                                        <span class="slider round"></span>
+                                        <span className="slider round"></span>
                                     </label>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ export default function Courses() {
                             {
                                 courses.length !== 0 ?
                                     courses.map((course) =>
-                                        <Col className='mt-4' md={6} xl={4}>
+                                        <Col  key={course.id} className='mt-4' md={6} xl={4}>
                                             <div className='course-card p-3 cursor-pointer'>
                                                 <div className='position-relative'>
                                                     <img src={baseUrl + course.image} alt="" className='w-100' />

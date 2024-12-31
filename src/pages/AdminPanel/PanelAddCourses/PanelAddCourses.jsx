@@ -74,14 +74,15 @@ export default function PanelAddCourses() {
                                 files: file
                             },
                             headers: {
-                                "Content-Type": "multipart/form-data"
+                                "Content-Type": "multipart/form-data",
+                                Authorization: `Bearer ${userTokenLS.token}`
                             }
                         });
 
 
                         resolve(
                             {
-                                default: `${baseUrl}${response.data.url}`
+                                default: `${baseUrl}${response.data.url}`,
                             }
                         );
                     } catch (error) {

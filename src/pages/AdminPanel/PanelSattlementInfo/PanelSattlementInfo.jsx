@@ -46,8 +46,6 @@ function PanelSattlementInfo() {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
-
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -81,7 +79,6 @@ function PanelSattlementInfo() {
         })
             .then(res => res.json())
             .then(res => {
-                // console.log(res);
                 setBankInf(res.bankInfo)
                 setSubCodeInfo(res.data)
                 setSettlement(res.settlement)
@@ -330,19 +327,19 @@ function PanelSattlementInfo() {
                                                             <>
                                                                 <div>
                                                                     <div className='mb-2 fs14'>نام دارنده حساب :</div>
-                                                                    <input type="text" disabled={true} value={bankInf.name} className='form-control' />
+                                                                    <input type="text" disabled={true} defaultValue={bankInf.name} className='form-control' />
                                                                 </div>
                                                                 <div className='mt-3'>
                                                                     <div className='mb-2 fs14'>شماره شبا:</div>
-                                                                    <input type="text" dir='ltr' disabled={true} value={bankInf.sheba} className='form-control' />
+                                                                    <input type="text" dir='ltr' disabled={true} defaultValue={bankInf.sheba} className='form-control' />
                                                                 </div>
                                                                 <div className='mt-3'>
                                                                     <div className='mb-2 fs14'>شماره کارت:</div>
-                                                                    <input type="text" dir='ltr' disabled={true} value={bankInf.sheba} className='form-control' />
+                                                                    <input type="text" dir='ltr' disabled={true} defaultValue={bankInf.sheba} className='form-control' />
                                                                 </div>
                                                                 {/* <div>
                                                                     <div className='mb-2 fs14'>شماره شبا:</div>
-                                                                    <input type="text" disabled={true} value={setBankInf.sheba} />
+                                                                    <input type="text" disabled={true} defaultValue={setBankInf.sheba} />
                                                                 </div> */}
                                                             </>
                                                     }

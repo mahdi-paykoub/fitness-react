@@ -79,8 +79,6 @@ function PanelRequestLists() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
                 setCourses(res.data)
                 setLoader(false)
             })
@@ -217,14 +215,14 @@ function PanelRequestLists() {
                             این کد برای کدام بخش مورد استفاده قرار بگیرد؟
                         </div>
                         <div className='d-flex align-items-center'>
-                            <input type="radio" className='form-check-input' value='plan' id='plan'
+                            <input type="radio" className='form-check-input' defaultValue='plan' id='plan'
                                 {...register('for', formValidation('نام دوره'))}
                             />
                             <label htmlFor="plan" className='me-1'>برنامه</label>
 
 
 
-                            <input type="radio" className='form-check-input me-3' value='course' id='course'
+                            <input type="radio" className='form-check-input me-3' defaultValue='course' id='course'
                                 {...register('for', formValidation('نام دوره'))}
                             />
                             <label htmlFor="course" className='me-1'>دوره</label>
@@ -232,7 +230,7 @@ function PanelRequestLists() {
                                 {errors.type?.message}
                             </p>
 
-                            <input type="radio" className='form-check-input' value='all' id='all'
+                            <input type="radio" className='form-check-input' defaultValue='all' id='all'
                                 {...register('for', formValidation('نام دوره'))}
                             />
                             <label htmlFor="all" className='me-1'>هر دو</label>

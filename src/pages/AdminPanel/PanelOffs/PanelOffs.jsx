@@ -20,8 +20,6 @@ function PanelOffs() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
                 setOffs(res.data)
                 setLoader(false)
             })

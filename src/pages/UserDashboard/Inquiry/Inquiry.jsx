@@ -120,7 +120,7 @@ export default function Inquiry() {
                                 <SniperLoader newstyle='mt-5'/>
                                 :
                                 inqureyCodes.length !== 0 ?
-                                    <table class="table fflalezar mt-4">
+                                    <table className="table fflalezar mt-4">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>

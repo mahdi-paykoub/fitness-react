@@ -44,7 +44,6 @@ export default function Checkout() {
     //         })
     //         .then(res => res.json())
     //         .then(response => {
-    //             console.log(response);
     //             if (response.action) {
     //                 window.location = response.action;
     //             } else {

@@ -57,8 +57,6 @@ export default function PlanCheckOut() {
                 .then(res => res.json())
                 .then(response => {
                     if (response.status !== false) {
-                        console.log(Number(totalPrice));
-                        console.log(Number(response.price));
 
                         setDiscountAmount(Number(totalPrice) - Number(response.price))
                         setPayPrice(Number(response.price))
@@ -153,11 +151,11 @@ export default function PlanCheckOut() {
                                         <span className='me-3 fs15 badge bg-secondary'>{Number(item[0].visit_price).toLocaleString()} تومان</span>
                                     </div>
                                     <div>
-                                        <label class="switch">
+                                        <label className="switch">
                                             <input type="checkbox" onChange={(e) => {
                                                 handleVisit(e)
                                             }} />
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </div>
 
@@ -169,7 +167,7 @@ export default function PlanCheckOut() {
                                             زمان مراجعه شما حداکثر تا 7 روز بعد ثبت نام و فقط در روز های یکشنبه و پنجشنبه ساعت 14 میباشد.یعنی در صورت ثبت نام در هر روز هفته در اولین یکشنبه و پنجشنبه باید مراجعه گردد. ارسال برنامه 4 الی 7 روز کاری بعد از مراجعه میباشد.نیاز به هماهنگی و تماس قبل از مراجعه نمیباشد. در صورت مراجعه در روز های دیگر به هیچ وجه امکان پذیرش وجود ندارد.
                                         </div>
                                         <div className='mt-3 d-flex align-items-center'>
-                                            <input type="checkbox" id='accept_id' class="form-check-input" />
+                                            <input type="checkbox" id='accept_id' className="form-check-input" />
                                             <label htmlFor="accept_id" className='me-2 mt-1 fs13'>شرایط مراجعه حضوری را به طور کامل خواندم
                                             </label>
 

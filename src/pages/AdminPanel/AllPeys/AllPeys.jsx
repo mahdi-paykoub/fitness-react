@@ -23,9 +23,7 @@ export default function AllPeys() {
             },
         })
             .then(res => res.json())
-            .then(res => {
-                // console.log(res);
-                
+            .then(res => {                
                 setPays(res.data)
                 setshownPays(res.data)
                 setLoader(false)

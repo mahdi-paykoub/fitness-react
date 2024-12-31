@@ -87,7 +87,7 @@ export default function SendTicket() {
                                         </p>
                                     </div>
                                     <div className='me-3'>
-                                        {/* <label for="mess_file" class="fflalezar w-100">
+                                        {/* <label for="mess_file" className="fflalezar w-100">
                                             <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
                                         </label> */}
                                         <div className='fflalezar text-secondary'>

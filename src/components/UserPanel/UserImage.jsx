@@ -10,9 +10,7 @@ import swal from "sweetalert";
 import { formValidation } from "../../utils/Validations";
 import { useForm } from "react-hook-form";
 
-export default function UserImage({ defaultUserImage }) {
-    console.log(defaultUserImage);
-    
+export default function UserImage({ defaultUserImage }) {    
     const baseUrl = process.env.REACT_APP_BASE_URL
 
     const [front, setFront] = useState(baseUrl + (defaultUserImage == null ? '' : defaultUserImage.front));

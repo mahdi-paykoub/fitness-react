@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from 'react'
 import './style.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { FiLock } from "react-icons/fi";
 import Accordion from 'react-bootstrap/Accordion';
 import { GoDotFill } from "react-icons/go";
@@ -12,6 +12,7 @@ export default function Section() {
     const [session, setSession] = useState([])
     const [course, setCourse] = useState([])
 
+    const location = useLocation();
     const sessionId = useParams().sectionId
     const userTokenLS = JSON.parse(localStorage.getItem('user'))
     const baseUrl = process.env.REACT_APP_BASE_URL
@@ -25,11 +26,11 @@ export default function Section() {
             },
         })
             .then(res => res.json())
-            .then(res => {
+            .then(res => {                
                 setCourse(res.course)
                 setSession(res.data)
             })
-    }, [])
+    }, [location])
 
     return (
         <>
@@ -65,7 +66,7 @@ export default function Section() {
                                                 <Accordion.Body>
                                                     {
                                                         course.sessions.map((session, index) =>
-                                                            <Link to={`/courses/${course.title}/${session.id}`} className='c-text-secondary'>
+                                                            <Link key={session.id} to={`/courses/${course.slug}/${session.id}`} className='c-text-secondary'>
                                                                 <div className='d-flex justify-content-between align-items-center border-bottom onhover-sections'>
                                                                     <div className='d-flex align-items-center py-4'>
                                                                         <div className='count-number c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 bg-white'>
@@ -85,9 +86,6 @@ export default function Section() {
                                                             </Link>
                                                         )
                                                     }
-
-
-
                                                 </Accordion.Body>
                                             </Accordion.Item>
 
@@ -106,10 +104,10 @@ export default function Section() {
                                     <span className='me-1 fflalezar'>{course.title}</span>
                                 </div>
                                 <div className='mt-3'>
-                                    <div class="d-flex justify-content-between align-items-center onhover-sections">
-                                        <div class="d-flex align-items-center py-4">
-                                            <div class="count-number bg-secondary c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 text-white">1</div>
-                                            <div class="me-2"> {session.title}</div>
+                                    <div className="d-flex justify-content-between align-items-center onhover-sections">
+                                        <div className="d-flex align-items-center py-4">
+                                            <div className="count-number bg-secondary c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 text-white">1</div>
+                                            <div className="me-2"> {session.title}</div>
                                         </div>
                                         <div>
                                             <a href={`${baseUrl}${session.video}`}>

@@ -23,8 +23,6 @@ function PanelSettlementRequests() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
                 setSettles(res.data)
                 setLoader(false)
             })

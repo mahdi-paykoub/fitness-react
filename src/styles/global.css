@@ -222,6 +222,7 @@ input:checked+.slider:before {
     .l-img-res-w{
         width: 50%;
     }
+  
 }
 
 
@@ -282,4 +283,11 @@ input:checked+.slider:before {
 
 .swal-title {
     font-size: 20px !important;
+}
+
+.text-editor img{
+    width: 100% !important;
+    object-fit: cover;
+    height: auto;
+    border-radius: 10px;
 }

@@ -68,8 +68,6 @@ export default function UserQuestion({ defaultUserQuestions }) {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
-
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -106,7 +104,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='us_h_yes'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='us_h_yes'
                                             {...register('us_hsitory', formValidation('سابقه دریافت برنامه'))}
                                         />
                                         <label htmlFor="us_h_yes" className='me-2'>بله</label>
@@ -114,7 +112,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='us_h_no'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='us_h_no'
                                             {...register('us_hsitory', formValidation('سابقه دریافت برنامه'))}
                                         />
                                         <label htmlFor="us_h_no" className='me-2'>خیر</label>
@@ -170,7 +168,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             </div>
                             <div className='mt-3'>
                                 <div>
-                                    <input type="radio" class="form-check-input" value='باشگاه' id='clob_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='باشگاه' id='clob_ID'
                                         {...register('training_place', formValidation('محل تمرین'))}
                                     />
                                     <label htmlFor="clob_ID" className='me-2'>باشگاه</label>
@@ -178,7 +176,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                 <div className='mt-2'>
-                                    <input type="radio" class="form-check-input" value='خانه' id='home_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='خانه' id='home_ID'
                                         {...register('training_place', formValidation('محل تمرین'))}
                                     />
                                     <label htmlFor="home_ID" className='me-2'>خانه</label>
@@ -198,7 +196,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='physical_injury_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='physical_injury_yes_ID'
                                             {...register('physical_injury', formValidation('آسیب دیدگی فیزیکی'))}
                                             onClick={() => {
                                                 setPhysicalInjury(true)
@@ -209,7 +207,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='physical_injury_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='physical_injury_no_ID'
                                             {...register('physical_injury', formValidation('آسیب دیدگی فیزیکی'))}
                                             onClick={() => {
                                                 setPhysicalInjury(false)
@@ -246,7 +244,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='heart_disease_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='heart_disease_yes_ID'
                                             {...register('heart_disease', formValidation('آسیب دیدگی فیزیکی'))}
                                             onClick={() => {
                                                 setHeartDisease(true)
@@ -257,7 +255,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='heart_disease_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='heart_disease_no_ID'
                                             {...register('heart_disease', formValidation('آسیب دیدگی فیزیکی'))}
                                             onClick={() => {
                                                 setHeartDisease(false)
@@ -293,7 +291,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='gastro_sensitivity_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='gastro_sensitivity_yes_ID'
                                             {...register('gastro_sensitivity', formValidation('حساسیت گوارشی'))}
                                             onClick={() => {
                                                 setGastroSensitivity(true)
@@ -304,7 +302,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='gastro_sensitivity_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='gastro_sensitivity_no_ID'
                                             {...register('gastro_sensitivity', formValidation('حساسیت گوارشی'))}
                                             onClick={() => {
                                                 setGastroSensitivity(false)
@@ -338,7 +336,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                                 حرارت بدن شما بطور معمول چگونه است؟                                                                                     </div>
                             <div className='mt-3'>
                                 <div>
-                                    <input type="radio" class="form-check-input" value='پایین' id='low_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='پایین' id='low_ID'
                                         {...register('body_heat', formValidation('حرارت بدن'))}
                                     />
                                     <label htmlFor="low_ID" className='me-2'>پایین</label>
@@ -346,13 +344,13 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                 <div className='mt-2'>
-                                    <input type="radio" class="form-check-input" value='متوسط' id='middle_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='متوسط' id='middle_ID'
                                         {...register('body_heat', formValidation('حرارت بدن'))}
                                     />
                                     <label htmlFor="middle_ID" className='me-2'>متوسط</label>
                                 </div>
                                 <div className='mt-2'>
-                                    <input type="radio" class="form-check-input" value='بالا' id='high_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='بالا' id='high_ID'
                                         {...register('body_heat', formValidation('حرارت بدن'))}
                                     />
                                     <label htmlFor="high_ID" className='me-2'>بالا</label>
@@ -371,7 +369,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='medicine_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='medicine_yes_ID'
                                             {...register('medicine', formValidation('دارو'))}
                                             onClick={() => {
                                                 setMedicine(true)
@@ -382,7 +380,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='medicine_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='medicine_no_ID'
                                             {...register('medicine', formValidation('دارو'))}
                                             onClick={() => {
                                                 setMedicine(false)
@@ -418,7 +416,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='smoking_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='smoking_yes_ID'
                                             {...register('smoking', formValidation('سیگار یا الکل'))}
                                             onClick={() => {
                                                 setSmoking(true)
@@ -429,7 +427,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='smoking_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='smoking_no_ID'
                                             {...register('smoking', formValidation('سیگار یا الکل'))}
                                             onClick={() => {
                                                 setSmoking(false)
@@ -464,7 +462,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             </div>
                             <div className='mt-3'>
                                 <div>
-                                    <input type="radio" class="form-check-input" value='کم' id='low_appetite_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='کم' id='low_appetite_ID'
                                         {...register('appetite', formValidation('اشتها'))}
                                     />
                                     <label htmlFor="low_appetite_ID" className='me-2'>کم</label>
@@ -472,13 +470,13 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                 <div className='mt-2'>
-                                    <input type="radio" class="form-check-input" value='متوسط' id='middle_appetite_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='متوسط' id='middle_appetite_ID'
                                         {...register('appetite', formValidation('اشتها'))}
                                     />
                                     <label htmlFor="middle_appetite_ID" className='me-2'>متوسط</label>
                                 </div>
                                 <div className='mt-2'>
-                                    <input type="radio" class="form-check-input" value='بالا' id='high_appetite_ID'
+                                    <input type="radio" className="form-check-input" defaultValue='بالا' id='high_appetite_ID'
                                         {...register('appetite', formValidation('اشتها'))}
                                     />
                                     <label htmlFor="high_appetite_ID" className='me-2'>بالا</label>
@@ -515,7 +513,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='liver_enzymes_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='liver_enzymes_yes_ID'
                                             {...register('liver_enzymes', formValidation('سیگار یا الکل'))}
                                             onClick={() => {
                                                 setLiverEnzymes(true)
@@ -526,7 +524,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='liver_enzymes_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='liver_enzymes_no_ID'
                                             {...register('liver_enzymes', formValidation('سیگار یا الکل'))}
                                             onClick={() => {
                                                 setLiverEnzymes(false)
@@ -562,7 +560,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='history_steroid_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='history_steroid_yes_ID'
                                             {...register('history_steroid', formValidation('سابقه مصرف'))}
                                             onClick={() => {
                                                 setHistorySteroid(true)
@@ -573,7 +571,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='history_steroid_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='history_steroid_no_ID'
                                             {...register('history_steroid', formValidation('سابقه مصرف'))}
                                             onClick={() => {
                                                 setHistorySteroid(false)
@@ -609,7 +607,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
                             <div className='mt-3'>
                                 <div className="mb-3">
                                     <div>
-                                        <input type="radio" class="form-check-input" value={1} id='supplement_use_yes_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={1} id='supplement_use_yes_ID'
                                             {...register('supplement_use', formValidation('سابقه مصرف'))}
                                             onClick={() => {
                                                 setSupplementUse(true)
@@ -620,7 +618,7 @@ export default function UserQuestion({ defaultUserQuestions }) {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value={0} id='supplement_use_no_ID'
+                                        <input type="radio" className="form-check-input" defaultValue={0} id='supplement_use_no_ID'
                                             {...register('supplement_use', formValidation('سابقه مصرف'))}
                                             onClick={() => {
                                                 setSupplementUse(false)

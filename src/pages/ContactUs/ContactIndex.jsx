@@ -68,8 +68,6 @@ function ContactIndex() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
                 setReco(res.data)
                 setLoader(false)
             })

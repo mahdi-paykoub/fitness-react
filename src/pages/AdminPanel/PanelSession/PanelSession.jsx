@@ -30,7 +30,6 @@ export default function PanelSession() {
             .then(res => res.json())
             .then(res => {
                 setCourses(res.data)
-                console.log(res.data);
             })
     }
     useEffect(() => {
@@ -39,13 +38,15 @@ export default function PanelSession() {
 
     const getSessions = () => {
         courseID !== null &&
-            fetch(`${baseUrl}admin/session/${courseID}}`, {
+            fetch(`${baseUrl}admin/session/${courseID}`, {
                 headers: {
                     Authorization: `Bearer ${userTokenLS.token}`
                 },
             })
                 .then(res => res.json())
-                .then(res => {
+                .then(res => {  
+                    console.log(res);
+                                      
                     setSessions(res.data)
                 })
     }
@@ -55,7 +56,6 @@ export default function PanelSession() {
 
     const onSubmit = (data) => {
         let formData = new FormData()
-        console.log(data.free)
         formData.append('title', data.title)
         formData.append('time', data.time)
         formData.append('video', data.video[0])
@@ -73,6 +73,8 @@ export default function PanelSession() {
             })
             .then(response => response.json())
             .then(response => {
+                console.log(response);
+
                 // setCourseID(response.data.course_id)
                 if (response.status !== false) {
                     swal({
@@ -92,6 +94,50 @@ export default function PanelSession() {
                     })
                 }
             })
+    }
+
+    const handleDeleteSession = (id) => {
+        swal({
+            title: 'آیا از حذف اطمینان دارید؟',
+            icon: "error",
+            buttons: ['خیر', 'بله']
+        }).then(response => {
+            if (response) {
+                fetch(`${baseUrl}admin/session/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${userTokenLS.token}`
+                    },
+                })
+                    .then(response =>
+                        response.json()
+                    )
+                    .then(res => {
+
+                        if (res.status !== false) {
+                            swal({
+                                title: "جلسه با موفقیت حذف شد",
+                                icon: "success",
+                                buttons: 'باشه'
+                            }).then(response => {
+                                getSessions();
+                            })
+                        } else {
+                            swal({
+                                title: "مشکلی در حذف بوجود آمد!",
+                                icon: "error",
+                                buttons: 'باشه'
+                            }).then(response => {
+                                getSessions();
+                            })
+                        }
+
+                    })
+
+            }
+        })
     }
 
     return (
@@ -155,7 +201,7 @@ export default function PanelSession() {
                             </p>
                         </Col>
                         <Col lg={12} className='mt-3'>
-                            <label htmlFor="" className='mb-2'>ویدیو جلسه</label>
+                            <label htmlFor="" className='mb-2'>توضیحات جلسه</label>
                             <textarea name="" id="" cols="30" rows="10" className='form-control' placeholder='توضیحات دوره'
                                 {...register('description', formValidation('توضیحات جلسه'))}
                             ></textarea>
@@ -174,8 +220,9 @@ export default function PanelSession() {
 
             <div className='mt-5 mb-5 pb-5'>
                 <DataBox title='جلسات دوره'>
+                   
                     <div className="px-3">
-                        <select className="form-control" name="" id=""
+                        <select className="form-control mt-2" name="" id=""
                             onChange={(event) => {
                                 setCourseID(event.target.value)
                             }}
@@ -184,7 +231,7 @@ export default function PanelSession() {
                             {courses.length !== 0 && courses.map(course =>
                                 <option key={course.id}
                                     selected={course.id == courseID ? true : false}
-                                    value={course.id}>{course.title}</option>)}
+                                    value={course.slug}>{course.title}</option>)}
                         </select>
                     </div>
                     {
@@ -209,12 +256,12 @@ export default function PanelSession() {
                                                     <td>{index + 1}</td>
                                                     <td>{session.title}</td>
                                                     <td>{
-                                                        session.free === 'free' ? 'رایگان' : 'پولی'
+                                                        session.is_free === 1 ? 'رایگان' : 'پولی'
                                                     }</td>
                                                     {/*<td>{session.course.name}</td>*/}
                                                     <td>
                                                         <button className='btn btn-danger'
-                                                        // onClick={() => handleDeleteSession(session.id)}
+                                                        onClick={() => handleDeleteSession(session.id)}
                                                         >
                                                             حذف
                                                         </button>

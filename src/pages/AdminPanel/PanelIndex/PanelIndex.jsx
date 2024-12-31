@@ -77,7 +77,6 @@ export default function PanelIndex() {
             }
             return false;
           })
-          console.log(orderedUsers);
           setShownUsers(orderedUsers)
           break;
         }

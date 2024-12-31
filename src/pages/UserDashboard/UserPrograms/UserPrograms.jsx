@@ -59,7 +59,7 @@ export default function UserPrograms() {
                                 </div>
                                 :
                                 orders.length !== 0 ?
-                                    <table class="table box-child-table mt-5 fflalezar">
+                                    <table className="table box-child-table mt-5 fflalezar">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>

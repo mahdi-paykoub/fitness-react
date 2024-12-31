@@ -80,7 +80,6 @@ function PanelFreePlans() {
     }, [])
 
     const handleDeletePlan = (id) => {
-        console.log(id);
 
         swal({
             title: 'آیا از حذف اطمینان دارید؟',

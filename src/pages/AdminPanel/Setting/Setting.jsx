@@ -69,7 +69,6 @@ export default function Setting() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 res.data.forEach(element => {
                     switch (element.key) {
                         case 'ADMIN_TICKET_SMS':
@@ -117,8 +116,6 @@ export default function Setting() {
     }, [])
 
     const handleChangeOfSelector = (value, key) => {
-        console.log(value);
-
         fetch(`${baseUrl}admin/admin-sms-option`,
             {
                 method: 'POST',

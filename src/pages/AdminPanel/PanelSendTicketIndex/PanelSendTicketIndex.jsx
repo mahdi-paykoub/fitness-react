@@ -44,7 +44,7 @@ export default function PanelSendTicketIndex() {
 
 
 
-                                        <table class="table fflalezar box-child-table mt-4">
+                                        <table className="table fflalezar box-child-table mt-4">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -58,7 +58,7 @@ export default function PanelSendTicketIndex() {
                                                 {
                                                     users.map((user, index) => {
 
-                                                        return <tr>
+                                                        return <tr key={user.id}>
                                                             <th scope="row">{index + 1}</th>
                                                             <td>{user.name}</td>
                                                             <td>{user.phone}</td>

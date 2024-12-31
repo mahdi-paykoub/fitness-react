@@ -77,7 +77,7 @@ function GetFreePlans() {
                             :
                             plans.length !== 0 ?
                                 plans.map((plan) =>
-                                    <div className='box-download-1 d-flex justify-content-between align-items-center c-text-secondary mt-3'>
+                                    <div key={plan.id} className='box-download-1 d-flex justify-content-between align-items-center c-text-secondary mt-3'>
                                         <div className='fs18 fflalezar'>
                                             {plan.title}
                                         </div>

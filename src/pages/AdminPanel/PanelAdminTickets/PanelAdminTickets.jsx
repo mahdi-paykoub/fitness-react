@@ -97,7 +97,7 @@ export default function PanelAdminTicekts() {
                             <Row className=''>
                                 <Col>
                                     <div className='all-tickets-box bg-white p-4'>
-                                        <table class="table box-child-table fflalezar mt-4">
+                                        <table className="table box-child-table fflalezar mt-4">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -129,7 +129,7 @@ export default function PanelAdminTicekts() {
                                                             statusText = 'پاسخ داده شده'
 
                                                         }
-                                                        return <tr>
+                                                        return <tr key={index}>
                                                             <th scope="row">{index + 1}</th>
                                                             <td><Link to={`/admin-panel/ticket-detail/${ticket.id}/${ticket.user_id}`} className='c-text-secondary'>{ticket.title} </Link></td>
                                                             <td>  {format(new Date(ticket.created_at), "yyyy-MM-dd")}</td>

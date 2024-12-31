@@ -89,8 +89,6 @@ export default function UserInfo() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res.image);
-
                 setDefaulSize(res.size)
                 setDefaultQuestion(res.question)
                 setDefaultImage(res.image)
@@ -292,7 +290,7 @@ export default function UserInfo() {
                                                 {errors.year?.message}
                                             </p>
                                             <div className='mt-4 c-text-secondary'>
-                                                <input type="radio" className='form-check-input ms-1' id='male_' value='male'
+                                                <input type="radio" className='form-check-input ms-1' id='male_' defaultValue='male'
                                                     {...register('gender', formValidation('جنسیت'))}
                                                 />
                                                 <label htmlFor="male_">
@@ -300,7 +298,7 @@ export default function UserInfo() {
                                                 </label>
 
 
-                                                <input type="radio" className='form-check-input me-3 ms-1' id='fmale_' value='female'
+                                                <input type="radio" className='form-check-input me-3 ms-1' id='fmale_' defaultValue='female'
                                                     {...register('gender', formValidation('جنسیت'))}
                                                 />
                                                 <label htmlFor="fmale_">

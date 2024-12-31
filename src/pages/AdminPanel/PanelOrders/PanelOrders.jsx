@@ -107,8 +107,6 @@ export default function PanelOrders() {
             case 'paid_uncomplete':
                 {
                     if (type != 0) {
-                        console.log(type);
-
                         const orderedCourses = orders.filter(order => (order.status === 'paid_uncomplete' && order.orderable_id == type))
                         setShownOrders(orderedCourses)
                     } else {
@@ -209,7 +207,7 @@ export default function PanelOrders() {
                                     handleStatusFilter(statusFilter, e.target.value)
                                 }}
                             >
-                                <option value={0}>همه برنامه ها</option>
+                                <option defaultValue={0}>همه برنامه ها</option>
                                 {
                                     courses.length != 0 &&
                                     courses.map(course =>

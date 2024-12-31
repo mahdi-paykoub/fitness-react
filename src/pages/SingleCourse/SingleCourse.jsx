@@ -45,8 +45,6 @@ export default function SingleCourse() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
                 setIsUserRegister(res.data.info.isUserRegisteredToThisCourse)
                 setCourse(res.data)
             })
@@ -92,7 +90,7 @@ export default function SingleCourse() {
                         <Row className='mt-4'>
                             <Col xs={{ order: 1 }} lg={{ span: 8, order: 1 }}>
                                 <div className='bg-white p-4 br-10'>
-                                    <div className='fw-bold fs30 lh-1-8 c-text-secondary ps-5 fflalezar color-2'>
+                                    <div className='fw-bold fs30 lh-1-8 c-text-secondary ps-5 fflalezar'>
                                         {course.title}
                                     </div>
 
@@ -147,8 +145,6 @@ export default function SingleCourse() {
                                         </div>
                                     </div>
                                 }
-
-
                                 {
                                     tab === 'sections' &&
                                     <div className='mt-3 bg-white p-4 br-4'>
@@ -168,7 +164,7 @@ export default function SingleCourse() {
                                                             course.sessions.length !== 0 ?
                                                                 course.sessions.map((session, index) =>
                                                                     session.is_free == true ?
-                                                                        <Link to={`/courses/${session.title}/${session.id}`} className='c-text-secondary'>
+                                                                        <Link key={session.id} to={`/courses/${course.slug}/${session.id}`} className='c-text-secondary'>
                                                                             <div className='d-flex justify-content-between align-items-center border-bottom onhover-sections'>
                                                                                 <div className='d-flex align-items-center py-4'>
                                                                                     <div className='count-number c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 bg-white'>
@@ -206,7 +202,7 @@ export default function SingleCourse() {
                                                                                 </div>
                                                                             </div>
                                                                             :
-                                                                            <Link to={`/courses/${course.title}/${session.id}`} className='c-text-secondary'>
+                                                                            <Link to={`/courses/${course.slug}/${session.id}`} className='c-text-secondary'>
                                                                                 <div className='d-flex justify-content-between align-items-center border-bottom onhover-sections'>
                                                                                     <div className='d-flex align-items-center py-4'>
                                                                                         <div className='count-number c-text-secondary fflalezar d-flex justify-content-center align-items-center br-10 bg-white'>
@@ -248,13 +244,15 @@ export default function SingleCourse() {
                                     <div className='bg-white p-4 br-4 mt-3'>
                                         <Row>
                                             <Col lg={3}>
-                                                <img src="/images/instructor-03-02-2.webp" className='w-100 br-10' alt="" />
+                                                <img src="/images/avatar-1.jpg" className='w-100 br-10 ' alt="" />
                                             </Col>
                                             <Col className=''>
                                                 <div className='fflalezar fs20'>آرمان کرد بچه</div>
                                                 <div className=' mt-2 fs13 color-2'>مربی بدن سازی</div>
                                                 <div className='mt-3 fs15 lh2 c-text-secondary text-justify'>
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فر نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.                                    </div>
+                                                    این دوره چکیده ده ها کتاب ورزشی بدنسازی و فیتنس و همینطور نتیجه سالها تحقیقات من در دوران تحصیل آکادمیک(دانشگاهی) در رشته فیزیولوژی ورزش و همینطور به صورت آزاد هست
+.
+                                                </div>
                                             </Col>
 
                                         </Row>
@@ -265,7 +263,7 @@ export default function SingleCourse() {
                             {/* left side */}
                             <Col xs={{ order: 1 }} lg={{ span: 4, order: 2 }} >
                                 <div className='w-100 position-relative'>
-                                    <img src="/images/courses/icvgops1gqcosgv3dxde.jpg" className='w-100 main-img' alt="" />
+                                    <img src={baseUrl + course.image} className='w-100 main-img' alt="" />
                                     <div className='position-absolute bg-white rounded-circle play-video-btn ' variant="primary" onClick={() => setModalShow(true)}>
                                         <FaPlay fontSize={25} />
                                     </div>
@@ -323,7 +321,7 @@ export default function SingleCourse() {
                                             <span className='me-2 text-secondary -ver-2'>مدت دوره</span>
                                         </div>
                                         <div>
-                                            <span className='fs13'>قابل دانلود</span>
+                                            <span className='fs13'>...</span>
                                         </div>
                                     </div>
                                     <div className='d-flex justify-content-between fs14 px-4 mt-4 pb-4 border-bottom'>
@@ -359,7 +357,7 @@ export default function SingleCourse() {
                                             <span className='me-2 text-secondary -ver-2'>مدرس</span>
                                         </div>
                                         <div>
-                                            <span className='fs13'>قابل دانلود</span>
+                                            <span className='fs13'>...</span>
                                         </div>
                                     </div>
                                     <div className='mt-4 pb-4'>

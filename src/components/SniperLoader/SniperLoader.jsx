@@ -7,7 +7,7 @@ export default function SniperLoader({ newstyle }) {
     return (
         <>
             <div className='d-flex justify-content-center'>
-                <div class={`loader ${newstyle}`}></div>
+                <div className={`loader ${newstyle}`}></div>
             </div>
         </>
     )

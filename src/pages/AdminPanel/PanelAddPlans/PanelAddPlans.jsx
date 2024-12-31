@@ -97,18 +97,19 @@ export default function PanelAddPlans() {
                                 files: file
                             },
                             headers: {
-                                "Content-Type": "multipart/form-data"
+                                "Content-Type": "multipart/form-data",
+                                Authorization: `Bearer ${userTokenLS.token}`
                             }
                         });
 
 
                         resolve(
                             {
-                                default: `${baseUrl}${response.data.url}`
+                                default: `${baseUrl}${response.data.url}`,
                             }
                         );
                     } catch (error) {
-                        reject("Hello");
+                        reject("متاسفانه مشکلی در آپلود تصویر بوجود آمد");
                     }
                 });
             },
@@ -151,7 +152,7 @@ export default function PanelAddPlans() {
                         </Col>
                         <Col lg={6} className='mt-3'>
                             <input type="text" className='form-control' placeholder='قیمت با تخفیف'
-                                {...register('off_price', formValidation('قیمت با تخفیف' , false))}
+                                {...register('off_price', formValidation('قیمت با تخفیف', false))}
                             />
                             <p className='mt-3 text-danger px-2'>
                                 {errors.price?.message}
@@ -170,7 +171,7 @@ export default function PanelAddPlans() {
                             <Col lg={6} className='mt-3'>
                                 <span className='ms-3'>آیا این برنامه میتواند مراجعه حضوری دریافت کند؟</span>
                                 <label htmlFor="yes_">بله</label>
-                                <input type="radio" id='yes_' value={1}
+                                <input type="radio" id='yes_' defaultValue={1}
 
                                     {...register('visit', formValidation('مراجعه حضوری'))}
                                     onChange={e => {
@@ -180,7 +181,7 @@ export default function PanelAddPlans() {
                                 />
                                 <label htmlFor="no_" className='me-2'>خیر</label>
 
-                                <input type="radio" id='no_' value={0}
+                                <input type="radio" id='no_' defaultValue={0}
 
                                     {...register('visit', formValidation('مراجعه حضوری'))}
                                     onChange={e => {
@@ -208,7 +209,7 @@ export default function PanelAddPlans() {
                                 افزودن ویژگی های  برنامه
                                 <div className='mt-4 d-flex pb-3'>
                                     <input type="text" placeholder='ویژگی را وارد نمایید' className='form-control ms-lg-5'
-                                        value={name}
+                                        defaultValue={name}
                                         onChange={e => setName(e.target.value)}
                                     />
                                     <button type='button' className='btn btn-secondary' onClick={() => {
@@ -220,7 +221,7 @@ export default function PanelAddPlans() {
                                     }}>افزودن</button>
                                 </div>
                                 {artists.map((artist, index) => (
-                                    <Row className='mt-4'>
+                                    <Row className='mt-4' key={index}>
 
                                         <Col lg='5'>
 
@@ -277,7 +278,7 @@ export default function PanelAddPlans() {
                     </Row>
                 </form>
             </FormBox>
-      
+
         </>
     )
 }

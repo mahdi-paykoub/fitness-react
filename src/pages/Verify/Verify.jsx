@@ -54,7 +54,6 @@ export default function Verify() {
                         switch (Number(endPoint)) {
                             case 1:
                                 {
-                                    console.log(endPoint);
                                     navigate('/');
                                     break;
                                 }
@@ -133,7 +132,7 @@ export default function Verify() {
 
                                         {
                                             btnLoader === false ?
-                                                <button class="login-btn mt-1 fs15 w-100 text-white">تایید و ادامه</button>
+                                                <button className="login-btn mt-1 fs15 w-100 text-white">تایید و ادامه</button>
                                                 :
                                                 <button type='button' className='login-btn mt-1 w-100 text-white'>
                                                     <BtnSpiner wid='30px' he='30px' />

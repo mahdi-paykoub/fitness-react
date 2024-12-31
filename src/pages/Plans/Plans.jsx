@@ -20,8 +20,7 @@ export default function Plans() {
     const getPlans = () => {
         fetch(`${baseUrl}plan/all`)
             .then(res => res.json())
-            .then(res => {
-
+            .then(res => {                
                 setPlans(res.data)
                 setLoader(false)
             })
@@ -86,7 +85,7 @@ export default function Plans() {
                             :
                             plans.length !== 0 ?
                                 plans.map((plan) =>
-                                    <Col className='mt-3' lg='6' xl={4}>
+                                    <Col key={plan.id} className='mt-3' lg='6' xl={4}>
                                         <div className='custom-card p-4 h-100'>
                                             <div>
                                                 <div className='d-flex justify-content-between align-items-center'>
@@ -101,7 +100,7 @@ export default function Plans() {
                                                     {plan.title}
                                                 </div>
                                                 <div className='text-secondary fs13 mt-2 lh-1-8 text-justify'>
-                                                    {plan.description}
+                                                    {plan.description.slice(0, 200)} ...
                                                 </div>
                                                 <div className='mt-4 pt-2'>
                                                     <span className='fs30 fw-bold card-price-number color-2 fflalezar'>{Number(plan.price).toLocaleString()}</span>
@@ -118,7 +117,7 @@ export default function Plans() {
                                                 {
                                                     plan.features != null &&
                                                     JSON.parse(plan.features).map((feature) =>
-                                                        <div className='mt-4'>
+                                                        <div className='mt-4' key={feature.id}>
                                                             <FaCheckCircle className='color-2' fontSize={20} />
                                                             <span className='me-2 fs14'>{feature.name}</span>
                                                         </div>

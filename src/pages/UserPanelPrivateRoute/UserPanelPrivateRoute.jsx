@@ -9,9 +9,6 @@ export default function UserPanelPrivateRoute() {
     const authContext = useContext(AuthContext)
     const navigate = useNavigate();
 
-    console.log(authContext);
-
-
     return (
         <>
             {

@@ -33,7 +33,8 @@ export default function Register() {
             })
             .then(res => res.json())
             .then(response => {
-
+                console.log(response);
+                
                 if (response.status !== false) {
                     localStorage.setItem('phone', JSON.stringify(response.phone))
                     setBtnLoader(false)

@@ -42,6 +42,7 @@ export default function Pagination({
                                     .fill(0)
                                     .map((item, index) =>
                                         <li
+                                        key={index}
                                             className="ms-1"
                                         ><NavLink
                                             className={({ isActive, isPending }) =>

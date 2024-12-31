@@ -112,7 +112,7 @@ export default function TicketDetail() {
 
                                 {
                                     chats.map((chat) =>
-                                        <Row className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
+                                        <Row key={chat.id} className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
                                             <Col xs='11' lg='7'>
                                                 <div className='w-100 p-3 lh2 fs14 chat-box'>
                                                     <div className='texts-side px-1'>
@@ -174,7 +174,7 @@ export default function TicketDetail() {
                             </p>
                         </div>
                         <div className='mt-2'>
-                            <label for="mess_file" class="fflalezar w-100">
+                            <label for="mess_file" className="fflalezar w-100">
                                 <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
                             </label>
                             <input type="file" id='mess_file' className='d-none'

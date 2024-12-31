@@ -132,7 +132,7 @@ export default function Tickets() {
                                 </>
                                 :
                                 tickets.length !== 0 ?
-                                    <table class="table box-child-table fflalezar mt-4">
+                                    <table className="table box-child-table fflalezar mt-4">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -169,7 +169,7 @@ export default function Tickets() {
                                                         statusText = 'پاسخ داده شده'
 
                                                     }
-                                                    return <tr>
+                                                    return <tr key={ticket.id}>
                                                         <th scope="row">{index + 1}</th>
                                                         <td><Link to={`/dashboard/ticket-detail/${ticket.id}`} className='c-text-secondary'>{ticket.title} </Link></td>
                                                         <td>{format(new Date(ticket.created_at), "yyyy-MM-dd")}</td>

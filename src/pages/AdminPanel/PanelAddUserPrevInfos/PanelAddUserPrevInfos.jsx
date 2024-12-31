@@ -95,7 +95,6 @@ function PanelAddUserPrevInfos() {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
 
                 if (response.status !== false) {
                     swal({
@@ -556,7 +555,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='us_h_yes'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='us_h_yes'
                                                 {...register('us_hsitory', formValidation('سابقه دریافت برنامه'))}
                                             />
                                             <label htmlFor="us_h_yes" className='me-2'>بله</label>
@@ -564,7 +563,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='us_h_no'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='us_h_no'
                                                 {...register('us_hsitory', formValidation('سابقه دریافت برنامه'))}
                                             />
                                             <label htmlFor="us_h_no" className='me-2'>خیر</label>
@@ -620,7 +619,7 @@ function PanelAddUserPrevInfos() {
                                 </div>
                                 <div className='mt-3'>
                                     <div>
-                                        <input type="radio" class="form-check-input" value='باشگاه' id='clob_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='باشگاه' id='clob_ID'
                                             {...register('training_place', formValidation('محل تمرین'))}
                                         />
                                         <label htmlFor="clob_ID" className='me-2'>باشگاه</label>
@@ -628,7 +627,7 @@ function PanelAddUserPrevInfos() {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value='خانه' id='home_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='خانه' id='home_ID'
                                             {...register('training_place', formValidation('محل تمرین'))}
                                         />
                                         <label htmlFor="home_ID" className='me-2'>خانه</label>
@@ -648,7 +647,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='physical_injury_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='physical_injury_yes_ID'
                                                 {...register('physical_injury', formValidation('آسیب دیدگی فیزیکی'))}
                                                 onClick={() => {
                                                     setPhysicalInjury(true)
@@ -659,7 +658,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='physical_injury_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='physical_injury_no_ID'
                                                 {...register('physical_injury', formValidation('آسیب دیدگی فیزیکی'))}
                                                 onClick={() => {
                                                     setPhysicalInjury(false)
@@ -696,7 +695,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='heart_disease_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='heart_disease_yes_ID'
                                                 {...register('heart_disease', formValidation('آسیب دیدگی فیزیکی'))}
                                                 onClick={() => {
                                                     setHeartDisease(true)
@@ -707,7 +706,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='heart_disease_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='heart_disease_no_ID'
                                                 {...register('heart_disease', formValidation('آسیب دیدگی فیزیکی'))}
                                                 onClick={() => {
                                                     setHeartDisease(false)
@@ -743,7 +742,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='gastro_sensitivity_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='gastro_sensitivity_yes_ID'
                                                 {...register('gastro_sensitivity', formValidation('حساسیت گوارشی'))}
                                                 onClick={() => {
                                                     setGastroSensitivity(true)
@@ -754,7 +753,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='gastro_sensitivity_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='gastro_sensitivity_no_ID'
                                                 {...register('gastro_sensitivity', formValidation('حساسیت گوارشی'))}
                                                 onClick={() => {
                                                     setGastroSensitivity(false)
@@ -788,7 +787,7 @@ function PanelAddUserPrevInfos() {
                                     حرارت بدن شما بطور معمول چگونه است؟                                                                                     </div>
                                 <div className='mt-3'>
                                     <div>
-                                        <input type="radio" class="form-check-input" value='پایین' id='low_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='پایین' id='low_ID'
                                             {...register('body_heat', formValidation('حرارت بدن'))}
                                         />
                                         <label htmlFor="low_ID" className='me-2'>پایین</label>
@@ -796,13 +795,13 @@ function PanelAddUserPrevInfos() {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value='متوسط' id='middle_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='متوسط' id='middle_ID'
                                             {...register('body_heat', formValidation('حرارت بدن'))}
                                         />
                                         <label htmlFor="middle_ID" className='me-2'>متوسط</label>
                                     </div>
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value='بالا' id='high_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='بالا' id='high_ID'
                                             {...register('body_heat', formValidation('حرارت بدن'))}
                                         />
                                         <label htmlFor="high_ID" className='me-2'>بالا</label>
@@ -821,7 +820,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='medicine_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='medicine_yes_ID'
                                                 {...register('medicine', formValidation('دارو'))}
                                                 onClick={() => {
                                                     setMedicine(true)
@@ -832,7 +831,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='medicine_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='medicine_no_ID'
                                                 {...register('medicine', formValidation('دارو'))}
                                                 onClick={() => {
                                                     setMedicine(false)
@@ -868,7 +867,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='smoking_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='smoking_yes_ID'
                                                 {...register('smoking', formValidation('سیگار یا الکل'))}
                                                 onClick={() => {
                                                     setSmoking(true)
@@ -879,7 +878,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='smoking_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='smoking_no_ID'
                                                 {...register('smoking', formValidation('سیگار یا الکل'))}
                                                 onClick={() => {
                                                     setSmoking(false)
@@ -914,7 +913,7 @@ function PanelAddUserPrevInfos() {
                                 </div>
                                 <div className='mt-3'>
                                     <div>
-                                        <input type="radio" class="form-check-input" value='کم' id='low_appetite_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='کم' id='low_appetite_ID'
                                             {...register('appetite', formValidation('اشتها'))}
                                         />
                                         <label htmlFor="low_appetite_ID" className='me-2'>کم</label>
@@ -922,13 +921,13 @@ function PanelAddUserPrevInfos() {
 
 
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value='متوسط' id='middle_appetite_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='متوسط' id='middle_appetite_ID'
                                             {...register('appetite', formValidation('اشتها'))}
                                         />
                                         <label htmlFor="middle_appetite_ID" className='me-2'>متوسط</label>
                                     </div>
                                     <div className='mt-2'>
-                                        <input type="radio" class="form-check-input" value='بالا' id='high_appetite_ID'
+                                        <input type="radio" className="form-check-input" defaultValue='بالا' id='high_appetite_ID'
                                             {...register('appetite', formValidation('اشتها'))}
                                         />
                                         <label htmlFor="high_appetite_ID" className='me-2'>بالا</label>
@@ -965,7 +964,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='liver_enzymes_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='liver_enzymes_yes_ID'
                                                 {...register('liver_enzymes', formValidation('سیگار یا الکل'))}
                                                 onClick={() => {
                                                     setLiverEnzymes(true)
@@ -976,7 +975,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='liver_enzymes_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='liver_enzymes_no_ID'
                                                 {...register('liver_enzymes', formValidation('سیگار یا الکل'))}
                                                 onClick={() => {
                                                     setLiverEnzymes(false)
@@ -1012,7 +1011,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='history_steroid_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='history_steroid_yes_ID'
                                                 {...register('history_steroid', formValidation('سابقه مصرف'))}
                                                 onClick={() => {
                                                     setHistorySteroid(true)
@@ -1023,7 +1022,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='history_steroid_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='history_steroid_no_ID'
                                                 {...register('history_steroid', formValidation('سابقه مصرف'))}
                                                 onClick={() => {
                                                     setHistorySteroid(false)
@@ -1059,7 +1058,7 @@ function PanelAddUserPrevInfos() {
                                 <div className='mt-3'>
                                     <div className="mb-3">
                                         <div>
-                                            <input type="radio" class="form-check-input" value={1} id='supplement_use_yes_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={1} id='supplement_use_yes_ID'
                                                 {...register('supplement_use', formValidation('سابقه مصرف'))}
                                                 onClick={() => {
                                                     setSupplementUse(true)
@@ -1070,7 +1069,7 @@ function PanelAddUserPrevInfos() {
 
 
                                         <div className='mt-2'>
-                                            <input type="radio" class="form-check-input" value={0} id='supplement_use_no_ID'
+                                            <input type="radio" className="form-check-input" defaultValue={0} id='supplement_use_no_ID'
                                                 {...register('supplement_use', formValidation('سابقه مصرف'))}
                                                 onClick={() => {
                                                     setSupplementUse(false)
@@ -1130,8 +1129,8 @@ function PanelAddUserPrevInfos() {
                                     >
                                         {
                                             plans.length != 0 &&
-                                            plans.map((plan) =>
-                                                <option value={plan.id}>{plan.title}</option>
+                                            plans.map((plan, index) =>
+                                                <option key={index} value={plan.id}>{plan.title}</option>
                                             )
                                         }
 
@@ -1148,12 +1147,12 @@ function PanelAddUserPrevInfos() {
                                         <div className='d-flex'>
                                             <input type="radio" id='yyeess' className='form-check-input me-2'
                                                 {...register('visit', formValidation('مراجعه حضوری'))}
-                                                value={1}
+                                                defaultValue={1}
                                             />
                                             <label htmlFor="yyeess" className='me-1'>بله</label>
                                             <input type="radio" id='norea' className='form-check-input me-2'
                                                 {...register('visit', formValidation('مراجعه حضوری'))}
-                                                value={0}
+                                                defaultValue={0}
                                             />
                                             <label htmlFor="norea" className='me-1'>خیر</label>
                                         </div>

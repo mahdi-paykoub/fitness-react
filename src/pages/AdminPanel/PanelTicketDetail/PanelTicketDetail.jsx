@@ -82,8 +82,6 @@ export default function PanelTicketDetail() {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response);
-
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -112,8 +110,6 @@ export default function PanelTicketDetail() {
     }
 
     const handleTicketStatus = (e) => {
-        console.log(e);
-
         fetch(`${baseUrl}admin/change-ticket-status`,
             {
                 method: 'POST',
@@ -160,10 +156,10 @@ export default function PanelTicketDetail() {
                                         <div> وضعیت</div>
 
                                         <Form.Select size="sm" className='me-2' onChange={(e) => handleTicketStatus(e.target.value)}>
-                                            <option value='open' selected={ticket.status === 'opne' ? true : false}>باز</option>
-                                            <option value='close' selected={ticket.status === 'close' ? true : false}>بسته</option>
-                                            <option value='answered' selected={ticket.status === 'answered' ? true : false}>پاسخ داده شد</option>
-                                            <option value='review' selected={ticket.status === 'review' ? true : false}>در حال بررسی</option>
+                                            <option defaultValue='open' selected={ticket.status === 'opne' ? true : false}>باز</option>
+                                            <option defaultValue='close' selected={ticket.status === 'close' ? true : false}>بسته</option>
+                                            <option defaultValue='answered' selected={ticket.status === 'answered' ? true : false}>پاسخ داده شد</option>
+                                            <option defaultValue='review' selected={ticket.status === 'review' ? true : false}>در حال بررسی</option>
 
                                         </Form.Select>
                                     </div>
@@ -179,7 +175,7 @@ export default function PanelTicketDetail() {
                                         <SniperLoader newstyle='mt-5' />
                                         :
                                         chats.map((chat) =>
-                                            <Row className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
+                                            <Row key={chat.id} className={`${chat.admin ? 'admin-style' : 'user-style'} mt-3`}>
                                                 <Col lg='7'>
                                                     <div className='w-100 p-3 lh2 fs14 chat-box'>
                                                         <div className='texts-side px-1'>
@@ -228,7 +224,7 @@ export default function PanelTicketDetail() {
                             <SniperLoader newstyle='mt-4' />
                             :
                             otherTickets.length !== 0 ?
-                                <table class="table box-child-table fflalezar mt-4">
+                                <table className="table box-child-table fflalezar mt-4">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -309,7 +305,7 @@ export default function PanelTicketDetail() {
                             </p>
                         </div>
                         <div className='mt-2'>
-                            <label for="mess_file" class="fflalezar w-100">
+                            <label for="mess_file" className="fflalezar w-100">
                                 <div className='send-btn cursor-pointer w-100 text-center py-2 px-3'>آپلود فایل پیوست</div>
                             </label>
                             <input type="file" id='mess_file' className='d-none'

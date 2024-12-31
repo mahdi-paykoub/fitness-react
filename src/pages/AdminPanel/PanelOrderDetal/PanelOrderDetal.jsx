@@ -102,8 +102,6 @@ export default function PanelOrderDatail() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-
                 setOtherOrders(res.otherOrders)
             })
     }
@@ -641,7 +639,7 @@ export default function PanelOrderDatail() {
                             </div>
                             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                                 <div className='mt-3'>
-                                    <input type="hidden" value={sizes.user_info_status_id}
+                                    <input type="hidden" defaultValue={sizes.user_info_status_id}
                                         {...register('user_info_status_id', formValidation('آیدی'))}
                                     />
                                     <input type="text" className='px-1 mt-1 c-input w-100' placeholder='عنوان برنامه'

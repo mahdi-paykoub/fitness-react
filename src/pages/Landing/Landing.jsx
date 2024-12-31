@@ -15,8 +15,6 @@ export default function Landing() {
 
 
     const handleLogout = () => {
-        console.log(authContext);
-
         swal({
             title: 'آیا از خروج اطمینان دارید؟',
             icon: "error",
@@ -29,7 +27,7 @@ export default function Landing() {
     }
     return (
         <>
-            <Container className='bg-global-light mt-5'>
+            <Container className='bg-global-light mt-5 mb-5'>
                 <Row>
                     <Col xs={{ order: 'last' }} xl={{ order: 'first', span: 5 }} className='align-content-center position-relative '>
                         <svg className='d-none d-lg-block' width="37" height="34" viewBox="0 0 37 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +35,7 @@ export default function Landing() {
                             <circle className='color-1' cx="30" cy="13" r="7" fill="currentColor" fillOpacity="0.4"></circle>
                             <circle className='color-1' cx="15" cy="4" r="4" fill="currentColor" fillOpacity="0.7"></circle>
                         </svg>
-                        <div className='header-text mt-4 text-center text-lg-end'>
+                        <div className='header-text mt-lg-4 text-center text-lg-end'>
                             با کمک <span className='color-1'>مربی همراه </span> بهترین خودت باش!
                             {/* آکادمی ورزشی
                             <br />
@@ -95,7 +93,7 @@ export default function Landing() {
                                 </div>
                             </div>
                             :
-                            <div className='mt-5 pt-2 d-flex align-items-center'>
+                            <div className='mt-5 pt-2 d-flex align-items-center justify-content-center justify-content-lg-start'>
                                 <div className=''></div>
                                 <svg width="35" height="35" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle opacity="0.15" cx="19.7208" cy="19.8873" r="13.8275" transform="rotate(-36.651 19.7208 19.8873)" fill="#5b69bf"></circle>

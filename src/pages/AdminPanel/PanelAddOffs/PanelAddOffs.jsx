@@ -51,7 +51,6 @@ function PanelAddOffs() {
             })
             .then(res => res.json())
             .then(response => {
-                console.log(response)
                 if (response.status !== false) {
                     swal({
                         title: response.message[0],
@@ -257,7 +256,7 @@ function PanelAddOffs() {
                                     <div className='mb-4 d-flex justify-content-between fs14 text-secondary mt-2 w-100 align-items-center'>
                                         <div className='w-100 position-relative'>
                                             <input type="text" placeholder='شماره تلفن کاربر' className='form-control w-100'
-                                                value={name}
+                                                defaultValue={name}
                                                 onChange={e => {
                                                     handleChangeSerachedUser(e)
                                                     setName(e.target.value)
@@ -275,7 +274,7 @@ function PanelAddOffs() {
                                         </div>
                                     </div>
                                     {artists.map((artist, index) => (
-                                        <div className='d-flex align-items-center justify-content-between mt-3 p-3 bg-body-secondary br-10'>
+                                        <div key={index} className='d-flex align-items-center justify-content-between mt-3 p-3 bg-body-secondary br-10'>
                                             <div className='fs-15 c-text-secondary'>
                                                 {/* {index + 1}- */}
                                                 {artist.user[0].phone}
@@ -301,14 +300,14 @@ function PanelAddOffs() {
                                     این کد برای کدام بخش مورد استفاده قرار بگیرد؟
                                 </div>
                                 <div className='d-flex align-items-center'>
-                                    <input type="radio" className='form-check-input' value='plan' id='plan'
+                                    <input type="radio" className='form-check-input' defaultValue='plan' id='plan'
                                         {...register('for', formValidation('نام دوره'))}
                                     />
                                     <label htmlFor="plan" className='me-1'>برنامه</label>
 
 
 
-                                    <input type="radio" className='form-check-input me-3' value='course' id='course'
+                                    <input type="radio" className='form-check-input me-3' defaultValue='course' id='course'
                                         {...register('for', formValidation('نام دوره'))}
                                     />
                                     <label htmlFor="course" className='me-1'>دوره</label>
@@ -316,7 +315,7 @@ function PanelAddOffs() {
                                         {errors.type?.message}
                                     </p>
 
-                                    <input type="radio" className='form-check-input' value='all' id='all'
+                                    <input type="radio" className='form-check-input' defaultValue='all' id='all'
                                         {...register('for', formValidation('نام دوره'))}
                                     />
                                     <label htmlFor="all" className='me-1'>هر دو</label>
@@ -332,7 +331,7 @@ function PanelAddOffs() {
                                 <div className='w-100 position-relative'>
                                     <div className='mb-2'>عنوان برنامه یا دوره:</div>
                                     <input type="text" placeholder='عنوان ' className='form-control w-100'
-                                        value={courseOrPlanInp}
+                                        defaultValue={courseOrPlanInp}
                                         onChange={e => {
                                             setCourseOrPlanInp(e.target.value)
                                             handleChangeSerachedcourse(e)
@@ -352,7 +351,7 @@ function PanelAddOffs() {
                                 </div>
                             </div>
                             {coursesOrPlansList.map((coursesOrPlan, index) => (
-                                <div className='d-flex align-items-center justify-content-between mt-3 p-3 bg-body-secondary br-10'>
+                                <div key={index} className='d-flex align-items-center justify-content-between mt-3 p-3 bg-body-secondary br-10'>
                                     <div className='fs-15 c-text-secondary'>
                                         {/* {index + 1}- */}
                                         {coursesOrPlan.product[0].name}
